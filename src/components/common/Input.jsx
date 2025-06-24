@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
-const Input = ({ 
-  label, 
-  type = 'text', 
-  placeholder, 
-  value, 
-  onChange, 
-  error, 
+const Input = ({
+  label,
+  type = "text",
+  placeholder,
+  value,
+  onChange,
+  error,
   required = false,
   icon: Icon,
-  className = '',
-  ...props 
+  className = "",
+  ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [focused, setFocused] = useState(false);
 
-  const isPassword = type === 'password';
-  const inputType = isPassword && showPassword ? 'text' : type;
+  const isPassword = type === "password";
+  const inputType = isPassword && showPassword ? "text" : type;
 
   return (
     <div className={`space-y-2 ${className}`}>
@@ -27,14 +27,14 @@ const Input = ({
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
-      
+
       <div className="relative">
         {Icon && (
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <Icon className="h-5 w-5 text-gray-400" />
           </div>
         )}
-        
+
         <input
           type={inputType}
           placeholder={placeholder}
@@ -44,15 +44,20 @@ const Input = ({
           onBlur={() => setFocused(false)}
           className={`
             w-full px-4 py-3 border rounded-lg transition-all duration-300
-            ${Icon ? 'pl-10' : ''}
-            ${isPassword ? 'pr-10' : ''}
-            ${focused ? 'ring-2 ring-primary-500 border-transparent' : 'border-gray-200'}
-            ${error ? 'border-red-500 ring-2 ring-red-200' : ''}
-            focus:outline-none
+            ${Icon ? "pl-10" : ""}
+            ${isPassword ? "pr-10" : ""}
+            ${
+              focused
+                ? "ring-2 ring-primary-500 border-transparent shadow-lg"
+                : "border-gray-200"
+            }
+            ${error ? "border-red-500 ring-2 ring-red-200" : ""}
+            focus:outline-none hover:border-gray-300 hover:shadow-md
+            placeholder:text-gray-400
           `}
           {...props}
         />
-        
+
         {isPassword && (
           <button
             type="button"
@@ -67,10 +72,8 @@ const Input = ({
           </button>
         )}
       </div>
-      
-      {error && (
-        <p className="text-sm text-red-600">{error}</p>
-      )}
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
   );
 };
