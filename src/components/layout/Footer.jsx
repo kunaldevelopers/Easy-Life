@@ -1,52 +1,52 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Youtube, 
-  Mail, 
-  Phone, 
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Mail,
+  Phone,
   MapPin,
-  Send
-} from 'lucide-react';
-import Button from '../common/Button';
-import Input from '../common/Input';
+  Send,
+} from "lucide-react";
+import Button from "../common/Button";
+import Input from "../common/Input";
 
 const Footer = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
     if (email) {
       setSubscribed(true);
-      setEmail('');
+      setEmail("");
       setTimeout(() => setSubscribed(false), 3000);
     }
   };
 
   const quickLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'All Listings', path: '/listings' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-    { name: 'FAQ', path: '/faq' }
+    { name: "Home", path: "/" },
+    { name: "All Listings", path: "/listings" },
+    { name: "About Us", path: "/about" },
+    { name: "Contact", path: "/contact" },
+    { name: "Help", path: "/help" },
   ];
 
   const categories = [
-    { name: 'Electrician', path: '/listings?category=electrician' },
-    { name: 'Plumber', path: '/listings?category=plumber' },
-    { name: 'Restaurants', path: '/listings?category=restaurants' },
-    { name: 'Hotels', path: '/listings?category=hotels' },
-    { name: 'CCTV Services', path: '/listings?category=cctv-services' }
+    { name: "Electrician", path: "/listings?category=electrician" },
+    { name: "Plumber", path: "/listings?category=plumber" },
+    { name: "Restaurants", path: "/listings?category=restaurants" },
+    { name: "Hotels", path: "/listings?category=hotels" },
+    { name: "CCTV Services", path: "/listings?category=cctv-services" },
   ];
 
   const businessLinks = [
-    { name: 'List Your Business', path: '/auth?mode=signup&type=seller' },
-    { name: 'Business Login', path: '/auth?mode=login' },
-    { name: 'Advertise', path: '/contact' },
-    { name: 'Partner with Us', path: '/contact' }
+    { name: "List Your Business", path: "/auth?mode=signup&type=seller" },
+    { name: "Business Login", path: "/auth?mode=login" },
+    { name: "Advertise", path: "/contact" },
+    { name: "Partner with Us", path: "/contact" },
   ];
 
   return (
@@ -62,20 +62,32 @@ const Footer = () => {
               <span className="text-xl font-bold text-white">Easy Life</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Your trusted local business directory for Gangtok. Find the best services, 
-              restaurants, hotels, and more in your neighborhood.
+              Your trusted local business directory for Gangtok. Find the best
+              services, restaurants, hotels, and more in your neighborhood.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+              >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+              >
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-primary-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-primary-400 transition-colors"
+              >
                 <Youtube className="w-5 h-5" />
               </a>
             </div>
@@ -135,7 +147,7 @@ const Footer = () => {
                   className="w-full"
                   disabled={subscribed}
                 >
-                  {subscribed ? 'Subscribed!' : 'Subscribe'}
+                  {subscribed ? "Subscribed!" : "Subscribe"}
                 </Button>
               </form>
             </div>
@@ -167,13 +179,22 @@ const Footer = () => {
               © 2024 Easy Life Gangtok. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
-              <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">
+              <Link
+                to="/data"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
+              <Link
+                to="/agreement"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Terms of Service
               </Link>
-              <Link to="/support" className="text-gray-400 hover:text-white transition-colors">
+              <Link
+                to="/support"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 Support
               </Link>
             </div>

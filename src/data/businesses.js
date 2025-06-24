@@ -133,7 +133,7 @@ export const businesses = [
   },
   {
     id: 5,
-    name: "Sikkim Electricals",
+    name: "Nathula Electronics",
     category: "services",
     subcategory: "electrician",
     description:
@@ -156,7 +156,7 @@ export const businesses = [
     services: ["Home wiring", "Switch/light repair", "Fan/AC installation"],
     pricing: "₹250 - ₹2500",
     images: [
-      "https://images.pexels.com/photos/159045/the-interior-of-the-repair-interior-159045.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://www.capi.com/wp-content/uploads/2019/02/190614_Capi_28_HR.jpg",
     ],
     verified: true,
     tags: ["Professional", "Licensed", "Affordable"],

@@ -1,13 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Easy Life - Gangtok Business Listing Platform</title>
+    <style>
+      /* Fallback styles for loading */
+      .loading-fallback {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        background: #f3f4f6;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loading-fallback">
+        <div>Loading Easy Life Gangtok...</div>
+      </div>
+    </div>
+    <script>
+      // Add error handling for debugging
+      window.addEventListener("error", function (e) {
+        console.error("Script error:", e.error);
+        document.getElementById("root").innerHTML =
+          '<div class="loading-fallback"><div>Error loading application. Please check browser console for details.</div></div>';
+      });
+
+      window.addEventListener("unhandledrejection", function (e) {
+        console.error("Unhandled promise rejection:", e.reason);
+      });
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

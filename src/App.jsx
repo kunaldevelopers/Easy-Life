@@ -9,6 +9,10 @@ import Listings from "./pages/Listings";
 import Auth from "./pages/Auth";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import FAQ from "./pages/FAQ";
+import ServiceAgreement from "./pages/ServiceAgreement";
+import DataPolicy from "./pages/DataPolicy";
+import Support from "./pages/Support";
 import BusinessDetail from "./pages/BusinessDetail";
 import Profile from "./pages/Profile";
 import CustomerPanel from "./pages/CustomerPanel";
@@ -30,6 +34,13 @@ function App() {
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/help" element={<FAQ />} />
+                <Route path="/agreement" element={<ServiceAgreement />} />
+                <Route path="/terms" element={<ServiceAgreement />} />
+                <Route path="/data" element={<DataPolicy />} />
+                <Route path="/privacy" element={<DataPolicy />} />
+                <Route path="/support" element={<Support />} />
                 <Route path="/business/:id" element={<BusinessDetail />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/customer-panel" element={<CustomerPanel />} />
