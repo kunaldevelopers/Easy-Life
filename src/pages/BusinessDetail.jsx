@@ -31,9 +31,8 @@ const BusinessDetail = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
-
   useEffect(() => {
-    const foundBusiness = businesses.find((b) => b.id === id);
+    const foundBusiness = businesses.find((b) => b.id === parseInt(id));
     if (foundBusiness) {
       setBusiness(foundBusiness);
     } else {
