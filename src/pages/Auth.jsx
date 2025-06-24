@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
@@ -30,7 +30,6 @@ const Auth = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { login, signup, loginWithOTP } = useAuth();
-
   const initialMode = searchParams.get("mode") || "login";
   const [mode, setMode] = useState(initialMode);
   const [loginMethod, setLoginMethod] = useState("email"); // 'email' or 'phone'
@@ -38,6 +37,26 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
+
+  // Watch for URL parameter changes
+  useEffect(() => {
+    const urlMode = searchParams.get("mode") || "login";
+    if (urlMode !== mode) {
+      setMode(urlMode);
+      setError(""); // Clear any errors when switching modes
+      setShowOTP(false); // Reset OTP state
+    }
+  }, [searchParams, mode]);
+
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    setError("");
+    setShowOTP(false);
+    // Update URL without causing a page reload
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set("mode", newMode);
+    navigate(`/auth?${newSearchParams.toString()}`, { replace: true });
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -203,7 +222,6 @@ const Auth = () => {
           </button>
         </div>
       </div>
-
       <AnimatePresence mode="wait">
         {loginMethod === "email" ? (
           <motion.div
@@ -316,7 +334,6 @@ const Auth = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
       {error && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -327,7 +344,6 @@ const Auth = () => {
           {error}
         </motion.div>
       )}
-
       <Button
         type="submit"
         variant="primary"
@@ -340,7 +356,6 @@ const Auth = () => {
         </span>
         <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
       </Button>
-
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-300"></div>
@@ -349,7 +364,6 @@ const Auth = () => {
           <span className="px-4 bg-white text-gray-500">Or continue with</span>
         </div>
       </div>
-
       {/* Social Login Buttons */}
       <div className="grid grid-cols-2 gap-3">
         <button
@@ -385,12 +399,11 @@ const Auth = () => {
           </svg>
           Facebook
         </button>
-      </div>
-
+      </div>{" "}
       <div className="text-center">
         <button
           type="button"
-          onClick={() => setMode("signup")}
+          onClick={() => handleModeChange("signup")}
           className="text-primary-600 hover:text-primary-700 text-sm font-medium group"
         >
           Don't have an account?{" "}
@@ -402,6 +415,7 @@ const Auth = () => {
       </div>
     </motion.form>
   );
+
   const renderSignupForm = () => (
     <motion.form
       onSubmit={handleSignup}
@@ -554,7 +568,6 @@ const Auth = () => {
           </div>
         </div>
       </div>
-
       {/* Terms and Privacy */}
       <div className="p-4 bg-gray-50 rounded-xl">
         <label className="flex items-start">
@@ -581,7 +594,6 @@ const Auth = () => {
           </span>
         </label>
       </div>
-
       {error && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -592,7 +604,6 @@ const Auth = () => {
           {error}
         </motion.div>
       )}
-
       <Button
         type="submit"
         variant="primary"
@@ -602,12 +613,11 @@ const Auth = () => {
       >
         <span className="relative z-10">Create Account</span>
         <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-      </Button>
-
+      </Button>{" "}
       <div className="text-center">
         <button
           type="button"
-          onClick={() => setMode("login")}
+          onClick={() => handleModeChange("login")}
           className="text-primary-600 hover:text-primary-700 text-sm font-medium group"
         >
           Already have an account?{" "}
