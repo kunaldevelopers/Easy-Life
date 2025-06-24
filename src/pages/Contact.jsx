@@ -182,50 +182,129 @@ const Contact = () => {
       </Helmet>
 
       <div className="bg-white">
+        {" "}
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary-50 to-purple-50 py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative bg-gradient-to-br from-primary-600 to-primary-700 py-24 overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 bg-black"></div>
+            <svg
+              className="absolute inset-0 w-full h-full"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <pattern
+                  id="grid"
+                  width="60"
+                  height="60"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M 60 0 L 0 0 0 60"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
-                Get in <span className="gradient-text">Touch</span>
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 backdrop-blur-sm rounded-full mb-8"
+              >
+                <MessageCircle className="w-10 h-10 text-white" />
+              </motion.div>
+
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                Get in <span className="text-accent-400">Touch</span>
               </h1>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-primary-100 max-w-3xl mx-auto leading-relaxed">
                 We're here to help! Whether you're a customer looking for
                 services or a business owner wanting to join our platform, we'd
                 love to hear from you.
               </p>
+
+              {/* Stats */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="grid grid-cols-3 gap-8 max-w-md mx-auto mt-12"
+              >
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">24hrs</div>{" "}
+                  <div className="text-sm text-primary-200">Response Time</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">500+</div>
+                  <div className="text-sm text-primary-200">
+                    Happy Customers
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-white">98%</div>
+                  <div className="text-sm text-primary-200">
+                    Satisfaction Rate
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           </div>
-        </section>
-
+        </section>{" "}
         {/* Contact Info Cards */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Multiple Ways to Reach Us
+              </h2>
+              <p className="text-lg text-gray-600">
+                Choose your preferred method of communication
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={info.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  whileHover={{ y: -8 }}
                 >
                   <Card
-                    className="text-center hover:shadow-lg transition-shadow cursor-pointer"
+                    className="text-center p-8 hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-primary-200 group"
                     onClick={() => window.open(info.action, "_blank")}
                   >
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-100 rounded-lg mb-4">
-                      <info.icon className="w-6 h-6 text-primary-600" />
-                    </div>
-                    <h3 className="font-semibold text-gray-900 mb-2">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl mb-6 group-hover:shadow-lg transition-shadow"
+                    >
+                      <info.icon className="w-8 h-8 text-white" />
+                    </motion.div>
+                    <h3 className="font-bold text-xl text-gray-900 mb-3">
                       {info.title}
                     </h3>
-                    <p className="text-primary-600 font-medium mb-1">
+                    <p className="text-primary-600 font-semibold text-lg mb-2">
                       {info.details}
                     </p>
                     <p className="text-sm text-gray-500">{info.description}</p>
@@ -234,61 +313,80 @@ const Contact = () => {
               ))}
             </div>
           </div>
-        </section>
-
+        </section>{" "}
         {/* Contact Form & Support Options */}
-        <section className="py-20">
+        <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:grid lg:grid-cols-2 lg:gap-12">
+            <div className="lg:grid lg:grid-cols-3 lg:gap-12">
               {/* Contact Form */}
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
+                className="lg:col-span-2"
               >
-                <Card className="p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                    Send us a Message
-                  </h2>
+                <Card className="p-10 shadow-xl border-t-4 border-primary-500">
+                  <div className="flex items-center mb-8">
+                    <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
+                      <Send className="w-6 h-6 text-primary-600" />
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-gray-900">
+                        Send us a Message
+                      </h2>
+                      <p className="text-gray-600">
+                        We'll respond within 24 hours
+                      </p>
+                    </div>
+                  </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <Input
-                        label="Name"
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      <Input
-                        label="Email"
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                      />
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <Input
+                          label="Full Name"
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          className="h-12"
+                        />
+                      </div>
+                      <div>
+                        <Input
+                          label="Email Address"
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                          className="h-12"
+                        />
+                      </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <Input
-                        label="Phone"
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                      />
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Category
+                        <Input
+                          label="Phone Number"
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          className="h-12"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                          Inquiry Type
                         </label>
                         <select
                           name="category"
                           value={formData.category}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                          className="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                         >
                           <option value="general">General Inquiry</option>
                           <option value="business">Business Support</option>
@@ -298,137 +396,291 @@ const Contact = () => {
                       </div>
                     </div>
 
-                    <Input
-                      label="Subject"
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      required
-                    />
+                    <div>
+                      <Input
+                        label="Subject"
+                        type="text"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        required
+                        className="h-12"
+                      />
+                    </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Message
+                      <label className="block text-sm font-semibold text-gray-700 mb-3">
+                        Your Message
                       </label>
                       <textarea
                         name="message"
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={6}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
-                        placeholder="Tell us how we can help..."
+                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none transition-colors"
+                        placeholder="Tell us how we can help you..."
                         required
                       />
                     </div>
 
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      size="lg"
-                      loading={loading}
-                      icon={Send}
-                      className="w-full"
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      Send Message
-                    </Button>
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        size="lg"
+                        loading={loading}
+                        icon={Send}
+                        className="w-full h-14 text-lg font-semibold shadow-lg hover:shadow-xl"
+                      >
+                        Send Message
+                      </Button>
+                    </motion.div>
                   </form>
                 </Card>
-              </motion.div>
-
+              </motion.div>{" "}
               {/* Support Options & FAQ */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="mt-12 lg:mt-0"
+                className="mt-12 lg:mt-0 space-y-8"
               >
                 {/* Support Options */}
-                <div className="mb-12">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                    <Headphones className="w-6 h-6 mr-3 text-primary-600" />
                     How can we help?
                   </h2>
                   <div className="space-y-4">
                     {supportOptions.map((option, index) => (
-                      <Card
+                      <motion.div
                         key={option.title}
-                        className="p-4 hover:shadow-md transition-shadow cursor-pointer"
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        whileHover={{ x: 5 }}
                       >
-                        <div className="flex items-start space-x-4">
-                          <div className="flex-shrink-0">
-                            <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-                              <option.icon className="w-5 h-5 text-primary-600" />
+                        <Card className="p-6 hover:shadow-lg transition-all duration-300 cursor-pointer border-l-4 border-primary-500 hover:border-primary-600">
+                          <div className="flex items-start space-x-4">
+                            <div className="flex-shrink-0">
+                              <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center">
+                                <option.icon className="w-6 h-6 text-white" />
+                              </div>
+                            </div>
+                            <div>
+                              <h3 className="font-bold text-lg text-gray-900 mb-2">
+                                {option.title}
+                              </h3>
+                              <p className="text-gray-600">
+                                {option.description}
+                              </p>
                             </div>
                           </div>
-                          <div>
-                            <h3 className="font-semibold text-gray-900 mb-1">
-                              {option.title}
-                            </h3>
-                            <p className="text-gray-600 text-sm">
-                              {option.description}
-                            </p>
-                          </div>
-                        </div>
-                      </Card>
+                        </Card>
+                      </motion.div>
                     ))}
                   </div>
                 </div>
 
-                {/* FAQ */}
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                    Frequently Asked Questions
-                  </h2>
-                  <div className="space-y-4">
-                    {faqItems.map((faq, index) => (
-                      <Card key={index} className="p-4">
-                        <h3 className="font-semibold text-gray-900 mb-2">
-                          {faq.question}
-                        </h3>
-                        <p className="text-gray-600 text-sm">{faq.answer}</p>
-                      </Card>
-                    ))}
+                {/* Quick Facts */}
+                <Card className="p-6 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-200">
+                  <h3 className="font-bold text-lg text-gray-900 mb-4 flex items-center">
+                    <Clock className="w-5 h-5 mr-2 text-primary-600" />
+                    Quick Facts
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">
+                        Average Response Time
+                      </span>
+                      <span className="font-semibold text-primary-600">
+                        2-4 hours
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Phone Support</span>
+                      <span className="font-semibold text-green-600">
+                        Mon-Sat 9AM-7PM
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Email Support</span>
+                      <span className="font-semibold text-primary-600">
+                        24/7
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </Card>
               </motion.div>
             </div>
           </div>
         </section>
-
-        {/* Office Hours */}
-        <section className="bg-gray-50 py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* FAQ Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center mb-16"
             >
-              <Clock className="w-12 h-12 text-primary-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Office Hours
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Frequently Asked Questions
               </h2>
-              <div className="max-w-md mx-auto">
-                <div className="bg-white rounded-lg p-6 shadow-sm">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Monday - Friday</span>
-                      <span className="font-medium">9:00 AM - 7:00 PM</span>
+              <p className="text-lg text-gray-600">
+                Find quick answers to common questions
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {faqItems.map((faq, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -2 }}
+                >
+                  <Card className="p-6 h-full hover:shadow-lg transition-all duration-300 border-t-2 border-primary-200">
+                    <h3 className="font-bold text-lg text-gray-900 mb-3">
+                      {faq.question}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>{" "}
+        {/* Office Hours & Map */}
+        <section className="bg-gradient-to-br from-gray-50 to-primary-50 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Office Hours */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="text-center lg:text-left"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-xl mb-6">
+                  <Clock className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  Office Hours
+                </h2>
+                <p className="text-lg text-gray-600 mb-8">
+                  We're available during these hours to assist you with any
+                  inquiries
+                </p>
+
+                <Card className="p-8 shadow-xl">
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-gray-700 font-medium">
+                        Monday - Friday
+                      </span>
+                      <span className="font-bold text-primary-600">
+                        9:00 AM - 7:00 PM
+                      </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Saturday</span>
-                      <span className="font-medium">10:00 AM - 5:00 PM</span>
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-gray-700 font-medium">
+                        Saturday
+                      </span>
+                      <span className="font-bold text-primary-600">
+                        10:00 AM - 5:00 PM
+                      </span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">Sunday</span>
-                      <span className="font-medium">Closed</span>
+                    <div className="flex justify-between items-center py-2">
+                      <span className="text-gray-700 font-medium">Sunday</span>
+                      <span className="font-bold text-red-500">Closed</span>
                     </div>
                   </div>
+
+                  <div className="mt-6 p-4 bg-primary-50 rounded-lg">
+                    <p className="text-sm text-primary-700">
+                      <strong>Need urgent help?</strong> WhatsApp us anytime at
+                      <span className="font-semibold"> +91 98765 43210</span>
+                    </p>
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Location Info */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="text-center lg:text-left"
+              >
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-xl mb-6">
+                  <MapPin className="w-8 h-8 text-white" />
                 </div>
-              </div>
-            </motion.div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  Visit Our Office
+                </h2>
+                <p className="text-lg text-gray-600 mb-8">
+                  Located in the heart of Gangtok, easily accessible from
+                  anywhere in the city
+                </p>
+
+                <Card className="p-8 shadow-xl">
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="font-bold text-lg text-gray-900 mb-2">
+                        Address
+                      </h3>
+                      <p className="text-gray-600">
+                        Easy Life Gangtok
+                        <br />
+                        MG Road, Near Police Bazaar
+                        <br />
+                        Gangtok, Sikkim 737101
+                        <br />
+                        India
+                      </p>
+                    </div>
+
+                    <div>
+                      <h3 className="font-bold text-lg text-gray-900 mb-2">
+                        Landmarks
+                      </h3>
+                      <p className="text-gray-600">
+                        • 5 minutes walk from MG Marg
+                        <br />
+                        • Opposite to State Bank of Sikkim
+                        <br />• Near Lal Bazaar taxi stand
+                      </p>
+                    </div>
+
+                    <motion.div whileHover={{ scale: 1.02 }}>
+                      <Button
+                        onClick={() =>
+                          window.open("https://maps.google.com", "_blank")
+                        }
+                        variant="primary"
+                        icon={MapPin}
+                        className="w-full"
+                      >
+                        Get Directions
+                      </Button>
+                    </motion.div>
+                  </div>
+                </Card>
+              </motion.div>
+            </div>
           </div>
         </section>
       </div>
