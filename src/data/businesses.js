@@ -1,0 +1,370 @@
+export const businesses = [
+  {
+    id: 1,
+    name: "Gangtok Electronics Repair Hub",
+    category: "services",
+    subcategory: "electronic-repair",
+    description: "Professional electronic gadget repair services with 10+ years of experience. We repair all types of mobile phones, laptops, TVs, and home appliances.",
+    rating: 4.8,
+    reviewCount: 156,
+    location: "MG Marg",
+    address: "Shop No. 15, MG Marg, Gangtok, Sikkim 737101",
+    phone: "+91 9876543210",
+    whatsapp: "+91 9876543210",
+    website: "https://gangtokelectronics.com",
+    email: "info@gangtokelectronics.com",
+    hours: {
+      "Monday": "9:00 AM - 7:00 PM",
+      "Tuesday": "9:00 AM - 7:00 PM",
+      "Wednesday": "9:00 AM - 7:00 PM",
+      "Thursday": "9:00 AM - 7:00 PM",
+      "Friday": "9:00 AM - 7:00 PM",
+      "Saturday": "9:00 AM - 6:00 PM",
+      "Sunday": "Closed"
+    },
+    services: ["Mobile repair", "Laptop/PC repair", "TV/AC/Fridge service"],
+    pricing: "₹200 - ₹5000",
+    images: [
+      "https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Trusted", "Expert", "Quick Service"],
+    coordinates: { lat: 27.3314, lng: 88.6138 }
+  },
+  {
+    id: 2,
+    name: "Himalayan Plumbing Solutions",
+    category: "services",
+    subcategory: "plumber",
+    description: "24/7 emergency plumbing services covering all areas of Gangtok. Expert in pipe repairs, bathroom fittings, and water system installations.",
+    rating: 4.6,
+    reviewCount: 89,
+    location: "Tadong",
+    address: "Near Tadong Bazaar, Gangtok, Sikkim 737102",
+    phone: "+91 9876543211",
+    whatsapp: "+91 9876543211",
+    hours: {
+      "Monday": "24 Hours",
+      "Tuesday": "24 Hours",
+      "Wednesday": "24 Hours",
+      "Thursday": "24 Hours",
+      "Friday": "24 Hours",
+      "Saturday": "24 Hours",
+      "Sunday": "24 Hours"
+    },
+    services: ["Pipe leakage fix", "Tap/sink fittings", "Bathroom setup"],
+    pricing: "₹300 - ₹3000",
+    images: [
+      "https://images.pexels.com/photos/8962864/pexels-photo-8962864.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["24/7 Service", "Emergency", "Reliable"],
+    coordinates: { lat: 27.3189, lng: 88.5976 }
+  },
+  {
+    id: 3,
+    name: "Taste of Sikkim Restaurant",
+    category: "advertisements",
+    subcategory: "restaurants",
+    description: "Authentic Sikkimese cuisine with a modern twist. Famous for momos, thukpa, and traditional Nepali dishes. Family-friendly atmosphere with great views.",
+    rating: 4.7,
+    reviewCount: 234,
+    location: "MG Marg",
+    address: "2nd Floor, MG Marg Complex, Gangtok, Sikkim 737101",
+    phone: "+91 9876543212",
+    whatsapp: "+91 9876543212",
+    website: "https://tasteofsikkim.com",
+    hours: {
+      "Monday": "11:00 AM - 10:00 PM",
+      "Tuesday": "11:00 AM - 10:00 PM",
+      "Wednesday": "11:00 AM - 10:00 PM",
+      "Thursday": "11:00 AM - 10:00 PM",
+      "Friday": "11:00 AM - 11:00 PM",
+      "Saturday": "11:00 AM - 11:00 PM",
+      "Sunday": "11:00 AM - 10:00 PM"
+    },
+    services: ["Dine-in", "Takeaway", "Local cuisines"],
+    pricing: "₹200 - ₹800 for two",
+    images: [
+      "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Authentic", "Family Restaurant", "Local Favorite"],
+    coordinates: { lat: 27.3314, lng: 88.6138 }
+  },
+  {
+    id: 4,
+    name: "Mountain View Hotel",
+    category: "advertisements",
+    subcategory: "hotels",
+    description: "Premium hotel with stunning mountain views and modern amenities. Perfect for tourists and business travelers. Features restaurant, spa, and conference facilities.",
+    rating: 4.5,
+    reviewCount: 178,
+    location: "Ridge Park",
+    address: "Ridge Park, Near Mall Road, Gangtok, Sikkim 737101",
+    phone: "+91 9876543213",
+    whatsapp: "+91 9876543213",
+    website: "https://mountainviewgangtok.com",
+    email: "reservations@mountainviewgangtok.com",
+    hours: {
+      "Monday": "24 Hours",
+      "Tuesday": "24 Hours",
+      "Wednesday": "24 Hours",
+      "Thursday": "24 Hours",
+      "Friday": "24 Hours",
+      "Saturday": "24 Hours",
+      "Sunday": "24 Hours"
+    },
+    services: ["Budget/premium hotels", "Homestays"],
+    pricing: "₹2500 - ₹8000 per night",
+    images: [
+      "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Premium", "Mountain View", "Tourist Friendly"],
+    coordinates: { lat: 27.3389, lng: 88.6065 }
+  },
+  {
+    id: 5,
+    name: "Sikkim Electricals",
+    category: "services",
+    subcategory: "electrician",
+    description: "Professional electrical services for homes and offices. Specializing in wiring, lighting, and electrical appliance installations.",
+    rating: 4.4,
+    reviewCount: 67,
+    location: "Deorali",
+    address: "Deorali Bazaar, Gangtok, Sikkim 737103",
+    phone: "+91 9876543214",
+    whatsapp: "+91 9876543214",
+    hours: {
+      "Monday": "8:00 AM - 6:00 PM",
+      "Tuesday": "8:00 AM - 6:00 PM",
+      "Wednesday": "8:00 AM - 6:00 PM",
+      "Thursday": "8:00 AM - 6:00 PM",
+      "Friday": "8:00 AM - 6:00 PM",
+      "Saturday": "8:00 AM - 5:00 PM",
+      "Sunday": "Closed"
+    },
+    services: ["Home wiring", "Switch/light repair", "Fan/AC installation"],
+    pricing: "₹250 - ₹2500",
+    images: [
+      "https://images.pexels.com/photos/159045/the-interior-of-the-repair-interior-159045.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Professional", "Licensed", "Affordable"],
+    coordinates: { lat: 27.3147, lng: 88.6019 }
+  },
+  {
+    id: 6,
+    name: "Gangtok Medical Store",
+    category: "advertisements",
+    subcategory: "pharmacy",
+    description: "Well-stocked pharmacy with all essential medicines and health products. Professional pharmacist available for consultations.",
+    rating: 4.3,
+    reviewCount: 92,
+    location: "MG Marg",
+    address: "Ground Floor, MG Marg, Gangtok, Sikkim 737101",
+    phone: "+91 9876543215",
+    whatsapp: "+91 9876543215",
+    hours: {
+      "Monday": "8:00 AM - 9:00 PM",
+      "Tuesday": "8:00 AM - 9:00 PM",
+      "Wednesday": "8:00 AM - 9:00 PM",
+      "Thursday": "8:00 AM - 9:00 PM",
+      "Friday": "8:00 AM - 9:00 PM",
+      "Saturday": "8:00 AM - 9:00 PM",
+      "Sunday": "9:00 AM - 8:00 PM"
+    },
+    services: ["Medicines", "Baby care/health essentials"],
+    pricing: "₹10 - ₹1000",
+    images: [
+      "https://images.pexels.com/photos/305565/pexels-photo-305565.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Trusted", "Well Stocked", "Professional"],
+    coordinates: { lat: 27.3314, lng: 88.6138 }
+  },
+  {
+    id: 7,
+    name: "Fresh Mart Groceries",
+    category: "advertisements",
+    subcategory: "groceries",
+    description: "Fresh vegetables, fruits, and daily essentials. Home delivery available within Gangtok. Organic products and local produce.",
+    rating: 4.2,
+    reviewCount: 145,
+    location: "Sichey",
+    address: "Sichey Market, Gangtok, Sikkim 737101",
+    phone: "+91 9876543216",
+    whatsapp: "+91 9876543216",
+    hours: {
+      "Monday": "7:00 AM - 8:00 PM",
+      "Tuesday": "7:00 AM - 8:00 PM",
+      "Wednesday": "7:00 AM - 8:00 PM",
+      "Thursday": "7:00 AM - 8:00 PM",
+      "Friday": "7:00 AM - 8:00 PM",
+      "Saturday": "7:00 AM - 8:00 PM",
+      "Sunday": "8:00 AM - 7:00 PM"
+    },
+    services: ["Daily needs", "Organic items", "Home delivery"],
+    pricing: "₹20 - ₹500",
+    images: [
+      "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Fresh", "Home Delivery", "Organic"],
+    coordinates: { lat: 27.3242, lng: 88.6094 }
+  },
+  {
+    id: 8,
+    name: "Himalayan Carpentry Works",
+    category: "services",
+    subcategory: "carpenter",
+    description: "Custom furniture making and repair services. Expert in wooden furniture, doors, windows, and interior woodwork.",
+    rating: 4.6,
+    reviewCount: 73,
+    location: "Tadong",
+    address: "Industrial Area, Tadong, Gangtok, Sikkim 737102",
+    phone: "+91 9876543217",
+    whatsapp: "+91 9876543217",
+    hours: {
+      "Monday": "9:00 AM - 6:00 PM",
+      "Tuesday": "9:00 AM - 6:00 PM",
+      "Wednesday": "9:00 AM - 6:00 PM",
+      "Thursday": "9:00 AM - 6:00 PM",
+      "Friday": "9:00 AM - 6:00 PM",
+      "Saturday": "9:00 AM - 5:00 PM",
+      "Sunday": "Closed"
+    },
+    services: ["Furniture making", "Door/window repair", "Woodwork"],
+    pricing: "₹500 - ₹15000",
+    images: [
+      "https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Custom Work", "Quality", "Experienced"],
+    coordinates: { lat: 27.3189, lng: 88.5976 }
+  },
+  {
+    id: 9,
+    name: "ColorZone Painting Services",
+    category: "services",
+    subcategory: "painter",
+    description: "Professional painting services for residential and commercial properties. Interior and exterior painting with quality materials.",
+    rating: 4.5,
+    reviewCount: 56,
+    location: "Development Area",
+    address: "Development Area, Gangtok, Sikkim 737101",
+    phone: "+91 9876543218",
+    whatsapp: "+91 9876543218",
+    hours: {
+      "Monday": "8:00 AM - 6:00 PM",
+      "Tuesday": "8:00 AM - 6:00 PM",
+      "Wednesday": "8:00 AM - 6:00 PM",
+      "Thursday": "8:00 AM - 6:00 PM",
+      "Friday": "8:00 AM - 6:00 PM",
+      "Saturday": "8:00 AM - 5:00 PM",
+      "Sunday": "Closed"
+    },
+    services: ["House painting", "Wall texture", "Polish/finishing"],
+    pricing: "₹15 - ₹50 per sq ft",
+    images: [
+      "https://images.pexels.com/photos/1669799/pexels-photo-1669799.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Professional", "Quality Materials", "Affordable"],
+    coordinates: { lat: 27.3367, lng: 88.6122 }
+  },
+  {
+    id: 10,
+    name: "SecureView CCTV Solutions",
+    category: "services",
+    subcategory: "cctv-services",
+    description: "Complete CCTV installation and maintenance services. IP cameras, DVR systems, and remote monitoring solutions.",
+    rating: 4.7,
+    reviewCount: 41,
+    location: "Tibet Road",
+    address: "Tibet Road, Gangtok, Sikkim 737101",
+    phone: "+91 9876543219",
+    whatsapp: "+91 9876543219",
+    website: "https://secureviewcctv.com",
+    email: "info@secureviewcctv.com",
+    hours: {
+      "Monday": "9:00 AM - 7:00 PM",
+      "Tuesday": "9:00 AM - 7:00 PM",
+      "Wednesday": "9:00 AM - 7:00 PM",
+      "Thursday": "9:00 AM - 7:00 PM",
+      "Friday": "9:00 AM - 7:00 PM",
+      "Saturday": "9:00 AM - 6:00 PM",
+      "Sunday": "10:00 AM - 5:00 PM"
+    },
+    services: ["CCTV installation", "Repair/maintenance", "Network setup"],
+    pricing: "₹5000 - ₹50000",
+    images: [
+      "https://images.pexels.com/photos/430208/pexels-photo-430208.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ],
+    verified: true,
+    tags: ["Security Expert", "Professional", "Latest Technology"],
+    coordinates: { lat: 27.3356, lng: 88.6147 }
+  }
+];
+
+export const reviews = [
+  {
+    id: 1,
+    businessId: 1,
+    userId: 'user1',
+    userName: 'Rajesh Kumar',
+    rating: 5,
+    comment: "Excellent service! Fixed my laptop within 2 hours. Very professional and reasonable pricing.",
+    date: "2024-01-15",
+    helpful: 12
+  },
+  {
+    id: 2,
+    businessId: 1,
+    userId: 'user2',
+    userName: 'Priya Sharma',
+    rating: 4,
+    comment: "Good service but took a bit longer than expected. Overall satisfied with the work quality.",
+    date: "2024-01-10",
+    helpful: 8
+  },
+  {
+    id: 3,
+    businessId: 2,
+    userId: 'user3',
+    userName: 'Tenzin Norbu',
+    rating: 5,
+    comment: "Called them for emergency plumbing at 2 AM and they came immediately. Life savers!",
+    date: "2024-01-12",
+    helpful: 15
+  },
+  {
+    id: 4,
+    businessId: 3,
+    userId: 'user4',
+    userName: 'Sarah Williams',
+    rating: 5,
+    comment: "Amazing authentic Sikkimese food! The momos are the best in Gangtok. Must visit!",
+    date: "2024-01-14",
+    helpful: 20
+  },
+  {
+    id: 5,
+    businessId: 4,
+    userId: 'user5',
+    userName: 'Michael Johnson',
+    rating: 4,
+    comment: "Great hotel with beautiful mountain views. Staff is very helpful and rooms are clean.",
+    date: "2024-01-08",
+    helpful: 11
+  }
+];
+
+export const topRatedBusinesses = businesses
+  .filter(business => business.rating >= 4.5)
+  .sort((a, b) => b.rating - a.rating)
+  .slice(0, 6);
