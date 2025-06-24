@@ -37,7 +37,6 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
-
   // Watch for URL parameter changes
   useEffect(() => {
     const urlMode = searchParams.get("mode") || "login";
@@ -45,6 +44,7 @@ const Auth = () => {
       setMode(urlMode);
       setError(""); // Clear any errors when switching modes
       setShowOTP(false); // Reset OTP state
+      setLoginMethod("email"); // Reset to email login method
     }
   }, [searchParams, mode]);
 
@@ -52,6 +52,7 @@ const Auth = () => {
     setMode(newMode);
     setError("");
     setShowOTP(false);
+    setLoginMethod("email"); // Reset to email login method
     // Update URL without causing a page reload
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set("mode", newMode);
@@ -175,17 +176,15 @@ const Auth = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
+      {" "}
       {/* Login Method Toggle */}
       <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-1 rounded-2xl shadow-inner">
+        {" "}
         <div className="flex relative">
-          <motion.div
-            className="absolute inset-y-1 bg-white rounded-xl shadow-lg"
-            initial={false}
-            animate={{
-              x: loginMethod === "email" ? "2px" : "calc(50% - 2px)",
-              width: "calc(50% - 2px)",
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          <div
+            className={`absolute top-1 bottom-1 w-1/2 bg-white rounded-xl shadow-lg transition-transform duration-300 ease-out ${
+              loginMethod === "phone" ? "translate-x-full" : "translate-x-0"
+            }`}
           />
 
           <button
