@@ -242,30 +242,17 @@ const Auth = () => {
               required
               className="transform transition-all hover:scale-[1.02]"
             />
-            <div className="relative">
-              <Input
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                icon={Lock}
-                placeholder="Enter your password"
-                required
-                className="transform transition-all hover:scale-[1.02]"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-9 text-gray-400 hover:text-primary-600 transition-colors duration-200"
-              >
-                {showPassword ? (
-                  <EyeOff className="w-5 h-5" />
-                ) : (
-                  <Eye className="w-5 h-5" />
-                )}
-              </button>
-            </div>
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              icon={Lock}
+              placeholder="Enter your password"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
 
             <div className="flex items-center justify-between">
               <label className="flex items-center">
@@ -435,7 +422,6 @@ const Auth = () => {
           required
           className="transform transition-all hover:scale-[1.02]"
         />
-
         <Input
           label="Email Address"
           type="email"
@@ -447,7 +433,6 @@ const Auth = () => {
           required
           className="transform transition-all hover:scale-[1.02]"
         />
-
         <Input
           label="Phone Number"
           type="tel"
@@ -458,33 +443,18 @@ const Auth = () => {
           placeholder="+91 98765 43210"
           required
           className="transform transition-all hover:scale-[1.02]"
+        />{" "}
+        <Input
+          label="Password"
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          icon={Lock}
+          placeholder="Create a strong password"
+          required
+          className="transform transition-all hover:scale-[1.02]"
         />
-
-        <div className="relative">
-          <Input
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            icon={Lock}
-            placeholder="Create a strong password"
-            required
-            className="transform transition-all hover:scale-[1.02]"
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-9 text-gray-400 hover:text-primary-600 transition-colors duration-200"
-          >
-            {showPassword ? (
-              <EyeOff className="w-5 h-5" />
-            ) : (
-              <Eye className="w-5 h-5" />
-            )}
-          </button>
-        </div>
-
         <Input
           label="Confirm Password"
           type="password"
@@ -496,7 +466,6 @@ const Auth = () => {
           required
           className="transform transition-all hover:scale-[1.02]"
         />
-
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-3">
             <User className="w-4 h-4 inline mr-2" />

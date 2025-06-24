@@ -32,16 +32,60 @@ const Listings = () => {
 
   const itemsPerPage = 12;
 
-  // Update search params when filters change
+  // Watch for URL parameter changes and update filters
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchQuery) params.set("q", searchQuery);
-    if (filters.categories.length > 0)
-      params.set("category", filters.categories[0]);
-    if (filters.locations.length > 0)
-      params.set("location", filters.locations[0]);
-    setSearchParams(params);
-  }, [searchQuery, filters, setSearchParams]);
+    const category = searchParams.get("category");
+    const location = searchParams.get("location");
+    const query = searchParams.get("q") || "";
+
+    // Update search query if different
+    setSearchQuery(query);
+
+    // Update filters when URL parameters change
+    setFilters((prevFilters) => {
+      const newCategories = category ? [category] : [];
+      const newLocations = location ? [location] : [];
+
+      // Only update if actually different to prevent loops
+      if (
+        JSON.stringify(prevFilters.categories) !==
+          JSON.stringify(newCategories) ||
+        JSON.stringify(prevFilters.locations) !== JSON.stringify(newLocations)
+      ) {
+        return {
+          ...prevFilters,
+          categories: newCategories,
+          locations: newLocations,
+        };
+      }
+      return prevFilters;
+    });
+  }, [searchParams]);
+
+  // Update search params when filters change (but not from URL changes)
+  useEffect(() => {
+    const currentCategory = searchParams.get("category");
+    const currentLocation = searchParams.get("location");
+    const currentQuery = searchParams.get("q") || "";
+
+    const newCategory =
+      filters.categories.length > 0 ? filters.categories[0] : null;
+    const newLocation =
+      filters.locations.length > 0 ? filters.locations[0] : null;
+
+    // Only update URL if the values are actually different
+    if (
+      currentCategory !== newCategory ||
+      currentLocation !== newLocation ||
+      currentQuery !== searchQuery
+    ) {
+      const params = new URLSearchParams();
+      if (searchQuery) params.set("q", searchQuery);
+      if (newCategory) params.set("category", newCategory);
+      if (newLocation) params.set("location", newLocation);
+      setSearchParams(params, { replace: true });
+    }
+  }, [searchQuery, filters.categories, filters.locations]);
 
   // Filter and sort businesses
   const filteredBusinesses = useMemo(() => {
