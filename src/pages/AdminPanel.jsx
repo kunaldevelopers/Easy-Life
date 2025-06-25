@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
@@ -17,10 +17,15 @@ import {
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
+import ManageUsers from "../components/admin/ManageUsers";
+import ReviewBusinesses from "../components/admin/ReviewBusinesses";
+import SystemSettings from "../components/admin/SystemSettings";
+import ViewReports from "../components/admin/ViewReports";
 
 const AdminPanel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [currentView, setCurrentView] = useState("dashboard");
 
   if (!user || user.type !== "admin") {
     return (
@@ -38,6 +43,41 @@ const AdminPanel = () => {
         </Card>
       </div>
     );
+  }
+
+  // Handle navigation between different views
+  const handleViewChange = (view) => {
+    setCurrentView(view);
+  };
+
+  const handleBackToDashboard = () => {
+    setCurrentView("dashboard");
+  };
+
+  // Handle review actions for pending items
+  const handleReviewAction = (actionType, itemId) => {
+    console.log(`Review action: ${actionType} for item: ${itemId}`);
+    // In real app, this would make API calls
+    if (actionType === "business-verification") {
+      setCurrentView("review-businesses");
+    }
+  };
+
+  // Render different views based on currentView state
+  if (currentView === "manage-users") {
+    return <ManageUsers onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "review-businesses") {
+    return <ReviewBusinesses onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "system-settings") {
+    return <SystemSettings onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "view-reports") {
+    return <ViewReports onBack={handleBackToDashboard} />;
   }
   const stats = [
     {
@@ -177,7 +217,16 @@ const AdminPanel = () => {
                           <p className="text-sm text-gray-500">{action.item}</p>
                         </div>
                       </div>
-                      <Button size="sm" variant="outline">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() =>
+                          handleReviewAction(
+                            action.action.toLowerCase().replace(" ", "-"),
+                            action.item
+                          )
+                        }
+                      >
                         Review
                       </Button>
                     </div>
@@ -238,12 +287,13 @@ const AdminPanel = () => {
               <Card className="p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">
                   Quick Actions
-                </h3>
+                </h3>{" "}
                 <div className="space-y-3">
                   <Button
                     variant="primary"
                     className="w-full justify-start"
                     icon={Users}
+                    onClick={() => handleViewChange("manage-users")}
                   >
                     Manage Users
                   </Button>
@@ -251,6 +301,7 @@ const AdminPanel = () => {
                     variant="outline"
                     className="w-full justify-start"
                     icon={Store}
+                    onClick={() => handleViewChange("review-businesses")}
                   >
                     Review Businesses
                   </Button>
@@ -258,6 +309,7 @@ const AdminPanel = () => {
                     variant="outline"
                     className="w-full justify-start"
                     icon={Settings}
+                    onClick={() => handleViewChange("system-settings")}
                   >
                     System Settings
                   </Button>
@@ -265,6 +317,7 @@ const AdminPanel = () => {
                     variant="outline"
                     className="w-full justify-start"
                     icon={BarChart3}
+                    onClick={() => handleViewChange("view-reports")}
                   >
                     View Reports
                   </Button>
