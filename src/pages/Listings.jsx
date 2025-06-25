@@ -245,7 +245,7 @@ const Listings = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex gap-8">
+          <div className="flex gap-0 md:gap-8">
             {/* Filters Sidebar - Desktop */}
             <div className="hidden md:block w-80">
               <div className="bg-white rounded-lg shadow-card p-6 h-fit sticky top-24">
@@ -275,7 +275,7 @@ const Listings = () => {
             )}
 
             {/* Main Content */}
-            <div className="flex-1">
+            <div className="w-full md:flex-1">
               {/* Controls */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-2">

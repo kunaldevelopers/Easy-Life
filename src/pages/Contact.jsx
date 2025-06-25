@@ -317,7 +317,7 @@ const Contact = () => {
         {/* Contact Form & Support Options */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:grid lg:grid-cols-3 lg:gap-12">
+            <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
               {/* Contact Form */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -326,23 +326,22 @@ const Contact = () => {
                 viewport={{ once: true }}
                 className="lg:col-span-2"
               >
-                <Card className="p-10 shadow-xl border-t-4 border-primary-500">
-                  <div className="flex items-center mb-8">
+                <Card className="p-6 sm:p-8 lg:p-10 shadow-xl border-t-4 border-primary-500">
+                  <div className="flex items-center mb-6 sm:mb-8">
                     <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
                       <Send className="w-6 h-6 text-primary-600" />
                     </div>
                     <div>
-                      <h2 className="text-3xl font-bold text-gray-900">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
                         Send us a Message
                       </h2>
                       <p className="text-gray-600">
                         We'll respond within 24 hours
                       </p>
                     </div>
-                  </div>
-
+                  </div>{" "}
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                       <div>
                         <Input
                           label="Full Name"
@@ -351,7 +350,6 @@ const Contact = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="h-12"
                         />
                       </div>
                       <div>
@@ -362,12 +360,10 @@ const Contact = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="h-12"
                         />
                       </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
+                    </div>{" "}
+                    <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                       <div>
                         <Input
                           label="Phone Number"
@@ -375,18 +371,17 @@ const Contact = () => {
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="h-12"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-3">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
                           Inquiry Type
                         </label>
                         <select
                           name="category"
                           value={formData.category}
                           onChange={handleInputChange}
-                          className="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:outline-none hover:border-gray-300 hover:shadow-md transition-all duration-300 bg-white shadow-lg focus:shadow-lg"
                         >
                           <option value="general">General Inquiry</option>
                           <option value="business">Business Support</option>
@@ -395,7 +390,6 @@ const Contact = () => {
                         </select>
                       </div>
                     </div>
-
                     <div>
                       <Input
                         label="Subject"
@@ -404,12 +398,10 @@ const Contact = () => {
                         value={formData.subject}
                         onChange={handleInputChange}
                         required
-                        className="h-12"
                       />
-                    </div>
-
+                    </div>{" "}
                     <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Your Message
                       </label>
                       <textarea
@@ -417,12 +409,11 @@ const Contact = () => {
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={6}
-                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none transition-colors"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent focus:outline-none hover:border-gray-300 hover:shadow-md resize-none transition-all duration-300 placeholder:text-gray-400"
                         placeholder="Tell us how we can help you..."
                         required
                       />
                     </div>
-
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -440,14 +431,15 @@ const Contact = () => {
                     </motion.div>
                   </form>
                 </Card>
-              </motion.div>{" "}
+              </motion.div>
+
               {/* Support Options & FAQ */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
                 viewport={{ once: true }}
-                className="mt-12 lg:mt-0 space-y-8"
+                className="space-y-6 lg:space-y-8"
               >
                 {/* Support Options */}
                 <div>

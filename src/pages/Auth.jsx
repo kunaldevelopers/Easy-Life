@@ -176,7 +176,61 @@ const Auth = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      {" "}
+      {/* Demo Credentials Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4"
+      >
+        <h4 className="text-sm font-semibold text-blue-800 mb-2">
+          Demo Credentials
+        </h4>{" "}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div className="bg-white/70 p-2 rounded-lg">
+            <p className="font-medium text-blue-700">Customer</p>
+            <button
+              type="button"
+              onClick={() => handleDemoLogin("rajesh@example.com", "customer")}
+              className="text-blue-600 hover:text-blue-800 underline block"
+            >
+              rajesh@example.com
+            </button>
+            <p className="text-blue-600">Any password</p>
+          </div>
+          <div className="bg-white/70 p-2 rounded-lg">
+            <p className="font-medium text-green-700">Business Owner</p>
+            <button
+              type="button"
+              onClick={() =>
+                handleDemoLogin("electronics@example.com", "seller")
+              }
+              className="text-green-600 hover:text-green-800 underline block"
+            >
+              electronics@example.com
+            </button>
+            <p className="text-green-600">Any password</p>
+          </div>
+          <div className="bg-white/70 p-2 rounded-lg">
+            <p className="font-medium text-purple-700">Admin</p>
+            <button
+              type="button"
+              onClick={() => handleDemoLogin("admin@easylife.com", "admin")}
+              className="text-purple-600 hover:text-purple-800 underline block"
+            >
+              admin@easylife.com
+            </button>
+            <p className="text-purple-600">Any password</p>
+          </div>
+        </div>
+        <p className="text-xs text-blue-600 mt-2">
+          💡 Use any of these emails with any password to test different account
+          types
+        </p>
+        <p className="text-xs text-gray-500 mt-1">
+          🔄 Click an email above to auto-fill the form, then click "Sign In"
+        </p>
+      </motion.div>
       {/* Login Method Toggle */}
       <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-1 rounded-2xl shadow-inner">
         {" "}
@@ -279,6 +333,49 @@ const Auth = () => {
             transition={{ duration: 0.3 }}
             className="space-y-5"
           >
+            {/* Demo Phone Numbers */}
+            {!showOTP && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl p-3"
+              >
+                <h4 className="text-sm font-semibold text-green-800 mb-2">
+                  Demo Phone Numbers
+                </h4>{" "}
+                <div className="grid grid-cols-1 gap-2 text-xs">
+                  <div className="bg-white/70 p-2 rounded-lg">
+                    {" "}
+                    <button
+                      type="button"
+                      onClick={() => handleDemoPhoneLogin("+91 9876543201")}
+                      className="font-medium text-green-700 hover:text-green-900 underline block"
+                    >
+                      Customer: +91 9876543201
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDemoPhoneLogin("+91 9876543210")}
+                      className="font-medium text-blue-700 hover:text-blue-900 underline block"
+                    >
+                      Business: +91 9876543210
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDemoPhoneLogin("+91 9876543200")}
+                      className="font-medium text-purple-700 hover:text-purple-900 underline block"
+                    >
+                      Admin: +91 9876543200
+                    </button>
+                  </div>
+                </div>
+                <p className="text-xs text-green-600 mt-2">
+                  📱 Use any of these numbers, then enter OTP: 123456
+                </p>
+              </motion.div>
+            )}
+
             <Input
               label="Phone Number"
               type="tel"
@@ -306,12 +403,16 @@ const Auth = () => {
                   maxLength={6}
                   required
                   className="transform transition-all hover:scale-[1.02] text-center text-lg tracking-widest"
-                />
-                <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                />{" "}
+                <div className="mt-2 p-3 bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg">
                   <p className="text-sm text-blue-700">
-                    <span className="font-semibold">Demo OTP:</span> 123456
+                    <span className="font-semibold">📱 Demo OTP:</span> 123456
                   </p>
                   <p className="text-xs text-blue-600 mt-1">
+                    💡 Use any phone number from the user list above, then enter
+                    123456
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">
                     In production, this would be sent to your phone
                   </p>
                 </div>
@@ -597,6 +698,22 @@ const Auth = () => {
       </div>
     </motion.form>
   );
+  const handleDemoLogin = (email, userType) => {
+    setFormData({
+      ...formData,
+      email: email,
+      password: "demo123", // Any password will work
+    });
+    setLoginMethod("email");
+  };
+
+  const handleDemoPhoneLogin = (phone) => {
+    setFormData({
+      ...formData,
+      phone: phone,
+    });
+    setLoginMethod("phone");
+  };
   return (
     <>
       <Helmet>
