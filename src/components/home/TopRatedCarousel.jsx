@@ -1,44 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight, MapPin, Phone } from 'lucide-react';
-import { topRatedBusinesses } from '../../data/businesses';
-import Card from '../common/Card';
-import Button from '../common/Button';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, ChevronLeft, ChevronRight, MapPin, Phone } from "lucide-react";
+import { topRatedBusinesses } from "../../data/businesses";
+import Card from "../common/Card";
+import Button from "../common/Button";
 
 const TopRatedCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [itemsPerSlide, setItemsPerSlide] = useState(3);
   const navigate = useNavigate();
+
+  // Responsive items per slide
+  useEffect(() => {
+    const updateItemsPerSlide = () => {
+      if (window.innerWidth < 768) {
+        setItemsPerSlide(1); // Mobile: 1 card
+      } else if (window.innerWidth < 1024) {
+        setItemsPerSlide(2); // Tablet: 2 cards
+      } else {
+        setItemsPerSlide(3); // Desktop: 3 cards
+      }
+    };
+
+    updateItemsPerSlide();
+    window.addEventListener("resize", updateItemsPerSlide);
+    return () => window.removeEventListener("resize", updateItemsPerSlide);
+  }, []);
 
   // Auto-slide functionality
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        (prevIndex + 1) % Math.ceil(topRatedBusinesses.length / 3)
+      setCurrentIndex(
+        (prevIndex) =>
+          (prevIndex + 1) % Math.ceil(topRatedBusinesses.length / itemsPerSlide)
       );
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, itemsPerSlide]);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      (prevIndex + 1) % Math.ceil(topRatedBusinesses.length / 3)
+    setCurrentIndex(
+      (prevIndex) =>
+        (prevIndex + 1) % Math.ceil(topRatedBusinesses.length / itemsPerSlide)
     );
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? Math.ceil(topRatedBusinesses.length / 3) - 1 : prevIndex - 1
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0
+        ? Math.ceil(topRatedBusinesses.length / itemsPerSlide) - 1
+        : prevIndex - 1
     );
   };
 
   const getVisibleBusinesses = () => {
-    const startIndex = currentIndex * 3;
-    return topRatedBusinesses.slice(startIndex, startIndex + 3);
+    const startIndex = currentIndex * itemsPerSlide;
+    return topRatedBusinesses.slice(startIndex, startIndex + itemsPerSlide);
   };
 
   const renderStars = (rating) => {
@@ -46,27 +68,29 @@ const TopRatedCarousel = () => {
       <Star
         key={i}
         className={`w-4 h-4 ${
-          i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'
+          i < Math.floor(rating)
+            ? "text-yellow-400 fill-current"
+            : "text-gray-300"
         }`}
       />
     ));
   };
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-8 sm:py-12 lg:py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8 sm:mb-10 lg:mb-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Top Rated Businesses
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Discover highly rated local businesses trusted by our community
           </p>
         </div>
 
         <div className="relative">
           {/* Carousel Container */}
-          <div 
+          <div
             className="overflow-hidden"
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
@@ -78,7 +102,13 @@ const TopRatedCarousel = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                className={`grid gap-4 sm:gap-6 ${
+                  itemsPerSlide === 1
+                    ? "grid-cols-1"
+                    : itemsPerSlide === 2
+                    ? "grid-cols-2"
+                    : "grid-cols-3"
+                }`}
               >
                 {getVisibleBusinesses().map((business) => (
                   <Card
@@ -99,7 +129,7 @@ const TopRatedCarousel = () => {
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="p-6">
                       <div className="flex items-start justify-between mb-3">
                         <h3 className="font-semibold text-lg text-gray-900 group-hover:text-primary-600 transition-colors">
@@ -109,16 +139,16 @@ const TopRatedCarousel = () => {
                           {renderStars(business.rating)}
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center text-gray-600 mb-2">
                         <MapPin className="w-4 h-4 mr-1" />
                         <span className="text-sm">{business.location}</span>
                       </div>
-                      
+
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">
                         {business.description}
                       </p>
-                      
+
                       <div className="flex items-center justify-between">
                         <div className="flex flex-wrap gap-1">
                           {business.tags.slice(0, 2).map((tag) => (
@@ -133,7 +163,9 @@ const TopRatedCarousel = () => {
                         <div className="text-right">
                           <div className="flex items-center text-yellow-500 mb-1">
                             <Star className="w-4 h-4 fill-current mr-1" />
-                            <span className="font-medium">{business.rating}</span>
+                            <span className="font-medium">
+                              {business.rating}
+                            </span>
                           </div>
                           <div className="text-xs text-gray-500">
                             {business.reviewCount} reviews
@@ -150,35 +182,38 @@ const TopRatedCarousel = () => {
           {/* Navigation Arrows */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+            className="absolute left-2 sm:left-0 top-1/2 transform -translate-y-1/2 sm:-translate-x-4 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
           >
-            <ChevronLeft className="w-6 h-6 text-gray-600" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
           </button>
-          
+
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+            className="absolute right-2 sm:right-0 top-1/2 transform -translate-y-1/2 sm:translate-x-4 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
           >
-            <ChevronRight className="w-6 h-6 text-gray-600" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
           </button>
 
           {/* Dots Indicator */}
           <div className="flex justify-center space-x-2 mt-8">
-            {Array.from({ length: Math.ceil(topRatedBusinesses.length / 3) }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentIndex(i)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  i === currentIndex ? 'bg-primary-600' : 'bg-gray-300'
-                }`}
-              />
-            ))}
+            {Array.from(
+              { length: Math.ceil(topRatedBusinesses.length / itemsPerSlide) },
+              (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentIndex(i)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    i === currentIndex ? "bg-primary-600" : "bg-gray-300"
+                  }`}
+                />
+              )
+            )}
           </div>
         </div>
 
         <div className="text-center mt-12">
           <Button
-            onClick={() => navigate('/listings')}
+            onClick={() => navigate("/listings")}
             variant="primary"
             size="lg"
           >
