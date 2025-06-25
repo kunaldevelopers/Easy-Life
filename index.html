@@ -6,21 +6,474 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Easy Life - Gangtok Business Listing Platform</title>
     <style>
-      /* Fallback styles for loading */
+      /* Professional skeleton loading styles */
       .loading-fallback {
+        min-height: 100vh;
+        background: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+      }
+
+      .skeleton {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* Navbar Skeleton */
+      .skeleton-navbar {
+        height: 64px;
+        background: #ffffff;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
         display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 40;
+      }
+
+      .skeleton-logo-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .skeleton-logo-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+      }
+
+      .skeleton-logo-text {
+        width: 80px;
+        height: 24px;
+        border-radius: 4px;
+      }
+
+      .skeleton-nav-items {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .skeleton-nav-item {
+        width: 80px;
+        height: 20px;
+        border-radius: 4px;
+      }
+
+      .skeleton-user-menu {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      /* Hero Section Skeleton */
+      .skeleton-hero {
+        min-height: 85vh;
+        background: #f8f9fa;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-        background: #f3f4f6;
+        padding: 3rem 1rem;
+        text-align: center;
+      }
+
+      .skeleton-hero-title {
+        width: 600px;
+        height: 48px;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .skeleton-hero-subtitle {
+        width: 500px;
+        height: 24px;
+        border-radius: 6px;
+        margin-bottom: 2rem;
+      }
+
+      .skeleton-search-container {
+        width: 700px;
+        height: 80px;
+        border-radius: 16px;
+        background: #ffffff;
+        padding: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+
+      .skeleton-search-bar {
+        width: 100%;
+        height: 48px;
+        border-radius: 12px;
+      }
+
+      /* Categories Grid Skeleton */
+      .skeleton-categories {
+        padding: 3rem 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #ffffff;
+      }
+
+      .skeleton-section-title {
+        width: 250px;
+        height: 32px;
+        border-radius: 6px;
+        margin: 0 auto 2rem;
+      }
+
+      .skeleton-categories-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .skeleton-category-card {
+        background: #ffffff;
+        border: 1px solid #f3f4f6;
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .skeleton-category-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        margin: 0 auto 0.75rem;
+      }
+
+      .skeleton-category-name {
+        width: 70px;
+        height: 16px;
+        border-radius: 4px;
+        margin: 0 auto;
+      }
+
+      .skeleton-category-count {
+        width: 30px;
+        height: 12px;
+        border-radius: 4px;
+        margin: 0.5rem auto 0;
+      }
+
+      /* Top Rated Businesses Skeleton */
+      .skeleton-businesses {
+        padding: 3rem 1rem;
+        background: #ffffff;
+      }
+
+      .skeleton-businesses-title {
+        width: 300px;
+        height: 32px;
+        border-radius: 6px;
+        margin: 0 auto 1rem;
+      }
+
+      .skeleton-businesses-subtitle {
+        width: 400px;
+        height: 20px;
+        border-radius: 4px;
+        margin: 0 auto 2rem;
+      }
+
+      .skeleton-business-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .skeleton-business-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .skeleton-business-image {
+        width: 100%;
+        height: 192px;
+      }
+
+      .skeleton-business-content {
+        padding: 1.5rem;
+      }
+
+      .skeleton-business-title {
+        width: 70%;
+        height: 20px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      .skeleton-business-location {
+        width: 50%;
+        height: 16px;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+      }
+
+      .skeleton-business-desc {
+        width: 100%;
+        height: 14px;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+
+      .skeleton-business-desc:last-child {
+        width: 80%;
+      }
+
+      .skeleton-business-rating {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+      }
+
+      .skeleton-rating-stars {
+        width: 80px;
+        height: 16px;
+        border-radius: 4px;
+      }
+
+      .skeleton-rating-text {
+        width: 60px;
+        height: 16px;
+        border-radius: 4px;
+      }
+
+      /* CTA Section Skeleton */
+      .skeleton-cta {
+        padding: 4rem 1rem;
+        background: #f9fafb;
+        text-align: center;
+      }
+
+      .skeleton-cta-title {
+        width: 350px;
+        height: 32px;
+        border-radius: 6px;
+        margin: 0 auto 1rem;
+      }
+
+      .skeleton-cta-subtitle {
+        width: 450px;
+        height: 20px;
+        border-radius: 4px;
+        margin: 0 auto 2rem;
+      }
+
+      .skeleton-cta-button {
+        width: 200px;
+        height: 48px;
+        border-radius: 8px;
+        margin: 0 auto;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .skeleton-categories-grid {
+          grid-template-columns: repeat(6, 1fr);
+        }
+        .skeleton-business-cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .skeleton-hero-title {
+          width: 500px;
+        }
+        .skeleton-search-container {
+          width: 600px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .skeleton-nav-items {
+          display: none;
+        }
+        .skeleton-hero {
+          min-height: 75vh;
+        }
+        .skeleton-hero-title {
+          width: 300px;
+          height: 36px;
+        }
+        .skeleton-hero-subtitle {
+          width: 280px;
+          height: 20px;
+        }
+        .skeleton-search-container {
+          width: 90%;
+          height: 60px;
+        }
+        .skeleton-search-bar {
+          height: 40px;
+        }
+        .skeleton-categories-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0.75rem;
+        }
+        .skeleton-category-card {
+          padding: 0.75rem;
+        }
+        .skeleton-category-icon {
+          width: 36px;
+          height: 36px;
+        }
+        .skeleton-business-cards {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
     <div id="root">
       <div class="loading-fallback">
-        <div>Loading Easy Life Gangtok...</div>
+        <!-- Skeleton Navbar -->
+        <div class="skeleton-navbar">
+          <div class="skeleton-logo-section">
+            <div class="skeleton skeleton-logo-icon"></div>
+            <div class="skeleton skeleton-logo-text"></div>
+          </div>
+          <div class="skeleton-nav-items">
+            <div class="skeleton skeleton-nav-item"></div>
+            <div class="skeleton skeleton-nav-item"></div>
+            <div class="skeleton skeleton-nav-item"></div>
+            <div class="skeleton skeleton-nav-item"></div>
+          </div>
+          <div class="skeleton skeleton-user-menu"></div>
+        </div>
+
+        <!-- Skeleton Hero Section -->
+        <div class="skeleton-hero">
+          <div class="skeleton skeleton-hero-title"></div>
+          <div class="skeleton skeleton-hero-subtitle"></div>
+          <div class="skeleton-search-container">
+            <div class="skeleton skeleton-search-bar"></div>
+          </div>
+        </div>
+
+        <!-- Skeleton Categories Section -->
+        <div class="skeleton-categories">
+          <div class="skeleton skeleton-section-title"></div>
+          <div class="skeleton-categories-grid">
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+            <div class="skeleton-category-card">
+              <div class="skeleton skeleton-category-icon"></div>
+              <div class="skeleton skeleton-category-name"></div>
+              <div class="skeleton skeleton-category-count"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton Top Rated Businesses -->
+        <div class="skeleton-businesses">
+          <div class="skeleton skeleton-businesses-title"></div>
+          <div class="skeleton skeleton-businesses-subtitle"></div>
+          <div class="skeleton-business-cards">
+            <div class="skeleton-business-card">
+              <div class="skeleton skeleton-business-image"></div>
+              <div class="skeleton-business-content">
+                <div class="skeleton skeleton-business-title"></div>
+                <div class="skeleton skeleton-business-location"></div>
+                <div class="skeleton skeleton-business-desc"></div>
+                <div class="skeleton skeleton-business-desc"></div>
+                <div class="skeleton-business-rating">
+                  <div class="skeleton skeleton-rating-stars"></div>
+                  <div class="skeleton skeleton-rating-text"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skeleton-business-card">
+              <div class="skeleton skeleton-business-image"></div>
+              <div class="skeleton-business-content">
+                <div class="skeleton skeleton-business-title"></div>
+                <div class="skeleton skeleton-business-location"></div>
+                <div class="skeleton skeleton-business-desc"></div>
+                <div class="skeleton skeleton-business-desc"></div>
+                <div class="skeleton-business-rating">
+                  <div class="skeleton skeleton-rating-stars"></div>
+                  <div class="skeleton skeleton-rating-text"></div>
+                </div>
+              </div>
+            </div>
+            <div class="skeleton-business-card">
+              <div class="skeleton skeleton-business-image"></div>
+              <div class="skeleton-business-content">
+                <div class="skeleton skeleton-business-title"></div>
+                <div class="skeleton skeleton-business-location"></div>
+                <div class="skeleton skeleton-business-desc"></div>
+                <div class="skeleton skeleton-business-desc"></div>
+                <div class="skeleton-business-rating">
+                  <div class="skeleton skeleton-rating-stars"></div>
+                  <div class="skeleton skeleton-rating-text"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skeleton CTA Section -->
+        <div class="skeleton-cta">
+          <div class="skeleton skeleton-cta-title"></div>
+          <div class="skeleton skeleton-cta-subtitle"></div>
+          <div class="skeleton skeleton-cta-button"></div>
+        </div>
       </div>
     </div>
     <script>
