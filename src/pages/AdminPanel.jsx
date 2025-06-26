@@ -22,6 +22,7 @@ import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
 import ManageUsers from "../components/admin/ManageUsers";
+import BannedUsers from "../components/admin/BannedUsers";
 import ListedBusinesses from "../components/admin/ListedBusinesses";
 import PendingBusinesses from "../components/admin/PendingBusinesses";
 import UnderReviewBusinesses from "../components/admin/UnderReviewBusinesses";
@@ -76,6 +77,10 @@ const AdminPanel = () => {
   // Render different views based on currentView state
   if (currentView === "manage-users") {
     return <ManageUsers onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "banned-users") {
+    return <BannedUsers onBack={handleBackToDashboard} />;
   }
 
   if (currentView === "listed-businesses") {
@@ -310,6 +315,14 @@ const AdminPanel = () => {
                     onClick={() => handleViewChange("manage-users")}
                   >
                     Manage Users
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Ban}
+                    onClick={() => handleViewChange("banned-users")}
+                  >
+                    Banned Users
                   </Button>
                   <Button
                     variant="outline"
