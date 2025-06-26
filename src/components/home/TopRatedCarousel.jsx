@@ -182,28 +182,30 @@ const TopRatedCarousel = () => {
           {/* Navigation Arrows */}
           <button
             onClick={prevSlide}
-            className="absolute left-2 sm:left-0 top-1/2 transform -translate-y-1/2 sm:-translate-x-4 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+            className="absolute left-2 sm:-left-6 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 sm:p-4 shadow-xl hover:shadow-2xl transition-all duration-300 z-10 border border-gray-200 hover:border-primary-300 hover:bg-primary-50"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+            <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-gray-800 hover:text-primary-600" />
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute right-2 sm:right-0 top-1/2 transform -translate-y-1/2 sm:translate-x-4 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10"
+            className="absolute right-2 sm:-right-6 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 sm:p-4 shadow-xl hover:shadow-2xl transition-all duration-300 z-10 border border-gray-200 hover:border-primary-300 hover:bg-primary-50"
           >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+            <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-gray-800 hover:text-primary-600" />
           </button>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center space-x-2 mt-8">
+          <div className="flex justify-center space-x-3 mt-8">
             {Array.from(
               { length: Math.ceil(topRatedBusinesses.length / itemsPerSlide) },
               (_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    i === currentIndex ? "bg-primary-600" : "bg-gray-300"
+                  className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 hover:scale-110 ${
+                    i === currentIndex
+                      ? "bg-primary-600 shadow-lg"
+                      : "bg-gray-400 hover:bg-gray-500"
                   }`}
                 />
               )
