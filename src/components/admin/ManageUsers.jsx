@@ -6,7 +6,6 @@ import {
   Search,
   Filter,
   MoreVertical,
-  UserCheck,
   UserX,
   Edit3,
   Mail,
@@ -15,7 +14,6 @@ import {
   ArrowLeft,
   UserPlus,
   Download,
-  Shield,
   Activity,
 } from "lucide-react";
 import Card from "../common/Card";
@@ -30,8 +28,10 @@ const ManageUsers = ({ onBack }) => {
 
   // Get all users including demo data
   const allUsers = users;
-
   const filteredUsers = allUsers.filter((user) => {
+    // Only show customer users in the user management section
+    if (user.type !== "customer") return false;
+
     const matchesSearch =
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase());
@@ -93,7 +93,7 @@ const ManageUsers = ({ onBack }) => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ const ManageUsers = ({ onBack }) => {
                       Total Users
                     </p>
                     <p className="text-2xl font-bold text-gray-900">
-                      {allUsers.length}
+                      {allUsers.filter((u) => u.type === "customer").length}
                     </p>
                   </div>
                 </div>
@@ -123,50 +123,6 @@ const ManageUsers = ({ onBack }) => {
             >
               <Card className="p-6">
                 <div className="flex items-center">
-                  <div className="p-3 rounded-lg bg-green-100">
-                    <UserCheck className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">
-                      Customers
-                    </p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {allUsers.filter((u) => u.type === "customer").length}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Card className="p-6">
-                <div className="flex items-center">
-                  <div className="p-3 rounded-lg bg-purple-100">
-                    <Shield className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">
-                      Business Owners
-                    </p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {allUsers.filter((u) => u.type === "business").length}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <Card className="p-6">
-                <div className="flex items-center">
                   <div className="p-3 rounded-lg bg-orange-100">
                     <Activity className="w-6 h-6 text-orange-600" />
                   </div>
@@ -175,7 +131,10 @@ const ManageUsers = ({ onBack }) => {
                       Active Today
                     </p>
                     <p className="text-2xl font-bold text-gray-900">
-                      {Math.floor(allUsers.length * 0.3)}
+                      {Math.floor(
+                        allUsers.filter((u) => u.type === "customer").length *
+                          0.3
+                      )}
                     </p>
                   </div>
                 </div>
@@ -206,8 +165,6 @@ const ManageUsers = ({ onBack }) => {
                 >
                   <option value="all">All Users</option>
                   <option value="customer">Customers</option>
-                  <option value="business">Business Owners</option>
-                  <option value="admin">Administrators</option>
                 </select>
                 <Button variant="outline" icon={Filter}>
                   Advanced Filters
@@ -313,20 +270,8 @@ const ManageUsers = ({ onBack }) => {
                         </div>
                       </td>
                       <td className="px-6 py-5 whitespace-nowrap">
-                        <span
-                          className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
-                            user.type === "admin"
-                              ? "bg-red-100 text-red-800"
-                              : user.type === "business"
-                              ? "bg-purple-100 text-purple-800"
-                              : "bg-blue-100 text-blue-800"
-                          }`}
-                        >
-                          {user.type === "admin"
-                            ? "Administrator"
-                            : user.type === "business"
-                            ? "Business Owner"
-                            : "Customer"}
+                        <span className="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                          Customer
                         </span>
                       </td>
                       <td className="px-6 py-5 whitespace-nowrap">
