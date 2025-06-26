@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import {
   Users,
   Search,
@@ -12,6 +13,10 @@ import {
   Phone,
   Calendar,
   ArrowLeft,
+  UserPlus,
+  Download,
+  Shield,
+  Activity,
 } from "lucide-react";
 import Card from "../common/Card";
 import Button from "../common/Button";
@@ -50,263 +55,346 @@ const ManageUsers = ({ onBack }) => {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <Button onClick={onBack} variant="ghost" size="sm" icon={ArrowLeft}>
-            Back to Dashboard
-          </Button>
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900">Manage Users</h2>
-            <p className="text-gray-600">View and manage all platform users</p>
-          </div>
-        </div>
-        <div className="flex items-center space-x-3">
-          <Button variant="primary" icon={Users}>
-            Add New User
-          </Button>
-        </div>
-      </div>
+    <>
+      <Helmet>
+        <title>Manage Users - Easy Life Gangtok</title>
+      </Helmet>
 
-      {/* Search and Filters */}
-      <Card className="p-6">
-        <div className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-          <div className="flex-1">
-            <Input
-              placeholder="Search users by name or email..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              icon={Search}
-            />
-          </div>
-          <div className="flex items-center space-x-3">
-            <select
-              value={filterType}
-              onChange={(e) => setFilterType(e.target.value)}
-              className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-8">
+            <button
+              onClick={onBack}
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-6"
             >
-              <option value="all">All Users</option>
-              <option value="customer">Customers</option>
-              <option value="business">Business Owners</option>
-              <option value="admin">Administrators</option>
-            </select>
-            <Button variant="outline" icon={Filter}>
-              Advanced Filters
-            </Button>
-          </div>
-        </div>
-      </Card>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </button>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Total Users</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {allUsers.length}
-              </p>
-            </div>
-            <Users className="w-8 h-8 text-blue-600" />
-          </div>
-        </Card>
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Customers</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {allUsers.filter((u) => u.type === "customer").length}
-              </p>
-            </div>
-            <UserCheck className="w-8 h-8 text-green-600" />
-          </div>
-        </Card>
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Business Owners</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {allUsers.filter((u) => u.type === "business").length}
-              </p>
-            </div>
-            <UserCheck className="w-8 h-8 text-purple-600" />
-          </div>
-        </Card>
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Active Today</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {Math.floor(allUsers.length * 0.3)}
-              </p>
-            </div>
-            <Calendar className="w-8 h-8 text-orange-600" />
-          </div>
-        </Card>
-      </div>
-
-      {/* Users Table */}
-      <Card className="overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Users ({filteredUsers.length})
-            </h3>
-            {selectedUsers.length > 0 && (
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-600">
-                  {selectedUsers.length} selected
-                </span>
-                <Button size="sm" variant="outline">
-                  Bulk Actions
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+              <div className="mb-4 lg:mb-0">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  Manage Users
+                </h1>
+                <p className="text-gray-600">
+                  View and manage all platform users
+                </p>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Button variant="outline" icon={Download} size="sm">
+                  Export
+                </Button>
+                <Button variant="primary" icon={UserPlus}>
+                  Add New User
                 </Button>
               </div>
-            )}
+            </div>
           </div>
-        </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <Card className="p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-lg bg-blue-100">
+                    <Users className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">
+                      Total Users
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {allUsers.length}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Card className="p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-lg bg-green-100">
+                    <UserCheck className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">
+                      Customers
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {allUsers.filter((u) => u.type === "customer").length}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Card className="p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-lg bg-purple-100">
+                    <Shield className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">
+                      Business Owners
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {allUsers.filter((u) => u.type === "business").length}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <Card className="p-6">
+                <div className="flex items-center">
+                  <div className="p-3 rounded-lg bg-orange-100">
+                    <Activity className="w-6 h-6 text-orange-600" />
+                  </div>
+                  <div className="ml-4">
+                    <p className="text-sm font-medium text-gray-600">
+                      Active Today
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {Math.floor(allUsers.length * 0.3)}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+
+          {/* Search and Filters */}
+          <Card className="p-6 mb-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
+              <div className="flex-1 lg:max-w-md">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
-                    type="checkbox"
-                    className="rounded border-gray-300"
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedUsers(filteredUsers.map((u) => u.id));
-                      } else {
-                        setSelectedUsers([]);
-                      }
-                    }}
+                    type="text"
+                    placeholder="Search users by name or email..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  User
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Type
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Contact
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Joined
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {filteredUsers.map((user, index) => (
-                <motion.tr
-                  key={user.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="hover:bg-gray-50"
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <select
+                  value={filterType}
+                  onChange={(e) => setFilterType(e.target.value)}
+                  className="px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 >
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <input
-                      type="checkbox"
-                      checked={selectedUsers.includes(user.id)}
-                      onChange={() => toggleUserSelection(user.id)}
-                      className="rounded border-gray-300"
-                    />
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      <img
-                        src={
-                          user.avatar ||
-                          `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                            user.name
-                          )}&background=random`
-                        }
-                        alt={user.name}
-                        className="w-10 h-10 rounded-full object-cover"
+                  <option value="all">All Users</option>
+                  <option value="customer">Customers</option>
+                  <option value="business">Business Owners</option>
+                  <option value="admin">Administrators</option>
+                </select>
+                <Button variant="outline" icon={Filter}>
+                  Advanced Filters
+                </Button>
+              </div>
+            </div>
+          </Card>
+
+          {/* Users Table */}
+          <Card className="overflow-hidden">
+            <div className="px-6 py-5 border-b border-gray-200 bg-white">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Users ({filteredUsers.length})
+                </h3>
+                {selectedUsers.length > 0 && (
+                  <div className="flex items-center space-x-3">
+                    <span className="text-sm text-gray-600">
+                      {selectedUsers.length} selected
+                    </span>
+                    <Button size="sm" variant="outline">
+                      Bulk Actions
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <input
+                        type="checkbox"
+                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedUsers(filteredUsers.map((u) => u.id));
+                          } else {
+                            setSelectedUsers([]);
+                          }
+                        }}
                       />
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">
-                          {user.name}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {user.email}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        user.type === "admin"
-                          ? "bg-red-100 text-red-800"
-                          : user.type === "business"
-                          ? "bg-purple-100 text-purple-800"
-                          : "bg-blue-100 text-blue-800"
-                      }`}
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      User
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Type
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Contact
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Joined
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {filteredUsers.map((user, index) => (
+                    <motion.tr
+                      key={user.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      className="hover:bg-gray-50 transition-colors"
                     >
-                      {user.type === "admin"
-                        ? "Administrator"
-                        : user.type === "business"
-                        ? "Business Owner"
-                        : "Customer"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <div className="flex flex-col space-y-1">
-                      <div className="flex items-center">
-                        <Mail className="w-4 h-4 mr-1" />
-                        {user.email}
-                      </div>
-                      <div className="flex items-center">
-                        <Phone className="w-4 h-4 mr-1" />
-                        {user.phone || "Not provided"}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {user.joinedDate || "Jan 2024"}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                      Active
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleUserAction(user.id, "edit")}
-                      >
-                        <Edit3 className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => handleUserAction(user.id, "suspend")}
-                      >
-                        <UserX className="w-4 h-4" />
-                      </Button>
-                      <Button size="sm" variant="ghost">
-                        <MoreVertical className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </td>
-                </motion.tr>
-              ))}
-            </tbody>
-          </table>
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          checked={selectedUsers.includes(user.id)}
+                          onChange={() => toggleUserSelection(user.id)}
+                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                      </td>
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <img
+                            src={
+                              user.avatar ||
+                              `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                user.name
+                              )}&background=random`
+                            }
+                            alt={user.name}
+                            className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-100"
+                          />
+                          <div className="ml-4">
+                            <div className="text-sm font-semibold text-gray-900">
+                              {user.name}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {user.email}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <span
+                          className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
+                            user.type === "admin"
+                              ? "bg-red-100 text-red-800"
+                              : user.type === "business"
+                              ? "bg-purple-100 text-purple-800"
+                              : "bg-blue-100 text-blue-800"
+                          }`}
+                        >
+                          {user.type === "admin"
+                            ? "Administrator"
+                            : user.type === "business"
+                            ? "Business Owner"
+                            : "Customer"}
+                        </span>
+                      </td>
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <div className="space-y-1">
+                          <div className="flex items-center text-sm text-gray-600">
+                            <Mail className="w-4 h-4 mr-2 text-gray-400" />
+                            {user.email}
+                          </div>
+                          <div className="flex items-center text-sm text-gray-600">
+                            <Phone className="w-4 h-4 mr-2 text-gray-400" />
+                            {user.phone || "Not provided"}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-5 whitespace-nowrap text-sm text-gray-600">
+                        {user.joinedDate || "Jan 2024"}
+                      </td>
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <span className="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                          Active
+                        </span>
+                      </td>
+                      <td className="px-6 py-5 whitespace-nowrap">
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => handleUserAction(user.id, "edit")}
+                            className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                            title="Edit User"
+                          >
+                            <Edit3 className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleUserAction(user.id, "suspend")}
+                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                            title="Suspend User"
+                          >
+                            <UserX className="w-4 h-4" />
+                          </button>
+                          <button
+                            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-all"
+                            title="More Actions"
+                          >
+                            <MoreVertical className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Empty State */}
+            {filteredUsers.length === 0 && (
+              <div className="text-center py-12">
+                <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-sm font-medium text-gray-900 mb-2">
+                  No users found
+                </h3>
+                <p className="text-sm text-gray-500">
+                  Try adjusting your search or filter criteria.
+                </p>
+              </div>
+            )}
+          </Card>
         </div>
-      </Card>
-    </div>
+      </div>
+    </>
   );
 };
 
