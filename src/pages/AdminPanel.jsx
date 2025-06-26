@@ -23,6 +23,7 @@ import Card from "../components/common/Card";
 import Button from "../components/common/Button";
 import ManageUsers from "../components/admin/ManageUsers";
 import BannedUsers from "../components/admin/BannedUsers";
+import SettlementChecker from "../components/admin/SettlementChecker";
 import ListedBusinesses from "../components/admin/ListedBusinesses";
 import PendingBusinesses from "../components/admin/PendingBusinesses";
 import UnderReviewBusinesses from "../components/admin/UnderReviewBusinesses";
@@ -81,6 +82,10 @@ const AdminPanel = () => {
 
   if (currentView === "banned-users") {
     return <BannedUsers onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "settlement-checker") {
+    return <SettlementChecker onBack={handleBackToDashboard} />;
   }
 
   if (currentView === "listed-businesses") {
@@ -301,11 +306,37 @@ const AdminPanel = () => {
                 </div>
               </Card>
 
-              {/* Service & User Management */}
+              {/* Service Management */}
+              <Card className="p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-purple-600" />
+                  Service Management
+                </h3>
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Calendar}
+                    onClick={() => handleViewChange("service-bookings")}
+                  >
+                    Service Bookings
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={CreditCard}
+                    onClick={() => handleViewChange("settlement-checker")}
+                  >
+                    Settlement Checker
+                  </Button>
+                </div>
+              </Card>
+
+              {/* User Management */}
               <Card className="p-6">
                 <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                   <Users className="h-5 w-5 text-green-600" />
-                  Service & User Management
+                  User Management
                 </h3>
                 <div className="space-y-3">
                   <Button
@@ -323,14 +354,6 @@ const AdminPanel = () => {
                     onClick={() => handleViewChange("banned-users")}
                   >
                     Banned Users
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full justify-start"
-                    icon={Calendar}
-                    onClick={() => handleViewChange("service-bookings")}
-                  >
-                    Service Bookings
                   </Button>
                 </div>
               </Card>
