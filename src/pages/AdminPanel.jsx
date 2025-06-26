@@ -144,18 +144,6 @@ const AdminPanel = () => {
       priority: "high",
       actionType: "under-review-businesses",
     },
-    {
-      action: "User Report Review",
-      item: "Inappropriate content",
-      priority: "medium",
-      actionType: "user-report",
-    },
-    {
-      action: "Content Moderation",
-      item: "3 pending reviews",
-      priority: "low",
-      actionType: "content-moderation",
-    },
   ];
 
   return (
@@ -266,6 +254,199 @@ const AdminPanel = () => {
                       </Button>
                     </div>
                   ))}
+                </div>
+              </Card>
+
+              {/* System Overview */}
+              <Card className="p-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-blue-600" />
+                  System Overview
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Platform Health */}
+                  <div className="space-y-4">
+                    <h3 className="font-medium text-gray-900">
+                      Platform Health
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <CheckCircle className="w-4 h-4 text-green-600" />
+                          <span className="text-sm text-gray-700">
+                            Server Status
+                          </span>
+                        </div>
+                        <span className="text-sm font-medium text-green-600">
+                          Online
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <CheckCircle className="w-4 h-4 text-green-600" />
+                          <span className="text-sm text-gray-700">
+                            Database
+                          </span>
+                        </div>
+                        <span className="text-sm font-medium text-green-600">
+                          Healthy
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <Activity className="w-4 h-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">
+                            API Response
+                          </span>
+                        </div>
+                        <span className="text-sm font-medium text-blue-600">
+                          125ms
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Today's Summary */}
+                  <div className="space-y-4">
+                    <h3 className="font-medium text-gray-900">
+                      Today's Summary
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <Users className="w-4 h-4 text-blue-600" />
+                          <span className="text-sm text-gray-700">
+                            New Users
+                          </span>
+                        </div>
+                        <span className="text-sm font-medium text-blue-600">
+                          12
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <Calendar className="w-4 h-4 text-purple-600" />
+                          <span className="text-sm text-gray-700">
+                            Bookings
+                          </span>
+                        </div>
+                        <span className="text-sm font-medium text-purple-600">
+                          28
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <CreditCard className="w-4 h-4 text-green-600" />
+                          <span className="text-sm text-gray-700">Revenue</span>
+                        </div>
+                        <span className="text-sm font-medium text-green-600">
+                          ₹15,420
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Quick Actions Grid */}
+              <Card className="p-6">
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                  Quick Actions
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Button
+                    variant="outline"
+                    className="h-24 flex-col justify-center"
+                    icon={Store}
+                    onClick={() => handleViewChange("pending-businesses")}
+                  >
+                    <span className="mt-2 text-sm">Review Businesses</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="h-24 flex-col justify-center"
+                    icon={Users}
+                    onClick={() => handleViewChange("manage-users")}
+                  >
+                    <span className="mt-2 text-sm">Manage Users</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="h-24 flex-col justify-center"
+                    icon={Calendar}
+                    onClick={() => handleViewChange("service-bookings")}
+                  >
+                    <span className="mt-2 text-sm">View Bookings</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="h-24 flex-col justify-center"
+                    icon={CreditCard}
+                    onClick={() => handleViewChange("settlement-checker")}
+                  >
+                    <span className="mt-2 text-sm">Settlements</span>
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Activity & Profile */}
+              <Card className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Recent Activity */}
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-4">
+                      Recent Activity
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="text-sm">
+                        <p className="font-medium text-gray-900">
+                          New user registered
+                        </p>
+                        <p className="text-gray-500">2 minutes ago</p>
+                      </div>
+                      <div className="text-sm">
+                        <p className="font-medium text-gray-900">
+                          Business verified
+                        </p>
+                        <p className="text-gray-500">15 minutes ago</p>
+                      </div>
+                      <div className="text-sm">
+                        <p className="font-medium text-gray-900">
+                          Content reported
+                        </p>
+                        <p className="text-gray-500">1 hour ago</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Admin Profile */}
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-4">
+                      Admin Profile
+                    </h3>
+                    <div className="flex items-center space-x-3 mb-4">
+                      <img
+                        src={
+                          user.avatar ||
+                          "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=150"
+                        }
+                        alt={user.name}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <p className="font-medium text-gray-900">{user.name}</p>
+                        <p className="text-sm text-gray-500">
+                          System Administrator
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Shield className="w-4 h-4 text-green-600" />
+                      <span className="text-sm text-green-600">
+                        All permissions
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </Card>
             </div>
@@ -434,62 +615,6 @@ const AdminPanel = () => {
                       <li>• Toggle off to disable commission temporarily</li>
                     </ul>
                   </div>
-                </div>
-              </Card>
-
-              {/* Recent Logs */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Recent Activity
-                </h3>
-                <div className="space-y-3">
-                  <div className="text-sm">
-                    <p className="font-medium text-gray-900">
-                      New user registered
-                    </p>
-                    <p className="text-gray-500">2 minutes ago</p>
-                  </div>
-                  <div className="text-sm">
-                    <p className="font-medium text-gray-900">
-                      Business verified
-                    </p>
-                    <p className="text-gray-500">15 minutes ago</p>
-                  </div>
-                  <div className="text-sm">
-                    <p className="font-medium text-gray-900">
-                      Content reported
-                    </p>
-                    <p className="text-gray-500">1 hour ago</p>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Admin Profile */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Admin Profile
-                </h3>
-                <div className="flex items-center space-x-3 mb-4">
-                  <img
-                    src={
-                      user.avatar ||
-                      "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=150"
-                    }
-                    alt={user.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                  <div>
-                    <p className="font-medium text-gray-900">{user.name}</p>
-                    <p className="text-sm text-gray-500">
-                      System Administrator
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Shield className="w-4 h-4 text-green-600" />
-                  <span className="text-sm text-green-600">
-                    All permissions
-                  </span>
                 </div>
               </Card>
             </div>
