@@ -20,6 +20,13 @@ import {
   Award,
   Globe,
   ChevronRight,
+  Building,
+  MapPin,
+  FileText,
+  Camera,
+  CreditCard,
+  Upload,
+  Briefcase,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Button from "../components/common/Button";
@@ -67,6 +74,15 @@ const Auth = () => {
     confirmPassword: "",
     userType: "customer",
     otp: "",
+    // Business-specific fields
+    businessName: "",
+    businessCategory: "",
+    businessAddress: "",
+    ownerIdProof: "",
+    addressProof: "",
+    businessProof: "",
+    shopPhoto: "",
+    bankDetails: "",
   });
 
   const handleInputChange = (e) => {
@@ -141,33 +157,168 @@ const Auth = () => {
       setLoading(false);
     }
   };
-  const features = [
-    {
-      icon: Shield,
-      title: "Secure & Verified",
-      description: "End-to-end encryption & verified businesses",
-      color: "text-green-600",
-    },
-    {
-      icon: Users,
-      title: "500+ Businesses",
-      description: "Largest network of trusted local services",
-      color: "text-blue-600",
-    },
-    {
-      icon: Star,
-      title: "98% Satisfaction",
-      description: "Highest rated platform in Gangtok",
-      color: "text-yellow-600",
-    },
-  ];
+  // Dynamic content based on account type (for signup mode)
+  const getFeatures = () => {
+    if (mode === "signup" && formData.userType === "seller") {
+      return [
+        {
+          icon: Building,
+          title: "Join 500+ Verified Businesses",
+          description:
+            "Be part of Gangtok's largest trusted business network with verified credentials",
+          color: "text-blue-600",
+        },
+        {
+          icon: Users,
+          title: "Reach Thousands of Customers",
+          description:
+            "Connect with local customers actively seeking your services daily",
+          color: "text-green-600",
+        },
+        {
+          icon: CreditCard,
+          title: "Secure Payment Settlement",
+          description:
+            "T+4 automatic payment settlement with transparent 15% commission structure",
+          color: "text-purple-600",
+        },
+        {
+          icon: Star,
+          title: "Build Your Digital Reputation",
+          description:
+            "Showcase your work with photos, customer reviews, and professional ratings",
+          color: "text-yellow-600",
+        },
+        {
+          icon: Shield,
+          title: "Verified Business Badge",
+          description:
+            "Gain instant customer trust with our comprehensive verification system",
+          color: "text-green-600",
+        },
+        {
+          icon: MapPin,
+          title: "Local Search Prominence",
+          description:
+            "Appear first in local searches for your service category and area",
+          color: "text-red-600",
+        },
+        {
+          icon: Camera,
+          title: "Professional Photo Gallery",
+          description:
+            "Upload unlimited photos of your work to attract more customers",
+          color: "text-indigo-600",
+        },
+        {
+          icon: FileText,
+          title: "Digital Document Management",
+          description:
+            "Store and manage all your business documents securely in the cloud",
+          color: "text-teal-600",
+        },
+      ];
+    } else {
+      return [
+        {
+          icon: Shield,
+          title: "Secure & Verified",
+          description: "End-to-end encryption & verified businesses",
+          color: "text-green-600",
+        },
+        {
+          icon: Users,
+          title: "500+ Businesses",
+          description: "Largest network of trusted local services",
+          color: "text-blue-600",
+        },
+        {
+          icon: Star,
+          title: "98% Satisfaction",
+          description: "Highest rated platform in Gangtok",
+          color: "text-yellow-600",
+        },
+      ];
+    }
+  };
 
-  const benefits = [
-    { icon: Zap, text: "Instant booking & confirmations" },
-    { icon: Heart, text: "Personalized recommendations" },
-    { icon: Award, text: "Exclusive member rewards" },
-    { icon: Globe, text: "24/7 customer support" },
-  ];
+  const getBenefits = () => {
+    if (mode === "signup" && formData.userType === "seller") {
+      return [
+        { icon: Zap, text: "Instant booking notifications via SMS & email" },
+        {
+          icon: CreditCard,
+          text: "Transparent payment system with detailed reports",
+        },
+        {
+          icon: Award,
+          text: "Performance analytics and business insights dashboard",
+        },
+        { icon: Globe, text: "24/7 dedicated business support and guidance" },
+        {
+          icon: Camera,
+          text: "Professional listing photos and portfolio showcase",
+        },
+        {
+          icon: FileText,
+          text: "Digital document management and verification",
+        },
+        { icon: MapPin, text: "Enhanced local area search prominence" },
+        { icon: Heart, text: "Customer review management and response tools" },
+        { icon: Users, text: "Customer base insights and targeting" },
+        { icon: Building, text: "Multi-location business management support" },
+        { icon: Shield, text: "Business insurance and protection programs" },
+        { icon: Star, text: "Featured listing opportunities and promotions" },
+      ];
+    } else {
+      return [
+        { icon: Zap, text: "Instant booking & confirmations" },
+        { icon: Heart, text: "Personalized recommendations" },
+        { icon: Award, text: "Exclusive member rewards" },
+        { icon: Globe, text: "24/7 customer support" },
+      ];
+    }
+  };
+
+  const getWelcomeContent = () => {
+    if (mode === "signup" && formData.userType === "seller") {
+      return {
+        title: "Grow Your Business with Easy Life",
+        subtitle:
+          "Gangtok's premier platform for local businesses to connect with customers, manage bookings, and grow their digital presence",
+        whyChoose: "Why successful businesses choose Easy Life?",
+        additionalInfo: {
+          processTitle: "Simple Onboarding Process",
+          processSteps: [
+            "Submit your business documents and photos",
+            "Get verified by our team within 24-48 hours",
+            "Set up your service listings and pricing",
+            "Start receiving customer bookings immediately",
+            "Get paid automatically with T+4 settlement",
+          ],
+          statsTitle: "Business Success Stories",
+          stats: [
+            "Average 40% increase in customer bookings",
+            "85% of businesses get first booking within 7 days",
+            "Average monthly revenue growth of ₹25,000+",
+            "99.2% customer satisfaction rate",
+            "24/7 customer support response time < 2 hours",
+          ],
+        },
+      };
+    } else {
+      return {
+        title: "Welcome to Easy Life",
+        subtitle:
+          "Gangtok's premier platform for discovering and booking local services",
+        whyChoose: "Why choose Easy Life?",
+      };
+    }
+  };
+
+  const features = getFeatures();
+  const benefits = getBenefits();
+  const welcomeContent = getWelcomeContent();
   const renderLoginForm = () => (
     <motion.form
       onSubmit={handleLogin}
@@ -512,61 +663,6 @@ const Auth = () => {
       transition={{ duration: 0.5, delay: 0.1 }}
     >
       <div className="space-y-5">
-        <Input
-          label="Full Name"
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleInputChange}
-          icon={User}
-          placeholder="John Doe"
-          required
-          className="transform transition-all hover:scale-[1.02]"
-        />
-        <Input
-          label="Email Address"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          icon={Mail}
-          placeholder="john@example.com"
-          required
-          className="transform transition-all hover:scale-[1.02]"
-        />
-        <Input
-          label="Phone Number"
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleInputChange}
-          icon={Phone}
-          placeholder="+91 98765 43210"
-          required
-          className="transform transition-all hover:scale-[1.02]"
-        />{" "}
-        <Input
-          label="Password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          icon={Lock}
-          placeholder="Create a strong password"
-          required
-          className="transform transition-all hover:scale-[1.02]"
-        />
-        <Input
-          label="Confirm Password"
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleInputChange}
-          icon={Lock}
-          placeholder="Confirm your password"
-          required
-          className="transform transition-all hover:scale-[1.02]"
-        />
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-3">
             <User className="w-4 h-4 inline mr-2" />
@@ -636,6 +732,385 @@ const Auth = () => {
             </label>
           </div>
         </div>
+
+        {/* Conditional Fields Based on Account Type */}
+        {formData.userType === "customer" ? (
+          // Customer Fields
+          <>
+            <Input
+              label="Full Name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              icon={User}
+              placeholder="John Doe"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+            <Input
+              label="Email Address"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              icon={Mail}
+              placeholder="john@example.com"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+            <Input
+              label="Phone Number"
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              icon={Phone}
+              placeholder="+91 98765 43210"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              icon={Lock}
+              placeholder="Create a strong password"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+            <Input
+              label="Confirm Password"
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              icon={Lock}
+              placeholder="Confirm your password"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+          </>
+        ) : (
+          // Business Fields
+          <>
+            {/* Required Business Information Header */}
+            <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-green-800 mb-2 flex items-center">
+                <CheckCircle className="w-4 h-4 mr-2" />✅ Required
+              </h3>
+              <p className="text-xs text-green-700">
+                Must provide all required information and documents
+              </p>
+            </div>
+
+            <Input
+              label="Full Name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              icon={User}
+              placeholder="Your full name"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                <Camera className="w-4 h-4 inline mr-2" />
+                Attach Photo *
+              </label>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
+                <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                <p className="text-sm text-gray-600">Upload your photo</p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  id="ownerPhoto"
+                  required
+                />
+                <label
+                  htmlFor="ownerPhoto"
+                  className="mt-2 inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-lg cursor-pointer hover:bg-blue-100 transition-colors"
+                >
+                  Choose Photo
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                <FileText className="w-4 h-4 inline mr-2" />
+                Business Owner ID Proof (Shop photo attach or Udyam) *
+              </label>
+              <div className="space-y-3">
+                <select
+                  name="ownerIdProof"
+                  value={formData.ownerIdProof}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="">Select ID Proof Type</option>
+                  <option value="aadhaar">Aadhaar Card</option>
+                  <option value="pan">PAN Card</option>
+                </select>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
+                  <Upload className="w-6 h-6 text-gray-400 mx-auto mb-2" />
+                  <p className="text-xs text-gray-600">
+                    Attach Aadhaar Card / PAN
+                  </p>
+                  <input
+                    type="file"
+                    accept="image/*,.pdf"
+                    className="hidden"
+                    id="idProofFile"
+                    required
+                  />
+                  <label
+                    htmlFor="idProofFile"
+                    className="mt-2 inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded cursor-pointer hover:bg-blue-100 transition-colors text-sm"
+                  >
+                    Attach File
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <Input
+              label="Active Mobile Number"
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              icon={Phone}
+              placeholder="+91 98765 43210"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <Input
+              label="Email ID"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              icon={Mail}
+              placeholder="business@example.com"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <Input
+              label="Business Name"
+              type="text"
+              name="businessName"
+              value={formData.businessName}
+              onChange={handleInputChange}
+              icon={Building}
+              placeholder="Your Business Name"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                <Briefcase className="w-4 h-4 inline mr-2" />
+                Business Category *
+              </label>
+              <select
+                name="businessCategory"
+                value={formData.businessCategory}
+                onChange={handleInputChange}
+                required
+                className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">Select your service category</option>
+                <option value="electrician">Electrician Services</option>
+                <option value="plumber">Plumbing Services</option>
+                <option value="carpenter">Carpentry Services</option>
+                <option value="cleaning">Cleaning Services</option>
+                <option value="appliance">Appliance Repair</option>
+                <option value="beauty">Beauty & Salon</option>
+                <option value="automotive">Automotive Services</option>
+                <option value="tutor">Tutoring & Education</option>
+                <option value="catering">Catering & Food</option>
+                <option value="photography">Photography</option>
+                <option value="it">IT & Tech Support</option>
+                <option value="other">Other Services</option>
+              </select>
+            </div>
+
+            <Input
+              label="Business Address"
+              type="text"
+              name="businessAddress"
+              value={formData.businessAddress}
+              onChange={handleInputChange}
+              icon={MapPin}
+              placeholder="Complete business address with pincode"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            {/* Optional but Recommended Section */}
+            <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-yellow-800 mb-2 flex items-center">
+                <Star className="w-4 h-4 mr-2" />
+                🟡 Optional
+              </h3>
+              <p className="text-xs text-yellow-700 mb-4">
+                These help build trust and improve your listing visibility
+              </p>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <FileText className="w-4 h-4 inline mr-2" />
+                    Address Proof of Business
+                  </label>
+                  <select
+                    name="addressProof"
+                    value={formData.addressProof}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-2"
+                  >
+                    <option value="">Select address proof (optional)</option>
+                    <option value="electricity">Electricity Bill</option>
+                    <option value="rent">Rent Agreement</option>
+                  </select>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 transition-colors">
+                    <Upload className="w-5 h-5 text-gray-400 mx-auto mb-1" />
+                    <p className="text-xs text-gray-600">
+                      Attach Electricity Bill / Rent Agreement
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      id="addressProofFile"
+                    />
+                    <label
+                      htmlFor="addressProofFile"
+                      className="mt-1 inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded cursor-pointer hover:bg-yellow-100 transition-colors text-xs"
+                    >
+                      Attach File
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <Shield className="w-4 h-4 inline mr-2" />
+                    Business Proof
+                  </label>
+                  <select
+                    name="businessProof"
+                    value={formData.businessProof}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-2"
+                  >
+                    <option value="">Select business proof (optional)</option>
+                    <option value="gst">GST Certificate</option>
+                    <option value="shop">Shop License</option>
+                    <option value="udyam">Udyam Registration</option>
+                  </select>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 transition-colors">
+                    <Upload className="w-5 h-5 text-gray-400 mx-auto mb-1" />
+                    <p className="text-xs text-gray-600">
+                      Attach GST Certificate / Shop License / Udyam
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      id="businessProofFile"
+                    />
+                    <label
+                      htmlFor="businessProofFile"
+                      className="mt-1 inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded cursor-pointer hover:bg-yellow-100 transition-colors text-xs"
+                    >
+                      Attach File
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <Camera className="w-4 h-4 inline mr-2" />
+                    Photograph of Shop/Office
+                  </label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 transition-colors">
+                    <Camera className="w-6 h-6 text-gray-400 mx-auto mb-1" />
+                    <p className="text-xs text-gray-600">
+                      Upload shop/office photo
+                    </p>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      id="shopPhoto"
+                    />
+                    <label
+                      htmlFor="shopPhoto"
+                      className="mt-1 inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded cursor-pointer hover:bg-yellow-100 transition-colors text-xs"
+                    >
+                      Choose Photo
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <CreditCard className="w-4 h-4 inline mr-2" />
+                    Bank Details
+                  </label>
+                  <Input
+                    type="text"
+                    name="bankDetails"
+                    value={formData.bankDetails}
+                    onChange={handleInputChange}
+                    icon={CreditCard}
+                    placeholder="Bank account details for payment settlement"
+                    className="transform transition-all hover:scale-[1.02]"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Optional but necessary for payment settlement when customers
+                    book your service and pay you
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              icon={Lock}
+              placeholder="Create a strong password"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <Input
+              label="Confirm Password"
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              icon={Lock}
+              placeholder="Confirm your password"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+          </>
+        )}
       </div>
       {/* Terms and Privacy */}
       <div className="p-4 bg-gray-50 rounded-xl">
@@ -749,11 +1224,10 @@ const Auth = () => {
                 <div className="mb-8">
                   <Sparkles className="w-12 h-12 mb-4 text-accent-300" />
                   <h1 className="text-4xl font-bold mb-4">
-                    Welcome to Easy Life
+                    {welcomeContent.title}
                   </h1>
                   <p className="text-xl text-primary-100">
-                    Gangtok's premier platform for discovering and booking local
-                    services
+                    {welcomeContent.subtitle}
                   </p>
                 </div>
 
@@ -784,14 +1258,25 @@ const Auth = () => {
                 </div>
 
                 <div className="border-t border-white border-opacity-20 pt-6">
-                  <h4 className="font-semibold mb-3">Why choose Easy Life?</h4>
-                  <div className="grid grid-cols-2 gap-3">
+                  <h4 className="font-semibold mb-3">
+                    {welcomeContent.whyChoose}
+                  </h4>
+                  <div
+                    className={`grid gap-3 ${
+                      formData.userType === "seller" && mode === "signup"
+                        ? "grid-cols-1"
+                        : "grid-cols-2"
+                    }`}
+                  >
                     {benefits.map((benefit, index) => (
                       <motion.div
                         key={index}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                        transition={{
+                          duration: 0.5,
+                          delay: 0.5 + index * 0.05,
+                        }}
                         className="flex items-center space-x-2 text-sm"
                       >
                         <benefit.icon className="w-4 h-4 text-accent-300" />
@@ -800,6 +1285,91 @@ const Auth = () => {
                     ))}
                   </div>
                 </div>
+
+                {/* Additional Business Content */}
+                {mode === "signup" &&
+                  formData.userType === "seller" &&
+                  welcomeContent.additionalInfo && (
+                    <>
+                      {/* Onboarding Process */}
+                      <div className="border-t border-white border-opacity-20 pt-6">
+                        <h4 className="font-semibold mb-3">
+                          {welcomeContent.additionalInfo.processTitle}
+                        </h4>
+                        <div className="space-y-2">
+                          {welcomeContent.additionalInfo.processSteps.map(
+                            (step, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{
+                                  duration: 0.5,
+                                  delay: 1.0 + index * 0.1,
+                                }}
+                                className="flex items-start space-x-3 text-sm"
+                              >
+                                <div className="w-6 h-6 rounded-full bg-accent-400 text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                                  {index + 1}
+                                </div>
+                                <span className="text-primary-100">{step}</span>
+                              </motion.div>
+                            )
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Success Stats */}
+                      <div className="border-t border-white border-opacity-20 pt-6">
+                        <h4 className="font-semibold mb-3">
+                          {welcomeContent.additionalInfo.statsTitle}
+                        </h4>
+                        <div className="space-y-2">
+                          {welcomeContent.additionalInfo.stats.map(
+                            (stat, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{
+                                  duration: 0.5,
+                                  delay: 1.5 + index * 0.1,
+                                }}
+                                className="flex items-center space-x-2 text-sm"
+                              >
+                                <CheckCircle className="w-4 h-4 text-accent-300" />
+                                <span className="text-primary-100">{stat}</span>
+                              </motion.div>
+                            )
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Call to Action */}
+                      <div className="border-t border-white border-opacity-20 pt-6">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: 2.0 }}
+                          className="bg-white bg-opacity-10 rounded-lg p-4 text-center"
+                        >
+                          <h4 className="font-semibold mb-2">
+                            Ready to Transform Your Business?
+                          </h4>
+                          <p className="text-sm text-primary-100 mb-3">
+                            Join hundreds of successful businesses already
+                            thriving on Easy Life Gangtok
+                          </p>
+                          <div className="flex items-center justify-center space-x-2 text-sm">
+                            <Star className="w-4 h-4 text-accent-300" />
+                            <span className="text-accent-300 font-semibold">
+                              Start your digital journey today!
+                            </span>
+                          </div>
+                        </motion.div>
+                      </div>
+                    </>
+                  )}
               </motion.div>
             </div>
           </div>
