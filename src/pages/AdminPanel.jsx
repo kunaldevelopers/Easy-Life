@@ -262,20 +262,13 @@ const AdminPanel = () => {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              {/* Quick Actions */}
+              {/* Business Management */}
               <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Quick Actions
-                </h3>{" "}
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Store className="h-5 w-5 text-blue-600" />
+                  Business Management
+                </h3>
                 <div className="space-y-3">
-                  <Button
-                    variant="primary"
-                    className="w-full justify-start"
-                    icon={Users}
-                    onClick={() => handleViewChange("manage-users")}
-                  >
-                    Manage Users
-                  </Button>
                   <Button
                     variant="outline"
                     className="w-full justify-start"
@@ -299,6 +292,24 @@ const AdminPanel = () => {
                     onClick={() => handleViewChange("listed-businesses")}
                   >
                     Listed Businesses
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Service & User Management */}
+              <Card className="p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Users className="h-5 w-5 text-green-600" />
+                  Service & User Management
+                </h3>
+                <div className="space-y-3">
+                  <Button
+                    variant="primary"
+                    className="w-full justify-start"
+                    icon={Users}
+                    onClick={() => handleViewChange("manage-users")}
+                  >
+                    Manage Users
                   </Button>
                   <Button
                     variant="outline"
