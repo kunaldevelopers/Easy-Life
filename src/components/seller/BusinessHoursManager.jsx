@@ -3,7 +3,6 @@ import {
   ArrowLeft,
   Clock,
   Save,
-  Copy,
   Calendar,
   AlertCircle,
   Trash2,
@@ -80,14 +79,6 @@ const BusinessHoursManager = ({ onBack }) => {
         ...prev[day],
         [field]: value,
       },
-    }));
-  };
-
-  const handleCopyHours = (fromDay, toDay) => {
-    const fromHours = businessHours[fromDay];
-    setBusinessHours((prev) => ({
-      ...prev,
-      [toDay]: { ...fromHours },
     }));
   };
 
@@ -247,7 +238,7 @@ const BusinessHoursManager = ({ onBack }) => {
                         <span className="font-semibold text-gray-900 capitalize text-lg">
                           {dayNames[day]}
                         </span>
-                        <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-2">
                           <input
                             type="checkbox"
                             checked={!hours.closed}
@@ -261,99 +252,44 @@ const BusinessHoursManager = ({ onBack }) => {
                             className="w-4 h-4 rounded focus:ring-primary-500 text-primary-600"
                           />
                           <span className="text-sm font-medium text-gray-600">
-                            Open
+                            {!hours.closed ? "Open" : "Closed"}
                           </span>
                         </div>
                       </div>
 
                       {!hours.closed ? (
-                        <div className="space-y-3">
-                          <div className="grid grid-cols-2 gap-4">
-                            <div>
-                              <label className="block text-sm font-medium text-gray-600 mb-2">
-                                Open Time
-                              </label>
-                              <input
-                                type="time"
-                                value={hours.open}
-                                onChange={(e) =>
-                                  handleHoursChange(day, "open", e.target.value)
-                                }
-                                className="w-full px-4 py-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                              />
-                            </div>
-                            <div>
-                              <label className="block text-sm font-medium text-gray-600 mb-2">
-                                Close Time
-                              </label>
-                              <input
-                                type="time"
-                                value={hours.close}
-                                onChange={(e) =>
-                                  handleHoursChange(
-                                    day,
-                                    "close",
-                                    e.target.value
-                                  )
-                                }
-                                className="w-full px-4 py-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                              />
-                            </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-600 mb-2">
+                              Open Time
+                            </label>
+                            <input
+                              type="time"
+                              value={hours.open}
+                              onChange={(e) =>
+                                handleHoursChange(day, "open", e.target.value)
+                              }
+                              className="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            />
                           </div>
-                          <div className="flex justify-end">
-                            <div className="relative">
-                              <button
-                                onClick={() => {
-                                  const dropdown = document.getElementById(
-                                    `copy-${day}`
-                                  );
-                                  dropdown?.classList.toggle("hidden");
-                                }}
-                                className="px-4 py-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors rounded-md border border-gray-200"
-                                title="Copy to other days"
-                              >
-                                <div className="flex items-center space-x-2">
-                                  <Copy className="w-4 h-4" />
-                                  <span className="text-sm font-medium">
-                                    Copy
-                                  </span>
-                                </div>
-                              </button>
-                              <div
-                                id={`copy-${day}`}
-                                className="hidden absolute right-0 top-full mt-2 bg-white border rounded-lg shadow-lg z-10 min-w-40"
-                              >
-                                <div className="p-3">
-                                  <p className="text-xs text-gray-600 mb-3 font-medium">
-                                    Copy to:
-                                  </p>
-                                  <div className="space-y-1">
-                                    {Object.keys(businessHours)
-                                      .filter((d) => d !== day)
-                                      .map((otherDay) => (
-                                        <button
-                                          key={otherDay}
-                                          onClick={() => {
-                                            handleCopyHours(day, otherDay);
-                                            document
-                                              .getElementById(`copy-${day}`)
-                                              ?.classList.add("hidden");
-                                          }}
-                                          className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded capitalize transition-colors"
-                                        >
-                                          {dayNames[otherDay]}
-                                        </button>
-                                      ))}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-600 mb-2">
+                              Close Time
+                            </label>
+                            <input
+                              type="time"
+                              value={hours.close}
+                              onChange={(e) =>
+                                handleHoursChange(day, "close", e.target.value)
+                              }
+                              className="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                            />
                           </div>
                         </div>
                       ) : (
                         <div className="text-center py-4">
-                          <span className="text-gray-500 text-lg font-medium">
-                            Closed
+                          <span className="text-gray-500 text-base font-medium">
+                            All day closed
                           </span>
                         </div>
                       )}
@@ -361,7 +297,7 @@ const BusinessHoursManager = ({ onBack }) => {
 
                     {/* Desktop Layout */}
                     <div className="hidden lg:block">
-                      <div className="grid grid-cols-12 gap-6 items-center">
+                      <div className="grid grid-cols-12 gap-4 items-center">
                         {/* Day Name */}
                         <div className="col-span-2">
                           <span className="font-semibold text-gray-900 capitalize text-base">
@@ -371,7 +307,7 @@ const BusinessHoursManager = ({ onBack }) => {
 
                         {/* Open/Closed Toggle */}
                         <div className="col-span-2">
-                          <div className="flex items-center space-x-3">
+                          <div className="flex items-center space-x-2">
                             <input
                               type="checkbox"
                               checked={!hours.closed}
@@ -385,16 +321,16 @@ const BusinessHoursManager = ({ onBack }) => {
                               className="w-4 h-4 rounded focus:ring-primary-500 text-primary-600"
                             />
                             <span className="text-sm font-medium text-gray-600">
-                              Open
+                              {!hours.closed ? "Open" : "Closed"}
                             </span>
                           </div>
                         </div>
 
                         {/* Time Inputs or Closed Message */}
-                        <div className="col-span-6">
+                        <div className="col-span-8">
                           {!hours.closed ? (
-                            <div className="grid grid-cols-5 gap-3 items-center">
-                              <div className="col-span-2">
+                            <div className="flex items-center gap-3">
+                              <div className="flex-1 max-w-[130px]">
                                 <input
                                   type="time"
                                   value={hours.open}
@@ -405,15 +341,15 @@ const BusinessHoursManager = ({ onBack }) => {
                                       e.target.value
                                     )
                                   }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                                 />
                               </div>
-                              <div className="col-span-1 text-center">
+                              <div className="flex-shrink-0">
                                 <span className="text-gray-500 text-sm font-medium">
                                   to
                                 </span>
                               </div>
-                              <div className="col-span-2">
+                              <div className="flex-1 max-w-[130px]">
                                 <input
                                   type="time"
                                   value={hours.close}
@@ -424,67 +360,14 @@ const BusinessHoursManager = ({ onBack }) => {
                                       e.target.value
                                     )
                                   }
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                                 />
                               </div>
                             </div>
                           ) : (
                             <span className="text-gray-500 text-sm font-medium">
-                              Closed
+                              All day closed
                             </span>
-                          )}
-                        </div>
-
-                        {/* Copy Button */}
-                        <div className="col-span-2">
-                          {!hours.closed && (
-                            <div className="relative">
-                              <button
-                                onClick={() => {
-                                  const dropdown = document.getElementById(
-                                    `copy-${day}`
-                                  );
-                                  dropdown?.classList.toggle("hidden");
-                                }}
-                                className="w-full px-3 py-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors rounded-md border border-gray-200"
-                                title="Copy to other days"
-                              >
-                                <div className="flex items-center justify-center space-x-2">
-                                  <Copy className="w-4 h-4" />
-                                  <span className="text-xs font-medium">
-                                    Copy
-                                  </span>
-                                </div>
-                              </button>
-                              <div
-                                id={`copy-${day}`}
-                                className="hidden absolute right-0 top-full mt-2 bg-white border rounded-lg shadow-lg z-10 min-w-40"
-                              >
-                                <div className="p-3">
-                                  <p className="text-xs text-gray-600 mb-3 font-medium">
-                                    Copy to:
-                                  </p>
-                                  <div className="space-y-1">
-                                    {Object.keys(businessHours)
-                                      .filter((d) => d !== day)
-                                      .map((otherDay) => (
-                                        <button
-                                          key={otherDay}
-                                          onClick={() => {
-                                            handleCopyHours(day, otherDay);
-                                            document
-                                              .getElementById(`copy-${day}`)
-                                              ?.classList.add("hidden");
-                                          }}
-                                          className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-100 rounded capitalize transition-colors"
-                                        >
-                                          {dayNames[otherDay]}
-                                        </button>
-                                      ))}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
                           )}
                         </div>
                       </div>
