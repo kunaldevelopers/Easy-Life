@@ -1,13 +1,17 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { useHomepageConfig } from "../context/HomepageConfigContext";
 import Hero from "../components/home/Hero";
 import CategoriesGrid from "../components/home/CategoriesGrid";
 import TopRatedCarousel from "../components/home/TopRatedCarousel";
 import FreshRecommendations from "../components/home/FreshRecommendations";
-import BestElectricians from "../components/home/BestElectricians";
+import ServiceSlider from "../components/home/ServiceSlider";
 import CTASection from "../components/home/CTASection";
 
 const Home = () => {
+  const { homepageConfig } = useHomepageConfig();
+  const { serviceSlider } = homepageConfig;
+
   return (
     <>
       <Helmet>
@@ -37,7 +41,15 @@ const Home = () => {
         <CategoriesGrid />
         <TopRatedCarousel />
         <FreshRecommendations />
-        <BestElectricians />
+        {serviceSlider.enabled && serviceSlider.showOnHomepage && (
+          <ServiceSlider
+            title={serviceSlider.title}
+            description={serviceSlider.description}
+            selectedCategory={serviceSlider.selectedCategory}
+            maxItems={serviceSlider.maxItems}
+            isRandomized={serviceSlider.isRandomized}
+          />
+        )}
         <CTASection />
       </main>
     </>

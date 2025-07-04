@@ -17,6 +17,7 @@ import {
   CreditCard,
   Filter,
   Ban,
+  Globe,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
@@ -27,6 +28,7 @@ import SettlementChecker from "../components/admin/SettlementChecker";
 import ListedBusinesses from "../components/admin/ListedBusinesses";
 import PendingBusinesses from "../components/admin/PendingBusinesses";
 import UnderReviewBusinesses from "../components/admin/UnderReviewBusinesses";
+import WebsiteControlCenter from "../components/admin/WebsiteControlCenter";
 
 const AdminPanel = () => {
   const { user } = useAuth();
@@ -102,6 +104,10 @@ const AdminPanel = () => {
 
   if (currentView === "service-bookings") {
     return <ServiceBookings onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "website-control-center") {
+    return <WebsiteControlCenter onBack={handleBackToDashboard} />;
   }
 
   const stats = [
@@ -535,6 +541,24 @@ const AdminPanel = () => {
                     onClick={() => handleViewChange("banned-users")}
                   >
                     Banned Users
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Website Control */}
+              <Card className="p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Globe className="h-5 w-5 text-blue-600" />
+                  Website Control
+                </h3>
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Globe}
+                    onClick={() => handleViewChange("website-control-center")}
+                  >
+                    Website Control Center
                   </Button>
                 </div>
               </Card>
