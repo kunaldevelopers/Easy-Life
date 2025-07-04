@@ -175,7 +175,7 @@ const FreshRecommendations = () => {
             Fresh Recommendations
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover the latest listings from our community in Gangtok
+            Stay updated with the latest local trends.
           </p>
         </div>
 
