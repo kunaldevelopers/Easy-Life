@@ -1,8 +1,8 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Store, Users, TrendingUp, Award } from 'lucide-react'; 
-import Button from '../common/Button';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Store, Users, TrendingUp, Award } from "lucide-react";
+import Button from "../common/Button";
 
 const CTASection = () => {
   const navigate = useNavigate();
@@ -10,28 +10,28 @@ const CTASection = () => {
   const features = [
     {
       icon: Users,
-      title: 'Reach More Customers',
-      description: 'Connect with thousands of potential customers in Gangtok'
+      title: "Reach More Customers",
+      description: "Connect with thousands of potential customers in Gangtok",
     },
     {
       icon: TrendingUp,
-      title: 'Grow Your Business',
-      description: 'Increase your visibility and boost your sales'
+      title: "Grow Your Business",
+      description: "Increase your visibility and boost your sales",
     },
     {
       icon: Award,
-      title: 'Build Your Reputation',
-      description: 'Collect reviews and build trust with customers'
+      title: "Build Your Reputation",
+      description: "Collect reviews and build trust with customers",
     },
     {
       icon: Store,
-      title: 'Easy Management',
-      description: 'Manage your listings and bookings from one dashboard'
-    }
+      title: "Easy Management",
+      description: "Manage your listings and bookings from one dashboard",
+    },
   ];
 
   return (
-    <section className="py-16 bg-gradient-primary">
+    <section className="py-8 sm:py-10 lg:py-12 bg-gradient-primary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center text-white mb-12">
           <motion.div
@@ -44,7 +44,8 @@ const CTASection = () => {
               Ready to Grow Your Business?
             </h2>
             <p className="text-lg text-green-100 max-w-2xl mx-auto mb-8">
-              Join hundreds of local businesses on Easy Life and start reaching more customers today
+              Join hundreds of local businesses on Easy Life and start reaching
+              more customers today
             </p>
           </motion.div>
         </div>
@@ -80,7 +81,7 @@ const CTASection = () => {
         >
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center">
             <Button
-              onClick={() => navigate('/auth?mode=signup&type=seller')}
+              onClick={() => navigate("/auth?mode=signup&type=seller")}
               variant="accent"
               size="lg"
               className="w-full sm:w-auto"
@@ -88,7 +89,7 @@ const CTASection = () => {
               List Your Business - FREE
             </Button>
             <Button
-              onClick={() => navigate('/contact')}
+              onClick={() => navigate("/contact")}
               variant="secondary"
               size="lg"
               className="w-full sm:w-auto bg-white bg-opacity-20 border-white text-white hover:bg-white hover:text-primary-600"

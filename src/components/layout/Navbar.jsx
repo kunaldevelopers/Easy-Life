@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Menu, X, User, LogOut, Settings, Heart } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
-import Button from '../common/Button';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, User, LogOut, Settings, Heart } from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
+import Button from "../common/Button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,24 +14,28 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     setIsProfileOpen(false);
-    navigate('/');
+    navigate("/");
   };
 
   const getDashboardLink = () => {
-    if (!user) return '/';
+    if (!user) return "/";
     switch (user.type) {
-      case 'customer': return '/customer-panel';
-      case 'seller': return '/seller-panel';
-      case 'admin': return '/admin-panel';
-      default: return '/';
+      case "customer":
+        return "/customer-panel";
+      case "seller":
+        return "/seller-panel";
+      case "admin":
+        return "/admin-panel";
+      default:
+        return "/";
     }
   };
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'All Listings', path: '/listings' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' }
+    { name: "Home", path: "/" },
+    { name: "All Listings", path: "/listings" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
@@ -44,7 +48,9 @@ const Navbar = () => {
               <span className="text-white font-bold text-lg">E</span>
             </div>
             <span className="text-xl font-bold gradient-text">Easy Life</span>
-            <span className="text-sm text-gray-500 hidden sm:block">Gangtok</span>
+            <span className="text-sm text-gray-500 hidden sm:block">
+              Gangtok
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -60,18 +66,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Search Icon & Auth */}
+          {/* Auth Section */}
           <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              icon={Search}
-              onClick={() => navigate('/listings')}
-              className="hidden sm:flex"
-            >
-              Search
-            </Button>
-
             {isAuthenticated ? (
               <div className="relative">
                 <button
@@ -128,7 +124,7 @@ const Navbar = () => {
                 <Button
                   variant="secondary"
                   size="sm"
-                  onClick={() => navigate('/auth?mode=login')}
+                  onClick={() => navigate("/auth?mode=login")}
                   className="hidden sm:flex"
                 >
                   Login
@@ -136,7 +132,7 @@ const Navbar = () => {
                 <Button
                   variant="primary"
                   size="sm"
-                  onClick={() => navigate('/auth?mode=signup')}
+                  onClick={() => navigate("/auth?mode=signup")}
                 >
                   Sign Up
                 </Button>
@@ -148,7 +144,11 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -158,7 +158,7 @@ const Navbar = () => {
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden border-t border-gray-200 py-4"
             >
@@ -173,28 +173,15 @@ const Navbar = () => {
                     {item.name}
                   </Link>
                 ))}
-                
+
                 <div className="border-t border-gray-200 pt-4 space-y-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon={Search}
-                    onClick={() => {
-                      navigate('/listings');
-                      setIsMenuOpen(false);
-                    }}
-                    className="w-full justify-start"
-                  >
-                    Search Businesses
-                  </Button>
-                  
                   {!isAuthenticated && (
                     <>
                       <Button
                         variant="secondary"
                         size="sm"
                         onClick={() => {
-                          navigate('/auth?mode=login');
+                          navigate("/auth?mode=login");
                           setIsMenuOpen(false);
                         }}
                         className="w-full"
@@ -205,7 +192,7 @@ const Navbar = () => {
                         variant="primary"
                         size="sm"
                         onClick={() => {
-                          navigate('/auth?mode=signup');
+                          navigate("/auth?mode=signup");
                           setIsMenuOpen(false);
                         }}
                         className="w-full"

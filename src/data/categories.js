@@ -214,6 +214,57 @@ export const locations = [
 ];
 
 export const topCategories = [
+  // PRODUCTS (8) - Things you buy, rent, or acquire
+  {
+    id: "electronic-repair",
+    name: "Gadget Repair",
+    icon: "Smartphone",
+    count: "25+ shops",
+  },
+  {
+    id: "groceries",
+    name: "Groceries",
+    icon: "ShoppingCart",
+    count: "60+ stores",
+  },
+  {
+    id: "pharmacy",
+    name: "Pharmacy",
+    icon: "Pill",
+    count: "25+ pharmacies",
+  },
+  {
+    id: "hotels",
+    name: "Hotels",
+    icon: "Hotel",
+    count: "45+ hotels",
+  },
+  {
+    id: "restaurants",
+    name: "Restaurants",
+    icon: "UtensilsCrossed",
+    count: "80+ restaurants",
+  },
+  {
+    id: "room-rent",
+    name: "Room Rent",
+    icon: "Home",
+    count: "150+ listings",
+  },
+  {
+    id: "jobs",
+    name: "Jobs",
+    icon: "Briefcase",
+    count: "200+ openings",
+  },
+  {
+    id: "bike-rental",
+    name: "Bike Rental",
+    icon: "Bike",
+    count: "25+ providers",
+  },
+
+  // SERVICES (8) - Professional work someone does for you
   {
     id: "electrician",
     name: "Electrician",
@@ -225,18 +276,6 @@ export const topCategories = [
     name: "Plumber",
     icon: "Droplets",
     count: "120+ providers",
-  },
-  {
-    id: "restaurants",
-    name: "Restaurants",
-    icon: "UtensilsCrossed",
-    count: "80+ restaurants",
-  },
-  {
-    id: "hotels",
-    name: "Hotels",
-    icon: "Hotel",
-    count: "45+ hotels",
   },
   {
     id: "cctv-services",
@@ -257,40 +296,10 @@ export const topCategories = [
     count: "40+ services",
   },
   {
-    id: "bike-rental",
-    name: "Bike Rental",
-    icon: "Bike",
-    count: "25+ providers",
-  },
-  {
-    id: "pharmacy",
-    name: "Pharmacy",
-    icon: "Pill",
-    count: "25+ pharmacies",
-  },
-  {
-    id: "groceries",
-    name: "Groceries",
-    icon: "ShoppingCart",
-    count: "60+ stores",
-  },
-  {
     id: "barber",
     name: "Barber",
     icon: "Scissors",
     count: "30+ salons",
-  },
-  {
-    id: "painter",
-    name: "Painter",
-    icon: "Paintbrush",
-    count: "45+ painters",
-  },
-  {
-    id: "electronic-repair",
-    name: "Gadget Repair",
-    icon: "Smartphone",
-    count: "25+ shops",
   },
   {
     id: "sweepers",
@@ -299,15 +308,9 @@ export const topCategories = [
     count: "40+ services",
   },
   {
-    id: "jobs",
-    name: "Jobs",
-    icon: "Briefcase",
-    count: "200+ openings",
-  },
-  {
-    id: "room-rent",
-    name: "Room Rent",
-    icon: "Home",
-    count: "150+ listings",
+    id: "painter",
+    name: "Painter",
+    icon: "Paintbrush",
+    count: "45+ painters",
   },
 ];
