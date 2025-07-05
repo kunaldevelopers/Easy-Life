@@ -15,6 +15,9 @@ import {
   Calendar,
   Users,
   DollarSign,
+  Activity,
+  CreditCard,
+  ShoppingCart,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
@@ -28,11 +31,13 @@ import ReviewsManager from "../components/seller/ReviewsManager";
 import EngagementManager from "../components/seller/EngagementManager";
 import ViewsManager from "../components/seller/ViewsManager";
 import BookingsManager from "../components/seller/BookingsManager";
+import ServiceManagement from "../components/seller/ServiceManagement";
 
 const SellerPanel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState("dashboard");
+  const [serviceManagementTab, setServiceManagementTab] = useState("orders");
 
   if (!user || user.type !== "seller") {
     return (
@@ -55,6 +60,12 @@ const SellerPanel = () => {
   // Handle navigation between different views
   const handleViewChange = (view) => {
     setCurrentView(view);
+  };
+
+  // Handle service management navigation with specific tab
+  const handleServiceManagementView = (tab = "orders") => {
+    setServiceManagementTab(tab);
+    setCurrentView("service-management");
   };
 
   // Handle activity-specific navigation
@@ -119,6 +130,15 @@ const SellerPanel = () => {
 
   if (currentView === "bookings") {
     return <BookingsManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "service-management") {
+    return (
+      <ServiceManagement
+        onBack={handleBackToDashboard}
+        initialTab={serviceManagementTab}
+      />
+    );
   }
   const stats = [
     {
@@ -618,6 +638,51 @@ const SellerPanel = () => {
                     <li>• Update holiday hours for Diwali</li>
                     <li>• Upload menu photos</li>
                   </ul>
+                </div>
+              </Card>
+
+              {/* Service Management */}
+              <Card className="p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-blue-600" />
+                  Service Management
+                </h3>
+                <div className="space-y-3">
+                  <Button
+                    onClick={() => handleServiceManagementView("orders")}
+                    variant="primary"
+                    className="w-full justify-start"
+                    icon={ShoppingCart}
+                  >
+                    Order Management
+                  </Button>
+                  <Button
+                    onClick={() => handleServiceManagementView("settlements")}
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={CreditCard}
+                  >
+                    Settlement Tracker
+                  </Button>
+                </div>
+
+                {/* Service Stats */}
+                <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <h4 className="font-medium text-blue-900 mb-3">
+                    Quick Stats
+                  </h4>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <div className="text-lg font-bold text-blue-900">3</div>
+                      <div className="text-blue-700">Pending Orders</div>
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-green-900">
+                        ₹12,450
+                      </div>
+                      <div className="text-blue-700">This Month</div>
+                    </div>
+                  </div>
                 </div>
               </Card>
 
