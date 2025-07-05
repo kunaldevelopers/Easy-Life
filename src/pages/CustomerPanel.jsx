@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
-  Users,
   Star,
   MessageCircle,
   ArrowLeft,
-  Phone,
   ExternalLink,
   Heart,
   CheckCircle,
@@ -188,25 +186,6 @@ const CustomerPanel = () => {
               Find local services in Gangtok
             </p>
           </div>
-
-          {/* Search CTA - Primary Action for Mobile Users */}
-          <Card className="p-4 mb-6 bg-gradient-to-r from-primary-500 to-primary-600 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-lg font-semibold mb-1">Find Services</h2>
-                <p className="text-primary-100 text-sm">
-                  500+ verified businesses
-                </p>
-              </div>
-              <Button
-                onClick={() => navigate("/listings")}
-                variant="outline"
-                className="bg-white text-primary-600 hover:bg-gray-50 border-white"
-              >
-                Search
-              </Button>
-            </div>
-          </Card>
 
           {/* Mobile-optimized Stats */}
           <div className="grid grid-cols-3 gap-3 mb-6">
@@ -590,85 +569,6 @@ const CustomerPanel = () => {
                     ].length
                   }
                   )
-                </Button>
-              </div>
-            </Card>
-
-            {/* Essential Quick Actions - Mobile Optimized */}
-            <Card className="p-4 sm:p-6">
-              <h3 className="font-semibold text-gray-900 mb-4 text-lg">
-                Quick Actions
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <Button
-                  onClick={() => navigate("/listings")}
-                  variant="outline"
-                  className="w-full justify-center py-3 text-sm"
-                  icon={Users}
-                >
-                  Find Services
-                </Button>
-                <Button
-                  onClick={() => navigate("/listings?category=emergency")}
-                  variant="outline"
-                  className="w-full justify-center py-3 text-sm"
-                  icon={Phone}
-                >
-                  Emergency Services
-                </Button>
-              </div>
-            </Card>
-
-            {/* Compact Profile Section - Mobile Essential */}
-            <Card className="p-4 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gradient-to-br from-primary-100 to-primary-200 flex-shrink-0">
-                    <img
-                      src={
-                        user.avatar ||
-                        "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150"
-                      }
-                      alt={user.name}
-                      className="w-full h-full object-cover transition-opacity duration-200"
-                      onError={(e) => {
-                        e.target.style.display = "none";
-                        e.target.nextSibling.style.display = "flex";
-                      }}
-                      onLoad={(e) => {
-                        e.target.style.opacity = "1";
-                      }}
-                      style={{ opacity: 0 }}
-                    />
-                    {/* Fallback avatar */}
-                    <div
-                      className="absolute inset-0 bg-gradient-to-br from-primary-400 to-primary-600 items-center justify-center text-white font-medium text-sm"
-                      style={{ display: "none" }}
-                    >
-                      {user.name
-                        .split(" ")
-                        .map((word) => word[0])
-                        .join("")
-                        .slice(0, 2)
-                        .toUpperCase()}
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">
-                      {user.name}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      Customer since {new Date().getFullYear()}
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  onClick={() => navigate("/profile")}
-                  variant="outline"
-                  size="sm"
-                  className="text-xs"
-                >
-                  Edit Profile
                 </Button>
               </div>
             </Card>
