@@ -20,6 +20,7 @@ import CustomerPanel from "./pages/CustomerPanel";
 import SellerPanel from "./pages/SellerPanel";
 import AdminPanel from "./pages/AdminPanel";
 import Orders from "./pages/Orders";
+import SavedBusinesses from "./pages/SavedBusinesses";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -51,6 +52,10 @@ function App() {
                   <Route path="/admin-panel" element={<AdminPanel />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/order/:id" element={<Orders />} />
+                  <Route
+                    path="/saved-businesses"
+                    element={<SavedBusinesses />}
+                  />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

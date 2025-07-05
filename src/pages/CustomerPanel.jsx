@@ -438,7 +438,7 @@ const CustomerPanel = () => {
                   Saved Businesses
                 </h2>
                 <Button
-                  onClick={() => navigate("/listings")}
+                  onClick={() => navigate("/saved-businesses")}
                   variant="outline"
                   size="sm"
                   className="text-xs sm:text-sm"
@@ -446,18 +446,150 @@ const CustomerPanel = () => {
                   Browse
                 </Button>
               </div>
-              <div className="text-center py-6">
-                <Heart className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-600 mb-3 text-sm">
-                  No saved businesses yet
-                </p>
+              <div className="space-y-3">
+                {[
+                  {
+                    id: "saved-1",
+                    business: "Royal Enfield Service Center",
+                    category: "Automotive",
+                    location: "Tibet Road, Gangtok",
+                    rating: 4.8,
+                    reviewCount: 156,
+                    savedDate: "Dec 20, 2024",
+                    image:
+                      "https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg?auto=compress&cs=tinysrgb&w=100",
+                    speciality: "Bike Repair & Maintenance",
+                  },
+                  {
+                    id: "saved-2",
+                    business: "Orchid Hotel & Restaurant",
+                    category: "Hotels & Dining",
+                    location: "MG Marg, Gangtok",
+                    rating: 4.6,
+                    reviewCount: 89,
+                    savedDate: "Dec 18, 2024",
+                    image:
+                      "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=100",
+                    speciality: "Fine Dining & Accommodation",
+                  },
+                  {
+                    id: "saved-3",
+                    business: "Tech Zone Computer Repair",
+                    category: "Electronics",
+                    location: "Lal Market, Gangtok",
+                    rating: 4.7,
+                    reviewCount: 203,
+                    savedDate: "Dec 15, 2024",
+                    image:
+                      "https://images.pexels.com/photos/2882509/pexels-photo-2882509.jpeg?auto=compress&cs=tinysrgb&w=100",
+                    speciality: "Laptop & Desktop Repair",
+                  },
+                  {
+                    id: "saved-4",
+                    business: "Mountain View Salon & Spa",
+                    category: "Beauty & Wellness",
+                    location: "Development Area, Gangtok",
+                    rating: 4.9,
+                    reviewCount: 127,
+                    savedDate: "Dec 12, 2024",
+                    image:
+                      "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=100",
+                    speciality: "Hair Care & Spa Services",
+                  },
+                  {
+                    id: "saved-5",
+                    business: "Gangtok Dental Clinic",
+                    category: "Healthcare",
+                    location: "Tadong, Gangtok",
+                    rating: 4.8,
+                    reviewCount: 95,
+                    savedDate: "Dec 10, 2024",
+                    image:
+                      "https://images.pexels.com/photos/6812540/pexels-photo-6812540.jpeg?auto=compress&cs=tinysrgb&w=100",
+                    speciality: "Dental Care & Treatment",
+                  },
+                ]
+                  .slice(0, 3)
+                  .map((saved) => (
+                    <motion.div
+                      key={saved.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors"
+                      onClick={() =>
+                        navigate(
+                          `/business/${saved.business
+                            .toLowerCase()
+                            .replace(/\s+/g, "-")
+                            .replace(/&/g, "and")}`
+                        )
+                      }
+                    >
+                      <div className="flex items-center space-x-3 flex-1 min-w-0">
+                        <div className="w-12 h-12 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
+                          <img
+                            src={saved.image}
+                            alt={saved.business}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.style.display = "none";
+                              e.target.nextSibling.style.display = "flex";
+                            }}
+                          />
+                          <div className="w-full h-full bg-gradient-to-br from-red-400 to-red-600 items-center justify-center text-white font-bold text-sm hidden">
+                            {saved.business.charAt(0)}
+                          </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900 text-sm leading-tight truncate">
+                            {saved.business}
+                          </p>
+                          <p className="text-gray-600 text-xs truncate">
+                            {saved.speciality}
+                          </p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <div className="flex items-center space-x-1">
+                              <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                              <span className="text-xs text-gray-600">
+                                {saved.rating}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                ({saved.reviewCount})
+                              </span>
+                            </div>
+                            <span className="text-xs text-gray-400">•</span>
+                            <p className="text-xs text-gray-500">
+                              {saved.category}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2 flex-shrink-0 ml-2">
+                        <Heart className="w-4 h-4 text-red-500 fill-current" />
+                        <ExternalLink className="w-3 h-3 text-gray-400" />
+                      </div>
+                    </motion.div>
+                  ))}
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100">
                 <Button
-                  onClick={() => navigate("/listings")}
-                  variant="primary"
+                  onClick={() => navigate("/saved-businesses")}
+                  variant="outline"
                   size="sm"
-                  className="w-full sm:w-auto"
+                  className="w-full text-sm"
                 >
-                  Discover Local Services
+                  View All Saved (
+                  {
+                    [
+                      "Royal Enfield Service Center",
+                      "Orchid Hotel & Restaurant",
+                      "Tech Zone Computer Repair",
+                      "Mountain View Salon & Spa",
+                      "Gangtok Dental Clinic",
+                    ].length
+                  }
+                  )
                 </Button>
               </div>
             </Card>
