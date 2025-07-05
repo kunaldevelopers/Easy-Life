@@ -24,6 +24,10 @@ import InquiriesManager from "../components/seller/InquiriesManager";
 import PhotoManager from "../components/seller/PhotoManager";
 import BusinessAnalytics from "../components/seller/BusinessAnalytics";
 import BusinessHoursManager from "../components/seller/BusinessHoursManager";
+import ReviewsManager from "../components/seller/ReviewsManager";
+import EngagementManager from "../components/seller/EngagementManager";
+import ViewsManager from "../components/seller/ViewsManager";
+import BookingsManager from "../components/seller/BookingsManager";
 
 const SellerPanel = () => {
   const { user } = useAuth();
@@ -53,6 +57,29 @@ const SellerPanel = () => {
     setCurrentView(view);
   };
 
+  // Handle activity-specific navigation
+  const handleActivityAction = (activity) => {
+    switch (activity.type) {
+      case "inquiry":
+        setCurrentView("inquiries");
+        break;
+      case "review":
+        setCurrentView("reviews");
+        break;
+      case "engagement":
+        setCurrentView("engagement");
+        break;
+      case "views":
+        setCurrentView("views");
+        break;
+      case "booking":
+        setCurrentView("bookings");
+        break;
+      default:
+        setCurrentView("inquiries");
+    }
+  };
+
   const handleBackToDashboard = () => {
     setCurrentView("dashboard");
   };
@@ -76,6 +103,22 @@ const SellerPanel = () => {
 
   if (currentView === "business-hours") {
     return <BusinessHoursManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "reviews") {
+    return <ReviewsManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "engagement") {
+    return <EngagementManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "views") {
+    return <ViewsManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "bookings") {
+    return <BookingsManager onBack={handleBackToDashboard} />;
   }
   const stats = [
     {
@@ -316,7 +359,7 @@ const SellerPanel = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => handleViewChange("inquiries")}
+                        onClick={() => handleActivityAction(activity)}
                       >
                         {activity.type === "inquiry" ||
                         activity.type === "booking"
@@ -329,7 +372,7 @@ const SellerPanel = () => {
                     <Button
                       variant="outline"
                       className="w-full"
-                      onClick={() => handleViewChange("inquiries")}
+                      onClick={() => handleViewChange("analytics")}
                     >
                       View All Activities
                     </Button>
@@ -608,10 +651,7 @@ const SellerPanel = () => {
                     <span className="text-gray-600">Category</span>
                     <span className="font-medium">Food & Catering</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Plan</span>
-                    <span className="font-medium text-blue-600">Premium</span>
-                  </div>
+
                   <div className="flex justify-between">
                     <span className="text-gray-600">Profile Views</span>
                     <span className="font-medium">2,847 this month</span>
@@ -642,37 +682,6 @@ const SellerPanel = () => {
                     Add more photos to reach 100%
                   </p>
                 </div>
-              </Card>
-
-              {/* Premium Features */}
-              <Card className="p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  Premium Benefits
-                </h3>
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-sm text-green-800">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                    Priority listing in search results
-                  </div>
-                  <div className="flex items-center text-sm text-green-800">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                    Advanced analytics & insights
-                  </div>
-                  <div className="flex items-center text-sm text-green-800">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                    Unlimited photo uploads
-                  </div>
-                  <div className="flex items-center text-sm text-green-800">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                    24/7 priority support
-                  </div>
-                </div>
-                <p className="text-xs text-green-700 mb-4">
-                  Expires on May 15, 2024 • Auto-renewal enabled
-                </p>
-                <Button variant="primary" size="sm" className="w-full">
-                  Manage Plan
-                </Button>
               </Card>
 
               {/* Tips */}
