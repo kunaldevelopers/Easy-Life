@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";
 import CustomerPanel from "./pages/CustomerPanel";
 import SellerPanel from "./pages/SellerPanel";
 import AdminPanel from "./pages/AdminPanel";
+import Orders from "./pages/Orders";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -48,6 +49,8 @@ function App() {
                   <Route path="/customer-panel" element={<CustomerPanel />} />
                   <Route path="/seller-panel" element={<SellerPanel />} />
                   <Route path="/admin-panel" element={<AdminPanel />} />
+                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/order/:id" element={<Orders />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

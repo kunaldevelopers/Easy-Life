@@ -35,7 +35,8 @@ const CustomerActivityManager = ({ onBack }) => {
       location: "MG Marg",
       reviewText:
         "Excellent service! The food was delicious and the staff was very friendly. Highly recommend this place for authentic Tibetan cuisine.",
-      businessImage: "/api/placeholder/300/200",
+      businessImage:
+        "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=300",
     },
     {
       id: 2,
@@ -45,7 +46,8 @@ const CustomerActivityManager = ({ onBack }) => {
       date: "Dec 27, 2024",
       category: "Photography",
       location: "Tadong",
-      businessImage: "/api/placeholder/300/200",
+      businessImage:
+        "https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&w=300",
     },
     {
       id: 3,
@@ -58,7 +60,8 @@ const CustomerActivityManager = ({ onBack }) => {
       location: "Sichey",
       inquiryText:
         "Hi, I need AC repair service for my home. When would be the earliest available appointment?",
-      businessImage: "/api/placeholder/300/200",
+      businessImage:
+        "https://images.pexels.com/photos/7464706/pexels-photo-7464706.jpeg?auto=compress&cs=tinysrgb&w=300",
     },
     {
       id: 4,
@@ -75,7 +78,8 @@ const CustomerActivityManager = ({ onBack }) => {
         time: "2:00 PM - 4:00 PM",
         bookingId: "#BK2024001",
       },
-      businessImage: "/api/placeholder/300/200",
+      businessImage:
+        "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=300",
     },
     {
       id: 5,
@@ -88,7 +92,8 @@ const CustomerActivityManager = ({ onBack }) => {
       location: "Lal Market",
       reviewText:
         "Good service and quick repair. The technician was knowledgeable and fixed my phone screen perfectly.",
-      businessImage: "/api/placeholder/300/200",
+      businessImage:
+        "https://images.pexels.com/photos/4792264/pexels-photo-4792264.jpeg?auto=compress&cs=tinysrgb&w=300",
     },
     {
       id: 6,
@@ -98,7 +103,48 @@ const CustomerActivityManager = ({ onBack }) => {
       date: "Dec 23, 2024",
       category: "Transport",
       location: "MG Marg",
-      businessImage: "/api/placeholder/300/200",
+      businessImage:
+        "https://images.pexels.com/photos/1618986/pexels-photo-1618986.jpeg?auto=compress&cs=tinysrgb&w=300",
+    },
+    {
+      id: 7,
+      type: "order",
+      business: "Taste of Tibet Restaurant",
+      action: "Placed order",
+      date: "Dec 22, 2024",
+      status: "delivered",
+      category: "Food & Dining",
+      location: "MG Marg",
+      orderDetails: {
+        orderId: "#ORD001",
+        items: [
+          "Chicken Momos (2 plates)",
+          "Thukpa (1 bowl)",
+          "Butter Tea (2 cups)",
+        ],
+        amount: "₹450",
+        deliveryTime: "Dec 22, 2024 at 7:30 PM",
+      },
+      businessImage:
+        "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=300",
+    },
+    {
+      id: 8,
+      type: "order",
+      business: "Fresh Mart Groceries",
+      action: "Placed order",
+      date: "Dec 21, 2024",
+      status: "completed",
+      category: "Groceries",
+      location: "Sichey",
+      orderDetails: {
+        orderId: "#ORD002",
+        items: ["Rice (5kg)", "Dal (2kg)", "Vegetables", "Milk (2L)"],
+        amount: "₹680",
+        deliveryTime: "Dec 21, 2024 at 4:00 PM",
+      },
+      businessImage:
+        "https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=300",
     },
   ];
 
@@ -112,6 +158,8 @@ const CustomerActivityManager = ({ onBack }) => {
         return MessageCircle;
       case "booking":
         return CheckCircle;
+      case "order":
+        return Package;
       default:
         return Package;
     }
@@ -127,6 +175,8 @@ const CustomerActivityManager = ({ onBack }) => {
         return "bg-blue-100 text-blue-600";
       case "booking":
         return "bg-green-100 text-green-600";
+      case "order":
+        return "bg-purple-100 text-purple-600";
       default:
         return "bg-gray-100 text-gray-600";
     }
@@ -226,12 +276,34 @@ const CustomerActivityManager = ({ onBack }) => {
                 <Card className="p-4 sm:p-6 hover:shadow-md transition-shadow">
                   <div className="flex flex-col sm:flex-row gap-4">
                     {/* Business Image */}
-                    <div className="w-full sm:w-24 h-24 bg-gray-200 rounded-lg overflow-hidden flex-shrink-0">
+                    <div className="w-full sm:w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden flex-shrink-0 relative">
                       <img
                         src={activity.businessImage}
                         alt={activity.business}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-opacity duration-200"
+                        onError={(e) => {
+                          e.target.style.display = "none";
+                          e.target.nextSibling.style.display = "flex";
+                        }}
+                        onLoad={(e) => {
+                          e.target.style.opacity = "1";
+                        }}
+                        style={{ opacity: 0 }}
                       />
+                      {/* Fallback placeholder */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-br from-primary-100 to-primary-200 items-center justify-center"
+                        style={{ display: "none" }}
+                      >
+                        <div className="text-primary-600 text-xs font-medium text-center">
+                          {activity.business
+                            .split(" ")
+                            .map((word) => word[0])
+                            .join("")
+                            .slice(0, 2)
+                            .toUpperCase()}
+                        </div>
+                      </div>
                     </div>
 
                     {/* Activity Details */}
