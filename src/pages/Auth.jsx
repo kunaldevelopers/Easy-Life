@@ -79,10 +79,11 @@ const Auth = () => {
     businessCategory: "",
     businessAddress: "",
     ownerIdProof: "",
-    addressProof: "",
-    businessProof: "",
-    shopPhoto: "",
-    bankDetails: "",
+    aadhaarNumber: "",
+    bankAccountNumber: "",
+    bankName: "",
+    ifscCode: "",
+    accountHolderName: "",
   });
 
   const handleInputChange = (e) => {
@@ -821,7 +822,7 @@ const Auth = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 <Camera className="w-4 h-4 inline mr-2" />
-                Attach Photo *
+                Attach passport size photo *
               </label>
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
                 <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
@@ -841,69 +842,6 @@ const Auth = () => {
                 </label>
               </div>
             </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                <FileText className="w-4 h-4 inline mr-2" />
-                Business Owner ID Proof (Shop photo attach or Udyam) *
-              </label>
-              <div className="space-y-3">
-                <select
-                  name="ownerIdProof"
-                  value={formData.ownerIdProof}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="">Select ID Proof Type</option>
-                  <option value="aadhaar">Aadhaar Card</option>
-                  <option value="pan">PAN Card</option>
-                </select>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                  <Upload className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                  <p className="text-xs text-gray-600">
-                    Attach Aadhaar Card / PAN
-                  </p>
-                  <input
-                    type="file"
-                    accept="image/*,.pdf"
-                    className="hidden"
-                    id="idProofFile"
-                    required
-                  />
-                  <label
-                    htmlFor="idProofFile"
-                    className="mt-2 inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded cursor-pointer hover:bg-blue-100 transition-colors text-sm"
-                  >
-                    Attach File
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <Input
-              label="Active Mobile Number"
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              icon={Phone}
-              placeholder="+91 98765 43210"
-              required
-              className="transform transition-all hover:scale-[1.02]"
-            />
-
-            <Input
-              label="Email ID"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              icon={Mail}
-              placeholder="business@example.com"
-              required
-              className="transform transition-all hover:scale-[1.02]"
-            />
 
             <Input
               label="Business Name"
@@ -957,133 +895,136 @@ const Auth = () => {
               className="transform transition-all hover:scale-[1.02]"
             />
 
-            {/* Optional but Recommended Section */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-              <h3 className="text-sm font-semibold text-yellow-800 mb-2 flex items-center">
-                <Star className="w-4 h-4 mr-2" />
-                🟡 Optional
-              </h3>
-              <p className="text-xs text-yellow-700 mb-4">
-                These help build trust and improve your listing visibility
-              </p>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <FileText className="w-4 h-4 inline mr-2" />
-                    Address Proof of Business
-                  </label>
-                  <select
-                    name="addressProof"
-                    value={formData.addressProof}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-2"
-                  >
-                    <option value="">Select address proof (optional)</option>
-                    <option value="electricity">Electricity Bill</option>
-                    <option value="rent">Rent Agreement</option>
-                  </select>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 transition-colors">
-                    <Upload className="w-5 h-5 text-gray-400 mx-auto mb-1" />
-                    <p className="text-xs text-gray-600">
-                      Attach Electricity Bill / Rent Agreement
-                    </p>
-                    <input
-                      type="file"
-                      accept="image/*,.pdf"
-                      className="hidden"
-                      id="addressProofFile"
-                    />
-                    <label
-                      htmlFor="addressProofFile"
-                      className="mt-1 inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded cursor-pointer hover:bg-yellow-100 transition-colors text-xs"
-                    >
-                      Attach File
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <Shield className="w-4 h-4 inline mr-2" />
-                    Business Proof
-                  </label>
-                  <select
-                    name="businessProof"
-                    value={formData.businessProof}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-2"
-                  >
-                    <option value="">Select business proof (optional)</option>
-                    <option value="gst">GST Certificate</option>
-                    <option value="shop">Shop License</option>
-                    <option value="udyam">Udyam Registration</option>
-                  </select>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 transition-colors">
-                    <Upload className="w-5 h-5 text-gray-400 mx-auto mb-1" />
-                    <p className="text-xs text-gray-600">
-                      Attach GST Certificate / Shop License / Udyam
-                    </p>
-                    <input
-                      type="file"
-                      accept="image/*,.pdf"
-                      className="hidden"
-                      id="businessProofFile"
-                    />
-                    <label
-                      htmlFor="businessProofFile"
-                      className="mt-1 inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded cursor-pointer hover:bg-yellow-100 transition-colors text-xs"
-                    >
-                      Attach File
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <Camera className="w-4 h-4 inline mr-2" />
-                    Photograph of Shop/Office
-                  </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 transition-colors">
-                    <Camera className="w-6 h-6 text-gray-400 mx-auto mb-1" />
-                    <p className="text-xs text-gray-600">
-                      Upload shop/office photo
-                    </p>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      id="shopPhoto"
-                    />
-                    <label
-                      htmlFor="shopPhoto"
-                      className="mt-1 inline-block px-3 py-1 bg-yellow-50 text-yellow-600 rounded cursor-pointer hover:bg-yellow-100 transition-colors text-xs"
-                    >
-                      Choose Photo
-                    </label>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <CreditCard className="w-4 h-4 inline mr-2" />
-                    Bank Details
-                  </label>
-                  <Input
-                    type="text"
-                    name="bankDetails"
-                    value={formData.bankDetails}
-                    onChange={handleInputChange}
-                    icon={CreditCard}
-                    placeholder="Bank account details for payment settlement"
-                    className="transform transition-all hover:scale-[1.02]"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Optional but necessary for payment settlement when customers
-                    book your service and pay you
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                <FileText className="w-4 h-4 inline mr-2" />
+                Business Owner ID Proof() *
+              </label>
+              <div className="space-y-3">
+                <select
+                  name="ownerIdProof"
+                  value={formData.ownerIdProof}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="">Select ID Proof Type</option>
+                  <option value="aadhaar">Aadhaar Card</option>
+                  <option value="pan">PAN Card</option>
+                  <option value="trade_license">Owner Trade License</option>
+                  <option value="labor_card">Labor Card (for services)</option>
+                </select>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
+                  <Upload className="w-6 h-6 text-gray-400 mx-auto mb-2" />
+                  <p className="text-xs text-gray-600">
+                    Attach selected ID proof document
                   </p>
+                  <input
+                    type="file"
+                    accept="image/*,.pdf"
+                    className="hidden"
+                    id="idProofFile"
+                    required
+                  />
+                  <label
+                    htmlFor="idProofFile"
+                    className="mt-2 inline-block px-3 py-1 bg-blue-50 text-blue-600 rounded cursor-pointer hover:bg-blue-100 transition-colors text-sm"
+                  >
+                    Attach File
+                  </label>
                 </div>
               </div>
+            </div>
+
+            <Input
+              label="Active Mobile Number"
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              icon={Phone}
+              placeholder="+91 98765 43210"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <Input
+              label="Email ID"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              icon={Mail}
+              placeholder="business@example.com"
+              required
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <Input
+              label="Aadhaar Card Number"
+              type="text"
+              name="aadhaarNumber"
+              value={formData.aadhaarNumber}
+              onChange={handleInputChange}
+              icon={FileText}
+              placeholder="Enter 12-digit Aadhaar number"
+              required
+              maxLength="12"
+              className="transform transition-all hover:scale-[1.02]"
+            />
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Bank Details
+              </h3>
+
+              <Input
+                label="Bank Account Number"
+                type="text"
+                name="bankAccountNumber"
+                value={formData.bankAccountNumber}
+                onChange={handleInputChange}
+                icon={CreditCard}
+                placeholder="Enter bank account number"
+                required
+                className="transform transition-all hover:scale-[1.02]"
+              />
+
+              <Input
+                label="Bank Name"
+                type="text"
+                name="bankName"
+                value={formData.bankName}
+                onChange={handleInputChange}
+                icon={Building}
+                placeholder="Enter bank name"
+                required
+                className="transform transition-all hover:scale-[1.02]"
+              />
+
+              <Input
+                label="IFSC Code"
+                type="text"
+                name="ifscCode"
+                value={formData.ifscCode}
+                onChange={handleInputChange}
+                icon={CreditCard}
+                placeholder="Enter IFSC code"
+                required
+                className="transform transition-all hover:scale-[1.02]"
+              />
+
+              <Input
+                label="Account Holder Name"
+                type="text"
+                name="accountHolderName"
+                value={formData.accountHolderName}
+                onChange={handleInputChange}
+                icon={User}
+                placeholder="Enter account holder name"
+                required
+                className="transform transition-all hover:scale-[1.02]"
+              />
             </div>
 
             <Input
