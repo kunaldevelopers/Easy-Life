@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./context/AuthContext";
-import { HomepageConfigProvider } from "./context/HomepageConfigContext";
+import { WebsiteConfigProvider } from "./context/WebsiteConfigContext";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
@@ -25,7 +25,7 @@ function App() {
   return (
     <HelmetProvider>
       <AuthProvider>
-        <HomepageConfigProvider>
+        <WebsiteConfigProvider>
           <Router>
             <div className="min-h-screen flex flex-col">
               <Navbar />
@@ -54,7 +54,7 @@ function App() {
               <Footer />
             </div>
           </Router>
-        </HomepageConfigProvider>
+        </WebsiteConfigProvider>
       </AuthProvider>
     </HelmetProvider>
   );

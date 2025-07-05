@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import { useHomepageConfig } from "../context/HomepageConfigContext";
+import { useWebsiteConfig } from "../context/WebsiteConfigContext";
 import Hero from "../components/home/Hero";
 import CategoriesGrid from "../components/home/CategoriesGrid";
 import TopRatedCarousel from "../components/home/TopRatedCarousel";
@@ -9,8 +9,8 @@ import ServiceSlider from "../components/home/ServiceSlider";
 import CTASection from "../components/home/CTASection";
 
 const Home = () => {
-  const { homepageConfig } = useHomepageConfig();
-  const { serviceSlider } = homepageConfig;
+  const { websiteConfig } = useWebsiteConfig();
+  const { serviceSlider } = websiteConfig.homepage;
 
   return (
     <>
