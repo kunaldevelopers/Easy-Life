@@ -1,26 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
   Users,
-  TrendingUp,
   Star,
   MessageCircle,
-  Plus,
   ArrowLeft,
-  BarChart3,
-  Eye,
   Phone,
-  Calendar,
+  ExternalLink,
+  Heart,
+  CheckCircle,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
+import CustomerActivityManager from "../components/customer/CustomerActivityManager";
 
 const CustomerPanel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [currentView, setCurrentView] = useState("dashboard");
+
+  // Handle navigation to activity manager
+  const handleViewActivityManager = () => {
+    setCurrentView("activity");
+  };
+
+  const handleBackToDashboard = () => {
+    setCurrentView("dashboard");
+  };
+
+  // If showing activity manager, render it
+  if (currentView === "activity") {
+    return <CustomerActivityManager onBack={handleBackToDashboard} />;
+  }
 
   if (!user || user.type !== "customer") {
     return (
@@ -39,50 +53,107 @@ const CustomerPanel = () => {
       </div>
     );
   }
+  // Mobile-focused essential stats only
   const stats = [
     {
-      label: "Saved Businesses",
+      label: "Saved",
       value: "5",
-      icon: Users,
-      colorClass: "bg-blue-100 text-blue-600",
+      icon: Heart,
+      colorClass: "bg-red-100 text-red-600",
     },
     {
-      label: "Reviews Posted",
-      value: "12",
+      label: "Recent",
+      value: "4",
       icon: Star,
-      colorClass: "bg-yellow-100 text-yellow-600",
-    },
-    {
-      label: "Inquiries Made",
-      value: "8",
-      icon: MessageCircle,
-      colorClass: "bg-green-100 text-green-600",
-    },
-    {
-      label: "Profile Views",
-      value: "23",
-      icon: Eye,
-      colorClass: "bg-purple-100 text-purple-600",
+      colorClass: "bg-blue-100 text-blue-600",
     },
   ];
 
+  // Enhanced demo activity data with detailed information
   const recentActivity = [
     {
-      action: "Reviewed",
-      business: "Gangtok Electronics Repair Hub",
-      date: "2 days ago",
+      id: 1,
+      type: "review",
+      business: "Taste of Tibet Restaurant",
+      action: "Left a review",
+      date: "Dec 28, 2024",
+      rating: 5,
     },
     {
-      action: "Saved",
-      business: "Himalayan Plumbing Solutions",
-      date: "1 week ago",
+      id: 2,
+      type: "save",
+      business: "Green Valley Photographers",
+      action: "Saved business",
+      date: "Dec 27, 2024",
     },
     {
-      action: "Contacted",
-      business: "Quick Home Delivery",
-      date: "2 weeks ago",
+      id: 3,
+      type: "inquiry",
+      business: "Mountain View AC Services",
+      action: "Sent inquiry",
+      date: "Dec 26, 2024",
+      status: "responded",
+    },
+    {
+      id: 4,
+      type: "booking",
+      business: "Himalayan Electricians",
+      action: "Booked service",
+      date: "Dec 25, 2024",
+      status: "confirmed",
     },
   ];
+
+  // Helper functions
+  const getActivityIcon = (type) => {
+    switch (type) {
+      case "review":
+        return Star;
+      case "save":
+        return Heart;
+      case "inquiry":
+        return MessageCircle;
+      case "booking":
+        return CheckCircle;
+      default:
+        return Package;
+    }
+  };
+
+  const getActivityColor = (type) => {
+    switch (type) {
+      case "review":
+        return "bg-yellow-100 text-yellow-600";
+      case "save":
+        return "bg-red-100 text-red-600";
+      case "inquiry":
+        return "bg-blue-100 text-blue-600";
+      case "booking":
+        return "bg-green-100 text-green-600";
+      default:
+        return "bg-gray-100 text-gray-600";
+    }
+  };
+
+  const getStatusBadge = (activity) => {
+    if (!activity.status) return null;
+
+    const statusColors = {
+      responded: "bg-green-100 text-green-800",
+      confirmed: "bg-blue-100 text-blue-800",
+      pending: "bg-yellow-100 text-yellow-800",
+    };
+
+    return (
+      <span
+        className={`inline-block px-2 py-1 text-xs rounded-full ${
+          statusColors[activity.status] || statusColors.pending
+        }`}
+      >
+        {activity.status}
+      </span>
+    );
+  };
 
   return (
     <>
@@ -101,18 +172,37 @@ const CustomerPanel = () => {
             Back
           </button>
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome back, {user.name}!
+          {/* Mobile-first Header */}
+          <div className="mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
+              Hi, {user.name.split(" ")[0]}! 👋
             </h1>
-            <p className="text-gray-600">
-              Manage your saved businesses, reviews, and preferences
+            <p className="text-gray-600 text-sm sm:text-base">
+              Find local services in Gangtok
             </p>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {/* Search CTA - Primary Action for Mobile Users */}
+          <Card className="p-4 mb-6 bg-gradient-to-r from-primary-500 to-primary-600 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold mb-1">Find Services</h2>
+                <p className="text-primary-100 text-sm">
+                  500+ verified businesses
+                </p>
+              </div>
+              <Button
+                onClick={() => navigate("/listings")}
+                variant="outline"
+                className="bg-white text-primary-600 hover:bg-gray-50 border-white"
+              >
+                Search
+              </Button>
+            </div>
+          </Card>
+
+          {/* Mobile-optimized Stats */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -120,25 +210,22 @@ const CustomerPanel = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {" "}
-                <Card className="p-6">
-                  <div className="flex items-center">
+                <Card className="p-4">
+                  <div className="flex items-center space-x-3">
                     <div
-                      className={`p-3 rounded-lg ${
+                      className={`p-2 rounded-lg ${
                         stat.colorClass.split(" ")[0]
                       }`}
                     >
                       <stat.icon
-                        className={`w-6 h-6 ${stat.colorClass.split(" ")[1]}`}
+                        className={`w-5 h-5 ${stat.colorClass.split(" ")[1]}`}
                       />
                     </div>
-                    <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-600">
-                        {stat.label}
-                      </p>
-                      <p className="text-2xl font-bold text-gray-900">
+                    <div>
+                      <p className="text-xl font-bold text-gray-900">
                         {stat.value}
                       </p>
+                      <p className="text-xs text-gray-600">{stat.label}</p>
                     </div>
                   </div>
                 </Card>
@@ -146,150 +233,152 @@ const CustomerPanel = () => {
             ))}
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Recent Activity */}
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">
+          {/* Mobile-first Single Column Layout */}
+          <div className="space-y-6">
+            {/* Recent Activity - Most Important for Mobile */}
+            <Card className="p-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
                   Recent Activity
                 </h2>
-                <div className="space-y-4">
-                  {recentActivity.map((activity, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                <Button
+                  onClick={handleViewActivityManager}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs sm:text-sm"
+                >
+                  View All
+                </Button>
+              </div>
+              <div className="space-y-3">
+                {recentActivity.map((activity) => {
+                  const IconComponent = getActivityIcon(activity.type);
+                  return (
+                    <motion.div
+                      key={activity.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3 }}
+                      onClick={handleViewActivityManager}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors active:bg-gray-200"
                     >
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {activity.action}{" "}
-                          <span className="text-primary-600">
+                      <div className="flex items-start space-x-3 flex-1 min-w-0">
+                        <div
+                          className={`p-2 rounded-full ${getActivityColor(
+                            activity.type
+                          )} flex-shrink-0`}
+                        >
+                          <IconComponent className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-gray-900 text-sm leading-tight">
+                            {activity.action}
+                          </p>
+                          <p className="text-primary-600 text-sm font-medium truncate">
                             {activity.business}
-                          </span>
-                        </p>
-                        <p className="text-sm text-gray-500">{activity.date}</p>
+                          </p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <p className="text-xs text-gray-500">
+                              {activity.date}
+                            </p>
+                            {getStatusBadge(activity)}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
+                      <ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" />
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </Card>
 
-              {/* Saved Businesses */}
-              <Card className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    Saved Businesses
-                  </h2>
-                  <Button
-                    onClick={() => navigate("/listings")}
-                    variant="outline"
-                    size="sm"
-                  >
-                    Browse More
-                  </Button>
-                </div>
-                <div className="text-center py-8">
-                  <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600 mb-4">No saved businesses yet</p>
-                  <Button
-                    onClick={() => navigate("/listings")}
-                    variant="primary"
-                  >
-                    Discover Businesses
-                  </Button>
-                </div>
-              </Card>
-            </div>
+            {/* Saved Businesses - Essential Mobile Feature */}
+            <Card className="p-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+                  Saved Businesses
+                </h2>
+                <Button
+                  onClick={() => navigate("/listings")}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs sm:text-sm"
+                >
+                  Browse
+                </Button>
+              </div>
+              <div className="text-center py-6">
+                <Heart className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+                <p className="text-gray-600 mb-3 text-sm">
+                  No saved businesses yet
+                </p>
+                <Button
+                  onClick={() => navigate("/listings")}
+                  variant="primary"
+                  size="sm"
+                  className="w-full sm:w-auto"
+                >
+                  Discover Local Services
+                </Button>
+              </div>
+            </Card>
 
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Quick Actions */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Quick Actions
-                </h3>
-                <div className="space-y-3">
-                  <Button
-                    onClick={() => navigate("/listings")}
-                    variant="outline"
-                    className="w-full justify-start"
-                    icon={Users}
-                  >
-                    Find Businesses
-                  </Button>
-                  <Button
-                    onClick={() => navigate("/profile")}
-                    variant="outline"
-                    className="w-full justify-start"
-                    icon={Users}
-                  >
-                    Edit Profile
-                  </Button>
-                  <Button
-                    onClick={() => navigate("/contact")}
-                    variant="outline"
-                    className="w-full justify-start"
-                    icon={MessageCircle}
-                  >
-                    Contact Support
-                  </Button>
-                </div>
-              </Card>
+            {/* Essential Quick Actions - Mobile Optimized */}
+            <Card className="p-4 sm:p-6">
+              <h3 className="font-semibold text-gray-900 mb-4 text-lg">
+                Quick Actions
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Button
+                  onClick={() => navigate("/listings")}
+                  variant="outline"
+                  className="w-full justify-center py-3 text-sm"
+                  icon={Users}
+                >
+                  Find Services
+                </Button>
+                <Button
+                  onClick={() => navigate("/listings?category=emergency")}
+                  variant="outline"
+                  className="w-full justify-center py-3 text-sm"
+                  icon={Phone}
+                >
+                  Emergency Services
+                </Button>
+              </div>
+            </Card>
 
-              {/* Profile Summary */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Profile Summary
-                </h3>
-                <div className="flex items-center space-x-4 mb-4">
+            {/* Compact Profile Section - Mobile Essential */}
+            <Card className="p-4 sm:p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
                   <img
                     src={
                       user.avatar ||
                       "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=150"
                     }
                     alt={user.name}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-10 h-10 rounded-full object-cover"
                   />
                   <div>
-                    <p className="font-medium text-gray-900">{user.name}</p>
-                    <p className="text-sm text-gray-500">Customer</p>
+                    <p className="font-medium text-gray-900 text-sm">
+                      {user.name}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Customer since {new Date().getFullYear()}
+                    </p>
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Profile Completion</span>
-                    <span className="font-medium">75%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-primary-600 h-2 rounded-full"
-                      style={{ width: "75%" }}
-                    ></div>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Tips */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Tips for You
-                </h3>
-                <ul className="space-y-3 text-sm text-gray-600">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Save businesses you like for quick access
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Leave reviews to help other customers
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Use filters to find exactly what you need
-                  </li>
-                </ul>
-              </Card>
-            </div>
+                <Button
+                  onClick={() => navigate("/profile")}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs"
+                >
+                  Edit Profile
+                </Button>
+              </div>
+            </Card>
           </div>
         </div>
       </div>
