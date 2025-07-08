@@ -10,11 +10,13 @@ import {
   Heart,
   CheckCircle,
   Package,
+  Calendar,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
 import CustomerActivityManager from "../components/customer/CustomerActivityManager";
+import BookingManager from "../components/customer/BookingManager";
 
 const CustomerPanel = () => {
   const { user } = useAuth();
@@ -26,6 +28,11 @@ const CustomerPanel = () => {
     setCurrentView("activity");
   };
 
+  // Handle navigation to booking manager
+  const handleViewBookingManager = () => {
+    setCurrentView("bookings");
+  };
+
   const handleBackToDashboard = () => {
     setCurrentView("dashboard");
   };
@@ -33,6 +40,11 @@ const CustomerPanel = () => {
   // If showing activity manager, render it
   if (currentView === "activity") {
     return <CustomerActivityManager onBack={handleBackToDashboard} />;
+  }
+
+  // If showing booking manager, render it
+  if (currentView === "bookings") {
+    return <BookingManager onBack={handleBackToDashboard} />;
   }
 
   if (!user || user.type !== "customer") {
@@ -61,16 +73,16 @@ const CustomerPanel = () => {
       colorClass: "bg-red-100 text-red-600",
     },
     {
-      label: "Orders",
-      value: "12",
-      icon: CheckCircle,
-      colorClass: "bg-green-100 text-green-600",
+      label: "Bookings",
+      value: "8",
+      icon: Calendar,
+      colorClass: "bg-blue-100 text-blue-600",
     },
     {
-      label: "Recent",
-      value: "4",
+      label: "Reviews",
+      value: "12",
       icon: Star,
-      colorClass: "bg-blue-100 text-blue-600",
+      colorClass: "bg-yellow-100 text-yellow-600",
     },
   ];
 
@@ -407,6 +419,47 @@ const CustomerPanel = () => {
                     </motion.div>
                   );
                 })}
+              </div>
+            </Card>
+
+            {/* Quick Actions */}
+            <Card className="p-4 sm:p-6">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
+                Quick Actions
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Button
+                  onClick={handleViewBookingManager}
+                  variant="primary"
+                  className="justify-start"
+                  icon={Calendar}
+                >
+                  My Bookings
+                </Button>
+                <Button
+                  onClick={handleViewActivityManager}
+                  variant="outline"
+                  className="justify-start"
+                  icon={Package}
+                >
+                  Activity History
+                </Button>
+                <Button
+                  onClick={() => navigate("/saved-businesses")}
+                  variant="outline"
+                  className="justify-start"
+                  icon={Heart}
+                >
+                  Saved Businesses
+                </Button>
+                <Button
+                  onClick={() => navigate("/listings")}
+                  variant="outline"
+                  className="justify-start"
+                  icon={Star}
+                >
+                  Browse Services
+                </Button>
               </div>
             </Card>
 

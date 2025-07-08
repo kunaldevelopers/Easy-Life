@@ -18,6 +18,8 @@ import {
   Activity,
   CreditCard,
   ShoppingCart,
+  Bell,
+  CalendarCheck,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
@@ -32,6 +34,10 @@ import EngagementManager from "../components/seller/EngagementManager";
 import ViewsManager from "../components/seller/ViewsManager";
 import BookingsManager from "../components/seller/BookingsManager";
 import ServiceManagement from "../components/seller/ServiceManagement";
+import NotificationManager from "../components/seller/NotificationManager";
+import CalendarManager from "../components/seller/CalendarManager";
+import FinancialManager from "../components/seller/FinancialManager";
+import CRMManager from "../components/seller/CRMManager";
 
 const SellerPanel = () => {
   const { user } = useAuth();
@@ -139,6 +145,22 @@ const SellerPanel = () => {
         initialTab={serviceManagementTab}
       />
     );
+  }
+
+  if (currentView === "notifications") {
+    return <NotificationManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "calendar") {
+    return <CalendarManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "financial") {
+    return <FinancialManager onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "crm") {
+    return <CRMManager onBack={handleBackToDashboard} />;
   }
   const stats = [
     {
@@ -287,12 +309,36 @@ const SellerPanel = () => {
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Business Dashboard
-            </h1>
-            <p className="text-gray-600">
-              Manage your business profile and track performance
-            </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  Business Dashboard
+                </h1>
+                <p className="text-gray-600">
+                  Manage your business profile and track performance
+                </p>
+              </div>
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="outline"
+                  onClick={() => handleViewChange("notifications")}
+                  className="relative"
+                  icon={Bell}
+                >
+                  Notifications
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                    3
+                  </span>
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => handleViewChange("calendar")}
+                  icon={Calendar}
+                >
+                  Calendar
+                </Button>
+              </div>
+            </div>
           </div>
 
           {/* Stats Cards */}
@@ -580,10 +626,84 @@ const SellerPanel = () => {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              {/* Quick Actions */}
+              {/* Essential Business Tools */}
+              <Card className="p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-blue-600" />
+                  Essential Business Tools
+                </h3>
+                <div className="space-y-3">
+                  <Button
+                    onClick={() => handleViewChange("notifications")}
+                    variant="primary"
+                    className="w-full justify-start relative"
+                    icon={Bell}
+                  >
+                    Notifications
+                    <span className="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+                      3
+                    </span>
+                  </Button>
+                  <Button
+                    onClick={() => handleViewChange("calendar")}
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Calendar}
+                  >
+                    Calendar & Availability
+                  </Button>
+                  <Button
+                    onClick={() => handleViewChange("financial")}
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={DollarSign}
+                  >
+                    Financial Dashboard
+                  </Button>
+                  <Button
+                    onClick={() => handleViewChange("crm")}
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Users}
+                  >
+                    Customer Management
+                  </Button>
+                </div>
+
+                {/* Essential Stats */}
+                <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <h4 className="font-medium text-blue-900 mb-3">
+                    Today's Highlights
+                  </h4>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <div className="text-lg font-bold text-blue-900">3</div>
+                      <div className="text-blue-700">Urgent Notifications</div>
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-green-900">5</div>
+                      <div className="text-blue-700">Today's Bookings</div>
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-purple-900">
+                        ₹2,500
+                      </div>
+                      <div className="text-blue-700">Today's Revenue</div>
+                    </div>
+                    <div>
+                      <div className="text-lg font-bold text-orange-900">
+                        12
+                      </div>
+                      <div className="text-blue-700">Active Customers</div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Traditional Quick Actions */}
               <Card className="p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">
-                  Quick Actions
+                  Profile & Settings
                 </h3>
                 <div className="space-y-3">
                   <Button
