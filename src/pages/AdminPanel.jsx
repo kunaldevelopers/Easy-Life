@@ -18,6 +18,13 @@ import {
   Filter,
   Ban,
   Globe,
+  Bell,
+  Settings,
+  FileText,
+  DollarSign,
+  Eye,
+  Database,
+  Download,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
@@ -30,6 +37,13 @@ import ListedBusinesses from "../components/admin/ListedBusinesses";
 import PendingBusinesses from "../components/admin/PendingBusinesses";
 import UnderReviewBusinesses from "../components/admin/UnderReviewBusinesses";
 import WebsiteControlCenter from "../components/admin/WebsiteControlCenter";
+import ViewReports from "../components/admin/ViewReports";
+import SystemSettings from "../components/admin/SystemSettings";
+import AdminNotificationCenter from "../components/admin/AdminNotificationCenter";
+import FinancialDashboard from "../components/admin/FinancialDashboard";
+import ContentModerationPanel from "../components/admin/ContentModerationPanel";
+import ActivityMonitor from "../components/admin/ActivityMonitor";
+import DataManagement from "../components/admin/DataManagement";
 
 const AdminPanel = () => {
   const { user } = useAuth();
@@ -109,6 +123,34 @@ const AdminPanel = () => {
 
   if (currentView === "website-control-center") {
     return <WebsiteControlCenter onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "view-reports") {
+    return <ViewReports onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "system-settings") {
+    return <SystemSettings onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "notifications") {
+    return <AdminNotificationCenter onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "financial-dashboard") {
+    return <FinancialDashboard onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "content-moderation") {
+    return <ContentModerationPanel onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "activity-monitor") {
+    return <ActivityMonitor onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "data-management") {
+    return <DataManagement onBack={handleBackToDashboard} />;
   }
 
   const stats = [
@@ -560,6 +602,82 @@ const AdminPanel = () => {
                     onClick={() => handleViewChange("website-control-center")}
                   >
                     Website Control Center
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Analytics & Reports */}
+              <Card className="p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-purple-600" />
+                  Analytics & Reports
+                </h3>
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={BarChart3}
+                    onClick={() => handleViewChange("view-reports")}
+                  >
+                    Analytics Dashboard
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={DollarSign}
+                    onClick={() => handleViewChange("financial-dashboard")}
+                  >
+                    Financial Dashboard
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Activity}
+                    onClick={() => handleViewChange("activity-monitor")}
+                  >
+                    Activity Monitor
+                  </Button>
+                </div>
+              </Card>
+
+              {/* Content & Moderation */}
+              <Card className="p-6">
+                <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <Shield className="h-5 w-5 text-red-600" />
+                  Content & Moderation
+                </h3>
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Eye}
+                    onClick={() => handleViewChange("content-moderation")}
+                  >
+                    Content Moderation
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Bell}
+                    onClick={() => handleViewChange("notifications")}
+                  >
+                    Notification Center
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Settings}
+                    onClick={() => handleViewChange("system-settings")}
+                  >
+                    System Settings
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Database}
+                    onClick={() => handleViewChange("data-management")}
+                  >
+                    Data Management
                   </Button>
                 </div>
               </Card>
