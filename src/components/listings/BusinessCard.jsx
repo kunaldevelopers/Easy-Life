@@ -81,7 +81,7 @@ const BusinessCard = ({ business, index = 0 }) => {
               </span>
             )}
             <span
-              className={`text-xs font-medium px-2 py-1 rounded-full shadow-sm ${
+              className={`text-xs font-medium px-2 py-1 rounded-full shadow-sm flex items-center justify-center ${
                 isOpen()
                   ? "bg-green-100 text-green-800"
                   : "bg-red-100 text-red-800"
