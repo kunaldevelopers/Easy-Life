@@ -5,14 +5,10 @@ import { motion } from "framer-motion";
 import {
   Star,
   MapPin,
-  Phone,
   Clock,
-  Globe,
   Mail,
   Share2,
   Heart,
-  MessageCircle,
-  Navigation,
   Verified,
   ArrowLeft,
   Calendar,
@@ -72,21 +68,6 @@ const BusinessDetail = () => {
     return todayHours && todayHours !== "Closed";
   };
 
-  const handleCall = () => {
-    window.open(`tel:${business.phone}`, "_self");
-  };
-
-  const handleWhatsApp = () => {
-    const message = `Hi! I found your business on Easy Life Gangtok. I'm interested in your services.`;
-    window.open(
-      `https://wa.me/${business.whatsapp?.replace(
-        "+",
-        ""
-      )}?text=${encodeURIComponent(message)}`,
-      "_blank"
-    );
-  };
-
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -105,14 +86,10 @@ const BusinessDetail = () => {
     }
   };
 
-  const handleDirections = () => {
-    const address = encodeURIComponent(
-      `${business.name}, ${business.location}, Gangtok, Sikkim`
-    );
-    window.open(
-      `https://www.google.com/maps/search/?api=1&query=${address}`,
-      "_blank"
-    );
+  const handleBookNow = () => {
+    // Redirect to booking page or show booking modal
+    // For now, we'll redirect to a booking page with business ID
+    navigate(`/book/${business.id}`);
   };
 
   return (
@@ -273,46 +250,16 @@ const BusinessDetail = () => {
                 </div>
               )}
 
-              {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-4">
-                {business.phone && (
-                  <Button
-                    onClick={handleCall}
-                    variant="primary"
-                    icon={Phone}
-                    className="w-full"
-                  >
-                    Call Now
-                  </Button>
-                )}
-                {business.whatsapp && (
-                  <Button
-                    onClick={handleWhatsApp}
-                    variant="secondary"
-                    icon={MessageCircle}
-                    className="w-full"
-                  >
-                    WhatsApp
-                  </Button>
-                )}{" "}
+              {/* Action Button */}
+              <div className="w-full">
                 <Button
-                  onClick={handleDirections}
-                  variant="outline"
-                  icon={Navigation}
+                  onClick={handleBookNow}
+                  variant="primary"
+                  icon={Calendar}
                   className="w-full"
                 >
-                  Directions
+                  Book Now
                 </Button>
-                {business.website && (
-                  <Button
-                    onClick={() => window.open(business.website, "_blank")}
-                    variant="outline"
-                    icon={Globe}
-                    className="w-full"
-                  >
-                    Website
-                  </Button>
-                )}
               </div>
             </div>
           </div>
@@ -397,29 +344,10 @@ const BusinessDetail = () => {
                   Contact Information
                 </h3>
                 <div className="space-y-4">
-                  {business.phone && (
-                    <div className="flex items-center space-x-3">
-                      <Phone className="w-5 h-5 text-gray-400" />
-                      <span className="text-gray-700">{business.phone}</span>
-                    </div>
-                  )}
                   {business.email && (
                     <div className="flex items-center space-x-3">
                       <Mail className="w-5 h-5 text-gray-400" />
                       <span className="text-gray-700">{business.email}</span>
-                    </div>
-                  )}
-                  {business.website && (
-                    <div className="flex items-center space-x-3">
-                      <Globe className="w-5 h-5 text-gray-400" />
-                      <a
-                        href={business.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary-600 hover:text-primary-700"
-                      >
-                        Visit Website
-                      </a>
                     </div>
                   )}
                   <div className="flex items-center space-x-3">
@@ -450,22 +378,12 @@ const BusinessDetail = () => {
                 </h3>
                 <div className="space-y-3">
                   <Button
-                    onClick={() =>
-                      window.open(`tel:${business.phone}`, "_self")
-                    }
-                    variant="outline"
-                    icon={Phone}
+                    onClick={handleBookNow}
+                    variant="primary"
+                    icon={Calendar}
                     className="w-full justify-start"
                   >
-                    Call Business
-                  </Button>{" "}
-                  <Button
-                    onClick={handleDirections}
-                    variant="outline"
-                    icon={Navigation}
-                    className="w-full justify-start"
-                  >
-                    Get Directions
+                    Book Now
                   </Button>
                   <Button
                     onClick={handleShare}

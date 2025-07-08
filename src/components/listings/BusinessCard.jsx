@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Star, MapPin, Clock, Verified } from "lucide-react";
+import { Star, MapPin, Clock, Verified, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import Card from "../common/Card";
+import Button from "../common/Button";
 
 const BusinessCard = ({ business, index = 0 }) => {
   const navigate = useNavigate();
@@ -40,6 +41,11 @@ const BusinessCard = ({ business, index = 0 }) => {
       `https://wa.me/${business.whatsapp?.replace("+", "")}`,
       "_blank"
     );
+  };
+
+  const handleBookNow = (e) => {
+    e.stopPropagation();
+    navigate(`/book/${business.id}`);
   };
 
   return (
@@ -89,6 +95,18 @@ const BusinessCard = ({ business, index = 0 }) => {
           <div className="absolute top-3 right-3 bg-white bg-opacity-95 backdrop-blur-sm px-2 py-1 rounded-full flex items-center space-x-1 shadow-sm">
             <Star className="w-4 h-4 text-yellow-400 fill-current" />
             <span className="text-sm font-medium">{business.rating}</span>
+          </div>
+
+          {/* Book Now Button - Appears on hover */}
+          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <Button
+              onClick={handleBookNow}
+              variant="primary"
+              icon={Calendar}
+              className="px-6 py-2 shadow-lg"
+            >
+              Book Now
+            </Button>
           </div>
         </div>
 

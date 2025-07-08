@@ -15,6 +15,7 @@ import ServiceAgreement from "./pages/ServiceAgreement";
 import DataPolicy from "./pages/DataPolicy";
 import Support from "./pages/Support";
 import BusinessDetail from "./pages/BusinessDetail";
+import BookService from "./pages/BookService";
 import Profile from "./pages/Profile";
 import CustomerPanel from "./pages/CustomerPanel";
 import SellerPanel from "./pages/SellerPanel";
@@ -46,6 +47,7 @@ function App() {
                   <Route path="/privacy" element={<DataPolicy />} />
                   <Route path="/support" element={<Support />} />
                   <Route path="/business/:id" element={<BusinessDetail />} />
+                  <Route path="/book/:id" element={<BookService />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/customer-panel" element={<CustomerPanel />} />
                   <Route path="/seller-panel" element={<SellerPanel />} />
