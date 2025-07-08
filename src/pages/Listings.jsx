@@ -245,9 +245,9 @@ const Listings = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex gap-0 md:gap-8">
+          <div className="flex flex-col lg:flex-row gap-0 lg:gap-8">
             {/* Filters Sidebar - Desktop */}
-            <div className="hidden md:block w-80">
+            <div className="hidden lg:block w-80 flex-shrink-0">
               <div className="bg-white rounded-lg shadow-card p-6 h-fit sticky top-24">
                 <Filters
                   filters={filters}
@@ -262,7 +262,7 @@ const Listings = () => {
 
             {/* Mobile Filters Overlay */}
             {showFilters && (
-              <div className="md:hidden">
+              <div className="lg:hidden">
                 <Filters
                   filters={filters}
                   onFiltersChange={handleFiltersChange}
@@ -275,7 +275,7 @@ const Listings = () => {
             )}
 
             {/* Main Content */}
-            <div className="w-full md:flex-1">
+            <div className="w-full lg:flex-1 min-w-0">
               {/* Controls */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-2">
@@ -284,7 +284,7 @@ const Listings = () => {
                     variant="outline"
                     size="sm"
                     icon={Filter}
-                    className="md:hidden"
+                    className="lg:hidden"
                   >
                     Filters
                   </Button>
@@ -329,16 +329,14 @@ const Listings = () => {
                   <div
                     className={`grid gap-6 ${
                       viewMode === "grid"
-                        ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                        ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                         : "grid-cols-1"
                     }`}
                   >
                     {paginatedBusinesses.map((business, index) => (
-                      <BusinessCard
-                        key={business.id}
-                        business={business}
-                        index={index}
-                      />
+                      <div key={business.id} className="h-full">
+                        <BusinessCard business={business} index={index} />
+                      </div>
                     ))}
                   </div>
 
