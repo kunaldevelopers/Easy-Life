@@ -24,6 +24,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
+import CustomerAnalyticsCard from "../components/common/CustomerAnalyticsCard";
 import BusinessProfileEditor from "../components/seller/BusinessProfileEditor";
 import InquiriesManager from "../components/seller/InquiriesManager";
 import PhotoManager from "../components/seller/PhotoManager";
@@ -38,12 +39,38 @@ import NotificationManager from "../components/seller/NotificationManager";
 import CalendarManager from "../components/seller/CalendarManager";
 import FinancialManager from "../components/seller/FinancialManager";
 import CRMManager from "../components/seller/CRMManager";
+import SellerCustomerAnalytics from "../components/seller/SellerCustomerAnalytics";
 
 const SellerPanel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState("dashboard");
   const [serviceManagementTab, setServiceManagementTab] = useState("orders");
+
+  // Mock customer analytics data for seller dashboard
+  const sellerCustomerAnalytics = {
+    lastUpdated: "a day ago",
+    total: {
+      count: 42,
+      percentage: 18,
+      previousCount: 36,
+    },
+    new: {
+      count: 18,
+      percentage: 25,
+      description: "First-time customers",
+    },
+    repeat: {
+      count: 20,
+      percentage: 15,
+      description: "Returning customers",
+    },
+    lapsed: {
+      count: 4,
+      percentage: 33,
+      description: "Haven't booked in 60+ days",
+    },
+  };
 
   if (!user || user.type !== "seller") {
     return (
@@ -162,6 +189,11 @@ const SellerPanel = () => {
   if (currentView === "crm") {
     return <CRMManager onBack={handleBackToDashboard} />;
   }
+
+  if (currentView === "customer-analytics") {
+    return <SellerCustomerAnalytics onBack={handleBackToDashboard} />;
+  }
+
   const stats = [
     {
       label: "Total Views",
@@ -290,6 +322,10 @@ const SellerPanel = () => {
     { month: "Apr", views: 2847, inquiries: 47, bookings: 31 },
   ];
 
+  const handleCustomerAnalyticsInsights = () => {
+    handleViewChange("customer-analytics");
+  };
+
   return (
     <>
       <Helmet>
@@ -350,7 +386,6 @@ const SellerPanel = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {" "}
                 <Card className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
@@ -384,248 +419,448 @@ const SellerPanel = () => {
             ))}
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Recent Activity */}
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                  Recent Activity
-                </h2>
-                <div className="space-y-4">
-                  {recentActivity.slice(0, 4).map((activity, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                    >
-                      <div className="flex-1">
-                        <div className="flex items-center mb-1">
-                          <p className="font-medium text-gray-900">
-                            {activity.action}{" "}
-                            <span className="text-primary-600">
-                              {activity.customer}
-                            </span>
-                          </p>
-                          {activity.type === "review" && (
-                            <div className="flex items-center ml-2">
-                              {[...Array(activity.rating)].map((_, i) => (
-                                <Star
-                                  key={i}
-                                  className="w-4 h-4 text-yellow-400 fill-current"
-                                />
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600 mb-1">
-                          {activity.message}
-                        </p>
-                        <p className="text-xs text-gray-500">{activity.date}</p>
-                      </div>
+          {/* Main Dashboard Layout - Two Column Layout */}
+          <div className="grid lg:grid-cols-4 gap-6">
+            {/* Left Column - Main Content */}
+            <div className="lg:col-span-3 space-y-6">
+              {/* First Row - Analytics Cards */}
+              <div className="grid lg:grid-cols-2 gap-6">
+                {/* Customer Analytics */}
+                <div>
+                  <CustomerAnalyticsCard
+                    title="Your Customers"
+                    data={sellerCustomerAnalytics}
+                    onGetDeeperInsights={handleCustomerAnalyticsInsights}
+                  />
+                </div>
+
+                {/* Performance Chart */}
+                <div>
+                  <Card className="p-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-xl font-semibold text-gray-900">
+                        Performance Overview
+                      </h2>
                       <Button
-                        size="sm"
                         variant="outline"
-                        onClick={() => handleActivityAction(activity)}
+                        size="sm"
+                        icon={BarChart3}
+                        onClick={() => handleViewChange("analytics")}
                       >
-                        {activity.type === "inquiry" ||
-                        activity.type === "booking"
-                          ? "Respond"
-                          : "View"}
+                        View Details
                       </Button>
                     </div>
-                  ))}
-                  <div className="pt-4 border-t">
-                    <Button
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => handleViewChange("analytics")}
-                    >
-                      View All Activities
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Performance Chart */}
-              <Card className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    Performance Overview
-                  </h2>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    icon={BarChart3}
-                    onClick={() => handleViewChange("analytics")}
-                  >
-                    View Details
-                  </Button>
-                </div>
-                <div className="space-y-6">
-                  {/* Performance Metrics */}
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-blue-600">2,847</p>
-                      <p className="text-sm text-gray-600">Total Views</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-green-600">47</p>
-                      <p className="text-sm text-gray-600">Inquiries</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-purple-600">31</p>
-                      <p className="text-sm text-gray-600">Bookings</p>
-                    </div>
-                  </div>
-
-                  {/* Simple Bar Chart */}
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600">Monthly Growth</span>
-                      <span className="font-medium text-green-600">+24%</span>
-                    </div>
-                    {performanceData.map((data, index) => (
-                      <div
-                        key={data.month}
-                        className="flex items-center space-x-3"
-                      >
-                        <span className="w-8 text-sm text-gray-600">
-                          {data.month}
-                        </span>
-                        <div className="flex-1 flex items-center space-x-2">
-                          <div className="flex-1 bg-gray-200 rounded-full h-2">
-                            <div
-                              className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
-                              style={{ width: `${(data.views / 3000) * 100}%` }}
-                            ></div>
-                          </div>
-                          <span className="text-sm text-gray-600 w-12">
-                            {data.views}
-                          </span>
+                    <div className="space-y-6">
+                      {/* Performance Metrics */}
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-blue-600">
+                            2,847
+                          </p>
+                          <p className="text-sm text-gray-600">Total Views</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-green-600">
+                            47
+                          </p>
+                          <p className="text-sm text-gray-600">Inquiries</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-purple-600">
+                            31
+                          </p>
+                          <p className="text-sm text-gray-600">Bookings</p>
                         </div>
                       </div>
-                    ))}
-                  </div>
 
-                  {/* Key Insights */}
-                  <div className="bg-blue-50 rounded-lg p-4">
-                    <h4 className="font-medium text-blue-900 mb-2">
-                      Key Insights
-                    </h4>
-                    <ul className="text-sm text-blue-800 space-y-1">
-                      <li>• 54% increase in profile views this month</li>
-                      <li>• Peak activity on weekends (Fri-Sun)</li>
-                      <li>• High conversion rate: 66% inquiries to bookings</li>
-                    </ul>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Customer Reviews */}
-              <Card className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    Recent Reviews
-                  </h2>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleViewChange("analytics")}
-                  >
-                    View All (12)
-                  </Button>
-                </div>
-                <div className="space-y-4">
-                  {customerReviews.slice(0, 3).map((review) => (
-                    <div
-                      key={review.id}
-                      className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                    >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-sm">
-                            {review.customerName
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </div>
-                          <div>
-                            <div className="flex items-center space-x-2">
-                              <p className="font-medium text-gray-900">
-                                {review.customerName}
-                              </p>
-                              {review.verified && (
-                                <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-                                  Verified
-                                </span>
-                              )}
+                      {/* Simple Bar Chart */}
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">Monthly Growth</span>
+                          <span className="font-medium text-green-600">
+                            +24%
+                          </span>
+                        </div>
+                        {performanceData.map((data, index) => (
+                          <div
+                            key={data.month}
+                            className="flex items-center space-x-3"
+                          >
+                            <span className="w-8 text-sm text-gray-600">
+                              {data.month}
+                            </span>
+                            <div className="flex-1 flex items-center space-x-2">
+                              <div className="flex-1 bg-gray-200 rounded-full h-2">
+                                <div
+                                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
+                                  style={{
+                                    width: `${(data.views / 3000) * 100}%`,
+                                  }}
+                                ></div>
+                              </div>
+                              <span className="text-sm text-gray-600 w-12">
+                                {data.views}
+                              </span>
                             </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Key Insights */}
+                      <div className="bg-blue-50 rounded-lg p-4">
+                        <h4 className="font-medium text-blue-900 mb-2">
+                          Key Insights
+                        </h4>
+                        <ul className="text-sm text-blue-800 space-y-1">
+                          <li>• 54% increase in profile views this month</li>
+                          <li>• Peak activity on weekends (Fri-Sun)</li>
+                          <li>
+                            • High conversion rate: 66% inquiries to bookings
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Second Row - Activity and Reviews */}
+              <div className="grid lg:grid-cols-2 gap-6">
+                {/* Recent Activity */}
+                <div>
+                  <Card className="p-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-xl font-semibold text-gray-900">
+                        Recent Activity
+                      </h2>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleViewChange("analytics")}
+                      >
+                        View All
+                      </Button>
+                    </div>
+                    <div className="space-y-4">
+                      {recentActivity.slice(0, 4).map((activity, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                        >
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                              {activity.customer.split(" ")[0][0]}
+                            </div>
+                            <div>
+                              <div className="flex items-center space-x-2">
+                                <p className="font-medium text-gray-900 text-sm">
+                                  {activity.action}
+                                </p>
+                                <p className="text-xs text-gray-600">
+                                  {activity.customer}
+                                </p>
+                              </div>
+                              {activity.type === "review" && (
+                                <div className="flex items-center space-x-1 mt-1">
+                                  {[...Array(activity.rating)].map((_, i) => (
+                                    <Star
+                                      key={i}
+                                      className={`w-3 h-3 ${
+                                        i < activity.rating
+                                          ? "text-yellow-400 fill-current"
+                                          : "text-gray-300"
+                                      }`}
+                                    />
+                                  ))}
+                                </div>
+                              )}
+                              <p className="text-xs text-gray-500 mt-1">
+                                {activity.date}
+                              </p>
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleActivityAction(activity)}
+                          >
+                            {activity.type === "inquiry" ||
+                            activity.type === "booking"
+                              ? "Respond"
+                              : "View"}
+                          </Button>
+                        </div>
+                      ))}
+                      <div className="pt-4 border-t">
+                        <Button
+                          variant="outline"
+                          className="w-full"
+                          onClick={() => handleViewChange("analytics")}
+                        >
+                          View All Activities
+                        </Button>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                {/* Recent Reviews */}
+                <div>
+                  <Card className="p-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <h2 className="text-xl font-semibold text-gray-900">
+                        Recent Reviews
+                      </h2>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleViewChange("reviews")}
+                      >
+                        View All (12)
+                      </Button>
+                    </div>
+                    <div className="space-y-4">
+                      {customerReviews.slice(0, 3).map((review) => (
+                        <div
+                          key={review.id}
+                          className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                        >
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex items-center space-x-3">
+                              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                                {review.customerName
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </div>
+                              <div>
+                                <div className="flex items-center space-x-2">
+                                  <p className="font-medium text-gray-900 text-sm">
+                                    {review.customerName}
+                                  </p>
+                                  {review.verified && (
+                                    <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                                      Verified
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <div className="flex">
+                                    {[...Array(5)].map((_, i) => (
+                                      <Star
+                                        key={i}
+                                        className={`w-4 h-4 ${
+                                          i < review.rating
+                                            ? "text-yellow-400 fill-current"
+                                            : "text-gray-300"
+                                        }`}
+                                      />
+                                    ))}
+                                  </div>
+                                  <span className="text-sm text-gray-500">
+                                    {review.date}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <p className="text-gray-700 text-sm leading-relaxed">
+                            "{review.comment.substring(0, 100)}..."
+                          </p>
+                        </div>
+                      ))}
+
+                      {/* Review Summary */}
+                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border border-yellow-200">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-medium text-gray-900">
+                              Overall Rating
+                            </p>
                             <div className="flex items-center space-x-2">
+                              <span className="text-2xl font-bold text-yellow-600">
+                                4.6
+                              </span>
                               <div className="flex">
                                 {[...Array(5)].map((_, i) => (
                                   <Star
                                     key={i}
-                                    className={`w-4 h-4 ${
-                                      i < review.rating
+                                    className={`w-5 h-5 ${
+                                      i < 4
                                         ? "text-yellow-400 fill-current"
                                         : "text-gray-300"
                                     }`}
                                   />
                                 ))}
                               </div>
-                              <span className="text-sm text-gray-500">
-                                {review.date}
+                              <span className="text-sm text-gray-600">
+                                (12 reviews)
                               </span>
                             </div>
                           </div>
+                          <div className="text-right">
+                            <p className="text-sm text-gray-600">
+                              Response Rate
+                            </p>
+                            <p className="font-bold text-green-600">95%</p>
+                          </div>
                         </div>
                       </div>
-                      <p className="text-gray-700 text-sm leading-relaxed">
-                        "{review.comment}"
+                    </div>
+                  </Card>
+                </div>
+              </div>
+
+              {/* Third Row - Business Summary and Growth Tips */}
+              <div className="grid lg:grid-cols-2 gap-6">
+                {/* Business Summary */}
+                <div>
+                  <Card className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Business Summary
+                    </h3>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Profile Status</span>
+                        <span className="flex items-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                          <span className="font-medium text-green-600">
+                            Active
+                          </span>
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Verification</span>
+                        <span className="flex items-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                          <span className="font-medium text-green-600">
+                            Verified
+                          </span>
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Listed Since</span>
+                        <span className="font-medium">Jan 15, 2024</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Category</span>
+                        <span className="font-medium">Food & Catering</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Profile Views</span>
+                        <span className="font-medium">2,847 this month</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Response Time</span>
+                        <span className="font-medium text-green-600">
+                          &lt; 2 hours
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Profile Completion */}
+                    <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-blue-900">
+                          Profile Completion
+                        </span>
+                        <span className="text-sm font-bold text-blue-600">
+                          85%
+                        </span>
+                      </div>
+                      <div className="w-full bg-blue-200 rounded-full h-2">
+                        <div
+                          className="bg-blue-600 h-2 rounded-full"
+                          style={{ width: "85%" }}
+                        ></div>
+                      </div>
+                      <p className="text-xs text-blue-800 mt-2">
+                        Add more photos to reach 100%
                       </p>
                     </div>
-                  ))}
+                  </Card>
+                </div>
 
-                  {/* Review Summary */}
-                  <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border border-yellow-200">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          Overall Rating
-                        </p>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-2xl font-bold text-yellow-600">
-                            4.6
-                          </span>
-                          <div className="flex">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={`w-5 h-5 ${
-                                  i < 4
-                                    ? "text-yellow-400 fill-current"
-                                    : "text-gray-300"
-                                }`}
-                              />
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-600">
-                            (12 reviews)
-                          </span>
+                {/* Tips to Grow */}
+                <div>
+                  <Card className="p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Tips to Grow Your Business
+                    </h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start space-x-3 p-4 bg-green-50 rounded-lg border border-green-200">
+                        <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-sm font-medium text-green-900 mb-1">
+                            Add High-Quality Photos
+                          </p>
+                          <p className="text-xs text-green-700">
+                            Businesses with 5+ photos get 42% more views
+                          </p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm text-gray-600">Response Rate</p>
-                        <p className="font-bold text-green-600">95%</p>
+                      <div className="flex items-start space-x-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-sm font-medium text-blue-900 mb-1">
+                            Respond Quickly to Inquiries
+                          </p>
+                          <p className="text-xs text-blue-700">
+                            Fast responses increase booking chances by 60%
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-sm font-medium text-yellow-900 mb-1">
+                            Keep Business Hours Updated
+                          </p>
+                          <p className="text-xs text-yellow-700">
+                            Accurate hours reduce customer confusion
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start space-x-3 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-sm font-medium text-purple-900 mb-1">
+                            Encourage Customer Reviews
+                          </p>
+                          <p className="text-xs text-purple-700">
+                            More reviews boost your search ranking
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+
+                    {/* Growth Progress */}
+                    <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-green-900">
+                          Growth Progress This Month
+                        </span>
+                        <span className="text-sm font-bold text-green-600">
+                          +24%
+                        </span>
+                      </div>
+                      <div className="w-full bg-green-200 rounded-full h-2">
+                        <div
+                          className="bg-green-600 h-2 rounded-full"
+                          style={{ width: "78%" }}
+                        ></div>
+                      </div>
+                      <p className="text-xs text-green-800 mt-2">
+                        Great progress! Keep implementing these tips
+                      </p>
+                    </div>
+                  </Card>
                 </div>
-              </Card>
+              </div>
             </div>
 
-            {/* Sidebar */}
-            <div className="space-y-6">
+            {/* Right Column - Sidebar */}
+            <div className="lg:col-span-1 space-y-6">
               {/* Essential Business Tools */}
               <Card className="p-6">
                 <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
@@ -700,7 +935,7 @@ const SellerPanel = () => {
                 </div>
               </Card>
 
-              {/* Traditional Quick Actions */}
+              {/* Profile & Settings */}
               <Card className="p-6">
                 <h3 className="font-semibold text-gray-900 mb-4">
                   Profile & Settings
@@ -804,94 +1039,6 @@ const SellerPanel = () => {
                     </div>
                   </div>
                 </div>
-              </Card>
-
-              {/* Business Summary */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Business Summary
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Profile Status</span>
-                    <span className="flex items-center">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                      <span className="font-medium text-green-600">Active</span>
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Verification</span>
-                    <span className="flex items-center">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
-                      <span className="font-medium text-green-600">
-                        Verified
-                      </span>
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Listed Since</span>
-                    <span className="font-medium">Jan 15, 2024</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Category</span>
-                    <span className="font-medium">Food & Catering</span>
-                  </div>
-
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Profile Views</span>
-                    <span className="font-medium">2,847 this month</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Response Time</span>
-                    <span className="font-medium text-green-600">
-                      &lt; 2 hours
-                    </span>
-                  </div>
-                </div>
-
-                {/* Profile Completion */}
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-blue-900">
-                      Profile Completion
-                    </span>
-                    <span className="text-sm font-bold text-blue-600">85%</span>
-                  </div>
-                  <div className="w-full bg-blue-200 rounded-full h-2">
-                    <div
-                      className="bg-blue-600 h-2 rounded-full"
-                      style={{ width: "85%" }}
-                    ></div>
-                  </div>
-                  <p className="text-xs text-blue-800 mt-2">
-                    Add more photos to reach 100%
-                  </p>
-                </div>
-              </Card>
-
-              {/* Tips */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Tips to Grow
-                </h3>
-                <ul className="space-y-3 text-sm text-gray-600">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Add high-quality photos of your business
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Respond quickly to customer inquiries
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Keep your business hours updated
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    Encourage satisfied customers to leave reviews
-                  </li>
-                </ul>
               </Card>
             </div>
           </div>

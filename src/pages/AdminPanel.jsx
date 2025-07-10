@@ -44,6 +44,8 @@ import FinancialDashboard from "../components/admin/FinancialDashboard";
 import ContentModerationPanel from "../components/admin/ContentModerationPanel";
 import ActivityMonitor from "../components/admin/ActivityMonitor";
 import DataManagement from "../components/admin/DataManagement";
+import CustomerAnalytics from "../components/admin/CustomerAnalytics";
+import CustomerAnalyticsCard from "../components/common/CustomerAnalyticsCard";
 
 const AdminPanel = () => {
   const { user } = useAuth();
@@ -90,6 +92,35 @@ const AdminPanel = () => {
     } else if (actionType === "business-verification") {
       setCurrentView("listed-businesses");
     }
+  };
+
+  // Mock customer analytics data for dashboard
+  const dashboardCustomerAnalytics = {
+    lastUpdated: "a day ago",
+    total: {
+      count: 76,
+      percentage: 22,
+      previousCount: 62,
+    },
+    new: {
+      count: 38,
+      percentage: 32,
+      description: "No orders in last 365 days",
+    },
+    repeat: {
+      count: 33,
+      percentage: 3,
+      description: "Ordered in last 60 days",
+    },
+    lapsed: {
+      count: 5,
+      percentage: 29,
+      description: "Last order 60 to 365 days ago",
+    },
+  };
+
+  const handleCustomerAnalyticsInsights = () => {
+    handleViewChange("customer-analytics");
   };
 
   // Render different views based on currentView state
@@ -151,6 +182,10 @@ const AdminPanel = () => {
 
   if (currentView === "data-management") {
     return <DataManagement onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === "customer-analytics") {
+    return <CustomerAnalytics onBack={handleBackToDashboard} />;
   }
 
   const stats = [
@@ -257,11 +292,11 @@ const AdminPanel = () => {
             ))}
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-4 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="lg:col-span-3">
               {/* Pending Actions */}
-              <Card className="p-6">
+              <Card className="p-6 mb-8">
                 <h2 className="text-xl font-semibold text-gray-900 mb-6">
                   Pending Actions
                 </h2>
@@ -271,16 +306,8 @@ const AdminPanel = () => {
                       key={index}
                       className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
                     >
-                      <div className="flex items-center space-x-4">
-                        <div
-                          className={`w-3 h-3 rounded-full ${
-                            action.priority === "high"
-                              ? "bg-red-500"
-                              : action.priority === "medium"
-                              ? "bg-yellow-500"
-                              : "bg-green-500"
-                          }`}
-                        ></div>
+                      <div className="flex items-center space-x-3">
+                        <AlertTriangle className="w-5 h-5 text-orange-500" />
                         <div>
                           <p className="font-medium text-gray-900">
                             {action.action}
@@ -306,96 +333,108 @@ const AdminPanel = () => {
                 </div>
               </Card>
 
-              {/* System Overview */}
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                  <BarChart3 className="w-5 h-5 text-blue-600" />
-                  System Overview
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Platform Health */}
-                  <div className="space-y-4">
-                    <h3 className="font-medium text-gray-900">
-                      Platform Health
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <CheckCircle className="w-4 h-4 text-green-600" />
-                          <span className="text-sm text-gray-700">
-                            Server Status
-                          </span>
-                        </div>
-                        <span className="text-sm font-medium text-green-600">
-                          Online
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <CheckCircle className="w-4 h-4 text-green-600" />
-                          <span className="text-sm text-gray-700">
-                            Database
-                          </span>
-                        </div>
-                        <span className="text-sm font-medium text-green-600">
-                          Healthy
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <Activity className="w-4 h-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">
-                            API Response
-                          </span>
-                        </div>
-                        <span className="text-sm font-medium text-blue-600">
-                          125ms
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+              {/* Customer Analytics and System Overview */}
+              <div className="grid lg:grid-cols-2 gap-6 mb-8">
+                {/* Customer Analytics Card */}
+                <CustomerAnalyticsCard
+                  title="Platform Customers"
+                  data={dashboardCustomerAnalytics}
+                  onGetDeeperInsights={handleCustomerAnalyticsInsights}
+                />
 
-                  {/* Today's Summary */}
-                  <div className="space-y-4">
-                    <h3 className="font-medium text-gray-900">
-                      Today's Summary
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <Users className="w-4 h-4 text-blue-600" />
-                          <span className="text-sm text-gray-700">
-                            New Users
+                {/* System Overview */}
+                <Card className="p-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-blue-600" />
+                    System Overview
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Platform Health */}
+                    <div className="space-y-4">
+                      <h3 className="font-medium text-gray-900">
+                        Platform Health
+                      </h3>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <CheckCircle className="w-4 h-4 text-green-600" />
+                            <span className="text-sm text-gray-700">
+                              Server Status
+                            </span>
+                          </div>
+                          <span className="text-sm font-medium text-green-600">
+                            Online
                           </span>
                         </div>
-                        <span className="text-sm font-medium text-blue-600">
-                          12
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <Calendar className="w-4 h-4 text-purple-600" />
-                          <span className="text-sm text-gray-700">
-                            Bookings
+                        <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <CheckCircle className="w-4 h-4 text-green-600" />
+                            <span className="text-sm text-gray-700">
+                              Database
+                            </span>
+                          </div>
+                          <span className="text-sm font-medium text-green-600">
+                            Healthy
                           </span>
                         </div>
-                        <span className="text-sm font-medium text-purple-600">
-                          28
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                        <div className="flex items-center space-x-3">
-                          <CreditCard className="w-4 h-4 text-green-600" />
-                          <span className="text-sm text-gray-700">Revenue</span>
+                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <Activity className="w-4 h-4 text-blue-600" />
+                            <span className="text-sm text-gray-700">
+                              API Response
+                            </span>
+                          </div>
+                          <span className="text-sm font-medium text-blue-600">
+                            125ms
+                          </span>
                         </div>
-                        <span className="text-sm font-medium text-green-600">
-                          ₹15,420
-                        </span>
+                      </div>
+                    </div>
+
+                    {/* Today's Summary */}
+                    <div className="space-y-4">
+                      <h3 className="font-medium text-gray-900">
+                        Today's Summary
+                      </h3>
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <Users className="w-4 h-4 text-blue-600" />
+                            <span className="text-sm text-gray-700">
+                              New Users
+                            </span>
+                          </div>
+                          <span className="text-sm font-medium text-blue-600">
+                            12
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <Calendar className="w-4 h-4 text-purple-600" />
+                            <span className="text-sm text-gray-700">
+                              Bookings
+                            </span>
+                          </div>
+                          <span className="text-sm font-medium text-purple-600">
+                            28
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <CreditCard className="w-4 h-4 text-green-600" />
+                            <span className="text-sm text-gray-700">
+                              Revenue
+                            </span>
+                          </div>
+                          <span className="text-sm font-medium text-green-600">
+                            ₹15,420
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </div>
 
               {/* Quick Actions Grid */}
               <Card className="p-6">
@@ -628,6 +667,14 @@ const AdminPanel = () => {
                     onClick={() => handleViewChange("financial-dashboard")}
                   >
                     Financial Dashboard
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start"
+                    icon={Users}
+                    onClick={() => handleViewChange("customer-analytics")}
+                  >
+                    Customer Analytics
                   </Button>
                   <Button
                     variant="outline"

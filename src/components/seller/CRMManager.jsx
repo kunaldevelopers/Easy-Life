@@ -25,6 +25,7 @@ import {
 import Card from "../common/Card";
 import Button from "../common/Button";
 import Input from "../common/Input";
+import CustomerAnalyticsCard from "../common/CustomerAnalyticsCard";
 
 const CRMManager = ({ onBack }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,6 +33,31 @@ const CRMManager = ({ onBack }) => {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [showAddNote, setShowAddNote] = useState(false);
   const [newNote, setNewNote] = useState("");
+
+  // Customer analytics data for CRM
+  const crmAnalytics = {
+    lastUpdated: "a day ago",
+    total: {
+      count: 4,
+      percentage: 18,
+      previousCount: 3,
+    },
+    new: {
+      count: 1,
+      percentage: 25,
+      description: "First-time customers",
+    },
+    repeat: {
+      count: 2,
+      percentage: 15,
+      description: "Returning customers",
+    },
+    lapsed: {
+      count: 1,
+      percentage: 33,
+      description: "Haven't booked in 60+ days",
+    },
+  };
 
   // Mock customer data
   const customers = [
@@ -252,6 +278,11 @@ const CRMManager = ({ onBack }) => {
     // In real app, this would open calendar/reminder interface
     console.log(`Scheduling follow-up for ${customer.name}`);
     alert(`Follow-up scheduler for ${customer.name} would open`);
+  };
+
+  const handleAnalyticsInsights = () => {
+    // Navigate to detailed analytics or show more insights
+    console.log("Navigate to detailed customer analytics");
   };
 
   if (selectedCustomer) {
@@ -575,52 +606,69 @@ const CRMManager = ({ onBack }) => {
           </Card>
         </div>
 
-        {/* Filters */}
-        <Card className="p-6 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <Input
-                type="text"
-                placeholder="Search customers..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                icon={Search}
-              />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Filter className="w-4 h-4 text-gray-500" />
-              <div className="flex space-x-1">
-                {[
-                  { key: "all", label: "All", count: customerStats.total },
-                  { key: "vip", label: "VIP", count: customerStats.vip },
-                  {
-                    key: "regular",
-                    label: "Regular",
-                    count: customerStats.regular,
-                  },
-                  { key: "new", label: "New", count: customerStats.new },
-                  {
-                    key: "inactive",
-                    label: "Inactive",
-                    count: customerStats.inactive,
-                  },
-                ].map((filter) => (
-                  <button
-                    key={filter.key}
-                    onClick={() => setSelectedSegment(filter.key)}
-                    className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                      selectedSegment === filter.key
-                        ? "bg-primary-100 text-primary-700"
-                        : "text-gray-600 hover:bg-gray-100"
-                    }`}
-                  >
-                    {filter.label} ({filter.count})
-                  </button>
-                ))}
-              </div>
-            </div>
+        {/* Customer Analytics Integration */}
+        <div className="grid lg:grid-cols-4 gap-6 mb-8">
+          <div className="lg:col-span-1">
+            <CustomerAnalyticsCard
+              title="Customer Insights"
+              data={crmAnalytics}
+              onGetDeeperInsights={handleAnalyticsInsights}
+              variant="default"
+            />
           </div>
-        </Card>
+          <div className="lg:col-span-3">
+            {/* Filters */}
+            <Card className="p-6">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1">
+                  <Input
+                    type="text"
+                    placeholder="Search customers..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    icon={Search}
+                  />
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Filter className="w-4 h-4 text-gray-500" />
+                  <div className="flex space-x-1">
+                    {[
+                      {
+                        key: "all",
+                        label: "All",
+                        count: customerStats.total,
+                      },
+                      { key: "vip", label: "VIP", count: customerStats.vip },
+                      {
+                        key: "regular",
+                        label: "Regular",
+                        count: customerStats.regular,
+                      },
+                      { key: "new", label: "New", count: customerStats.new },
+                      {
+                        key: "inactive",
+                        label: "Inactive",
+                        count: customerStats.inactive,
+                      },
+                    ].map((filter) => (
+                      <button
+                        key={filter.key}
+                        onClick={() => setSelectedSegment(filter.key)}
+                        className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                          selectedSegment === filter.key
+                            ? "bg-primary-100 text-primary-700"
+                            : "text-gray-600 hover:bg-gray-100"
+                        }`}
+                      >
+                        {filter.label} ({filter.count})
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
 
         {/* Customers List */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
