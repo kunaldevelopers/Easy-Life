@@ -6,6 +6,7 @@ import {
   Mail,
   Lock,
   User,
+  Phone,
   Eye,
   EyeOff,
   ArrowLeft,
@@ -37,8 +38,6 @@ import {
   Truck,
   Calendar,
   Tag,
-  MessageCircle,
-  Phone,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Button from "../components/common/Button";
@@ -149,7 +148,7 @@ const Auth = () => {
     }
   };
 
-  const handleDemoWhatsAppLogin = async (phone) => {
+  const handleDemoPhoneLogin = async (phone) => {
     setFormData((prev) => ({ ...prev, phone }));
     setLoginMethod("phone");
     setShowOTP(true);
@@ -308,62 +307,6 @@ const Auth = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      {/* Demo Credentials Banner */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4"
-      >
-        <h4 className="text-sm font-semibold text-blue-800 mb-2">
-          Demo Credentials
-        </h4>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-          <div className="bg-white/70 p-2 rounded-lg">
-            <p className="font-medium text-blue-700">Customer</p>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin("rajesh@example.com", "customer")}
-              className="text-blue-600 hover:text-blue-800 underline block"
-            >
-              rajesh@example.com
-            </button>
-            <p className="text-blue-600">Any password</p>
-          </div>
-          <div className="bg-white/70 p-2 rounded-lg">
-            <p className="font-medium text-green-700">Business Partner</p>
-            <button
-              type="button"
-              onClick={() =>
-                handleDemoLogin("electronics@example.com", "seller")
-              }
-              className="text-green-600 hover:text-green-800 underline block"
-            >
-              electronics@example.com
-            </button>
-            <p className="text-green-600">Any password</p>
-          </div>
-          <div className="bg-white/70 p-2 rounded-lg">
-            <p className="font-medium text-purple-700">Admin</p>
-            <button
-              type="button"
-              onClick={() => handleDemoLogin("admin@easylife.com", "admin")}
-              className="text-purple-600 hover:text-purple-800 underline block"
-            >
-              admin@easylife.com
-            </button>
-            <p className="text-purple-600">Any password</p>
-          </div>
-        </div>
-        <p className="text-xs text-blue-600 mt-2">
-          💡 Use any of these emails with any password to test different account
-          types
-        </p>
-        <p className="text-xs text-gray-500 mt-1">
-          🔄 Click an email above to auto-fill the form, then click "Sign In"
-        </p>
-      </motion.div>
-
       <div className="space-y-5">
         <div className="flex bg-gray-100 p-1 rounded-lg">
           <button
@@ -387,8 +330,8 @@ const Auth = () => {
                 : "text-gray-500 hover:text-gray-700"
             }`}
           >
-            <MessageCircle className="w-4 h-4 inline mr-2" />
-            WhatsApp
+            <Phone className="w-4 h-4 inline mr-2" />
+            Phone
           </button>
         </div>
 
@@ -447,61 +390,13 @@ const Auth = () => {
               transition={{ duration: 0.3 }}
               className="space-y-4"
             >
-              {/* Demo WhatsApp Numbers */}
-              {!showOTP && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl p-3"
-                >
-                  <h4 className="text-sm font-semibold text-green-800 mb-2">
-                    Demo WhatsApp Numbers
-                  </h4>
-                  <div className="grid grid-cols-1 gap-2 text-xs">
-                    <div className="bg-white/70 p-2 rounded-lg">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          handleDemoWhatsAppLogin("+91 9876543201")
-                        }
-                        className="font-medium text-green-700 hover:text-green-900 underline block"
-                      >
-                        Customer: +91 9876543201
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          handleDemoWhatsAppLogin("+91 9876543210")
-                        }
-                        className="font-medium text-blue-700 hover:text-blue-900 underline block"
-                      >
-                        Business Partner: +91 9876543210
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          handleDemoWhatsAppLogin("+91 9876543200")
-                        }
-                        className="font-medium text-purple-700 hover:text-purple-900 underline block"
-                      >
-                        Admin: +91 9876543200
-                      </button>
-                    </div>
-                  </div>
-                  <p className="text-xs text-green-600 mt-2">
-                    📱 Use any of these numbers, then enter OTP: 123456
-                  </p>
-                </motion.div>
-              )}
-
               <Input
-                label="WhatsApp Number"
+                label="Phone Number"
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
-                icon={MessageCircle}
+                icon={Phone}
                 placeholder="+91 98765 43210"
                 required
                 className="transform transition-all hover:scale-[1.02]"
@@ -523,18 +418,6 @@ const Auth = () => {
                     required
                     className="transform transition-all hover:scale-[1.02] text-center text-lg tracking-widest"
                   />
-                  <div className="mt-2 p-3 bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg">
-                    <p className="text-sm text-blue-700">
-                      <span className="font-semibold">📱 Demo OTP:</span> 123456
-                    </p>
-                    <p className="text-xs text-blue-600 mt-1">
-                      💡 Use any WhatsApp number from the list above, then enter
-                      123456
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">
-                      In production, this would be sent to your WhatsApp
-                    </p>
-                  </div>
                 </motion.div>
               )}
             </motion.div>
