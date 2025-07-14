@@ -25,6 +25,11 @@ import {
   MapPin,
   Tag,
   Camera,
+  User,
+  Mail,
+  AlertCircle,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
@@ -52,6 +57,96 @@ const SellerPanel = () => {
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState("dashboard");
   const [serviceManagementTab, setServiceManagementTab] = useState("orders");
+
+  // Mobile orders state - moved to top level to avoid hooks violations
+  const [selectedOrderStatus, setSelectedOrderStatus] = useState("all");
+  const [selectedBooking, setSelectedBooking] = useState(null);
+
+  // Mobile orders data - moved to top level to avoid hooks violations
+  const mobileBookings = [
+    {
+      id: 1,
+      customerName: "Deepak Rai",
+      email: "deepak.rai@email.com",
+      phone: "+977 9841234567",
+      service: "Wedding Photography",
+      eventDate: "December 15, 2024",
+      eventTime: "10:00 AM - 6:00 PM",
+      location: "Marriott Hotel, Kathmandu",
+      requestDate: "Yesterday",
+      timestamp: "Dec 14, 2024 3:30 PM",
+      status: "pending",
+      guestCount: 150,
+      budget: "Rs. 75,000",
+      specialRequests:
+        "Need drone photography and traditional ceremony coverage",
+    },
+    {
+      id: 2,
+      customerName: "Sita Gurung",
+      email: "sita.gurung@email.com",
+      phone: "+977 9812345678",
+      service: "Birthday Party Catering",
+      eventDate: "December 20, 2024",
+      eventTime: "6:00 PM - 10:00 PM",
+      location: "Private Residence, Lalitpur",
+      requestDate: "3 days ago",
+      timestamp: "Dec 12, 2024 2:15 PM",
+      status: "confirmed",
+      guestCount: 25,
+      budget: "Rs. 15,000",
+      specialRequests: "Vegetarian menu only, birthday cake included",
+    },
+    {
+      id: 3,
+      customerName: "Rajesh Thapa",
+      email: "rajesh.thapa@email.com",
+      phone: "+977 9823456789",
+      service: "Corporate Event Catering",
+      eventDate: "December 18, 2024",
+      eventTime: "12:00 PM - 2:00 PM",
+      location: "Soaltee Hotel, Kathmandu",
+      requestDate: "1 week ago",
+      timestamp: "Dec 8, 2024 10:45 AM",
+      status: "confirmed",
+      guestCount: 80,
+      budget: "Rs. 40,000",
+      specialRequests: "Lunch buffet, corporate presentation setup",
+    },
+    {
+      id: 4,
+      customerName: "Priya Sharma",
+      email: "priya.sharma@email.com",
+      phone: "+977 9834567890",
+      service: "Anniversary Celebration",
+      eventDate: "December 25, 2024",
+      eventTime: "7:00 PM - 11:00 PM",
+      location: "Garden Venue, Bhaktapur",
+      requestDate: "2 weeks ago",
+      timestamp: "Dec 1, 2024 4:20 PM",
+      status: "cancelled",
+      guestCount: 40,
+      budget: "Rs. 25,000",
+      specialRequests: "Romantic setup, live music arrangement",
+      cancellationReason: "Venue changed due to weather concerns",
+    },
+    {
+      id: 5,
+      customerName: "Amit Lama",
+      email: "amit.lama@email.com",
+      phone: "+977 9845678901",
+      service: "Graduation Party",
+      eventDate: "January 5, 2025",
+      eventTime: "5:00 PM - 9:00 PM",
+      location: "Community Hall, Pokhara",
+      requestDate: "3 weeks ago",
+      timestamp: "Nov 24, 2024 6:30 PM",
+      status: "confirmed",
+      guestCount: 60,
+      budget: "Rs. 30,000",
+      specialRequests: "Photo booth setup, mixed cuisine",
+    },
+  ];
 
   // Mock customer analytics data for seller dashboard
   const sellerCustomerAnalytics = {
@@ -423,8 +518,235 @@ const SellerPanel = () => {
     return <SellerCustomerAnalytics onBack={handleBackToDashboard} />;
   }
 
-  // Mobile Orders View
+  // Mobile Orders View (Same as Desktop BookingsManager)
   if (currentView === "orders") {
+    // Data is now defined at top level to avoid hooks violations
+    const filteredBookings = mobileBookings.filter((booking) => {
+      const matchesStatus =
+        selectedOrderStatus === "all" || booking.status === selectedOrderStatus;
+      return matchesStatus;
+    });
+
+    const bookingStats = {
+      total: mobileBookings.length,
+      pending: mobileBookings.filter((b) => b.status === "pending").length,
+      confirmed: mobileBookings.filter((b) => b.status === "confirmed").length,
+      cancelled: mobileBookings.filter((b) => b.status === "cancelled").length,
+      totalRevenue: mobileBookings
+        .filter((b) => b.status === "confirmed")
+        .reduce((sum, b) => sum + parseInt(b.budget.replace(/[^0-9]/g, "")), 0),
+    };
+
+    const getStatusColor = (status) => {
+      switch (status) {
+        case "pending":
+          return "bg-orange-100 text-orange-700";
+        case "confirmed":
+          return "bg-green-100 text-green-700";
+        case "cancelled":
+          return "bg-red-100 text-red-700";
+        default:
+          return "bg-gray-100 text-gray-700";
+      }
+    };
+
+    const getStatusIcon = (status) => {
+      switch (status) {
+        case "pending":
+          return <AlertCircle className="w-4 h-4 text-orange-500" />;
+        case "confirmed":
+          return <CheckCircle className="w-4 h-4 text-green-500" />;
+        case "cancelled":
+          return <XCircle className="w-4 h-4 text-red-500" />;
+        default:
+          return <AlertCircle className="w-4 h-4 text-gray-500" />;
+      }
+    };
+
+    const handleStatusUpdate = (bookingId, newStatus) => {
+      alert(`Order ${bookingId} ${newStatus}`);
+    };
+
+    const handleSendMessage = (bookingId) => {
+      alert(`Sending message to customer for booking ${bookingId}`);
+    };
+
+    if (selectedBooking) {
+      return (
+        <>
+          <Helmet>
+            <title>Order Details - Easy Life Gangtok</title>
+          </Helmet>
+          <div className="min-h-screen bg-gray-50">
+            {/* Mobile Header */}
+            <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4 safe-area-top">
+              <div className="flex items-center justify-between max-w-md mx-auto">
+                <div className="flex items-center space-x-3 flex-1 min-w-0">
+                  <button
+                    onClick={() => setSelectedBooking(null)}
+                    className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
+                  >
+                    <ArrowLeft className="w-5 h-5 text-gray-600" />
+                  </button>
+                  <div className="min-w-0 flex-1">
+                    <h1 className="text-lg font-bold text-gray-900 truncate">
+                      Order Details
+                    </h1>
+                    <p className="text-xs text-gray-500 truncate">
+                      {selectedBooking.service}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Order Details */}
+            <div className="px-4 max-w-md mx-auto space-y-4">
+              {/* Order Header */}
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                      {selectedBooking.service}
+                    </h3>
+                    <div className="flex items-center space-x-2">
+                      {getStatusIcon(selectedBooking.status)}
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
+                          selectedBooking.status
+                        )}`}
+                      >
+                        {selectedBooking.status.charAt(0).toUpperCase() +
+                          selectedBooking.status.slice(1)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-semibold text-gray-900">
+                      {selectedBooking.budget}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      {selectedBooking.guestCount} guests
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Customer Information */}
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <h4 className="text-sm font-medium text-gray-900 mb-3">
+                  Customer Information
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <User className="w-4 h-4 text-gray-500" />
+                    <span className="text-gray-900">
+                      {selectedBooking.customerName}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Mail className="w-4 h-4 text-gray-500" />
+                    <a
+                      href={`mailto:${selectedBooking.email}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {selectedBooking.email}
+                    </a>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Phone className="w-4 h-4 text-gray-500" />
+                    <a
+                      href={`tel:${selectedBooking.phone}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {selectedBooking.phone}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Event Details */}
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <h4 className="text-sm font-medium text-gray-900 mb-3">
+                  Event Details
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <Calendar className="w-4 h-4 text-gray-500" />
+                    <span className="text-gray-900">
+                      {selectedBooking.eventDate}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Clock className="w-4 h-4 text-gray-500" />
+                    <span className="text-gray-900">
+                      {selectedBooking.eventTime}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <MapPin className="w-4 h-4 text-gray-500" />
+                    <span className="text-gray-900">
+                      {selectedBooking.location}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Special Requests */}
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <h4 className="text-sm font-medium text-gray-900 mb-3">
+                  Special Requests
+                </h4>
+                <p className="text-gray-700 text-sm bg-blue-50 p-3 rounded-lg">
+                  {selectedBooking.specialRequests}
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3 pb-4">
+                {selectedBooking.status === "pending" && (
+                  <>
+                    <button
+                      onClick={() =>
+                        handleStatusUpdate(selectedBooking.id, "confirmed")
+                      }
+                      className="w-full bg-green-600 text-white py-3 rounded-xl font-medium flex items-center justify-center space-x-2"
+                    >
+                      <CheckCircle className="w-5 h-5" />
+                      <span>Confirm Booking</span>
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleStatusUpdate(selectedBooking.id, "cancelled")
+                      }
+                      className="w-full bg-red-600 text-white py-3 rounded-xl font-medium flex items-center justify-center space-x-2"
+                    >
+                      <XCircle className="w-5 h-5" />
+                      <span>Decline Booking</span>
+                    </button>
+                  </>
+                )}
+                <button
+                  onClick={() => handleSendMessage(selectedBooking.id)}
+                  className="w-full bg-blue-600 text-white py-3 rounded-xl font-medium flex items-center justify-center space-x-2"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  <span>Send Message</span>
+                </button>
+                <button
+                  onClick={() => window.open(`tel:${selectedBooking.phone}`)}
+                  className="w-full bg-gray-600 text-white py-3 rounded-xl font-medium flex items-center justify-center space-x-2"
+                >
+                  <Phone className="w-5 h-5" />
+                  <span>Call Customer</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    }
+
     return (
       <>
         <Helmet>
@@ -446,7 +768,7 @@ const SellerPanel = () => {
                     Orders
                   </h1>
                   <p className="text-xs text-gray-500 truncate">
-                    Manage your orders
+                    Manage booking requests
                   </p>
                 </div>
               </div>
@@ -463,30 +785,34 @@ const SellerPanel = () => {
             <div className="grid grid-cols-2 gap-3 mb-4">
               <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="flex items-center justify-between mb-2">
-                  <div className="p-2 rounded-lg bg-green-100 flex-shrink-0">
-                    <ShoppingCart className="w-4 h-4 text-green-600" />
+                  <div className="p-2 rounded-lg bg-blue-100 flex-shrink-0">
+                    <Calendar className="w-4 h-4 text-blue-600" />
                   </div>
-                  <span className="text-xs font-medium text-green-600">
-                    +15%
+                  <span className="text-xs font-medium text-blue-600">
+                    Total
                   </span>
                 </div>
                 <div>
-                  <p className="text-lg font-bold text-gray-900">24</p>
-                  <p className="text-xs text-gray-600">Total Orders</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {bookingStats.total}
+                  </p>
+                  <p className="text-xs text-gray-600">Total Bookings</p>
                 </div>
               </div>
               <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="flex items-center justify-between mb-2">
-                  <div className="p-2 rounded-lg bg-blue-100 flex-shrink-0">
-                    <Clock className="w-4 h-4 text-blue-600" />
+                  <div className="p-2 rounded-lg bg-orange-100 flex-shrink-0">
+                    <AlertCircle className="w-4 h-4 text-orange-600" />
                   </div>
-                  <span className="text-xs font-medium text-blue-600">
-                    3 pending
+                  <span className="text-xs font-medium text-orange-600">
+                    {bookingStats.pending} pending
                   </span>
                 </div>
                 <div>
-                  <p className="text-lg font-bold text-gray-900">₹12,450</p>
-                  <p className="text-xs text-gray-600">This Month</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    Rs. {bookingStats.totalRevenue.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-gray-600">Revenue</p>
                 </div>
               </div>
             </div>
@@ -494,93 +820,81 @@ const SellerPanel = () => {
             {/* Order Status Filter */}
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-4">
               <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
-                {["All", "Pending", "Confirmed", "Completed", "Cancelled"].map(
-                  (status) => (
-                    <button
-                      key={status}
-                      className={`px-4 py-2 rounded-lg text-xs font-medium whitespace-nowrap flex-shrink-0 ${
-                        status === "All"
-                          ? "bg-blue-100 text-blue-700"
-                          : "bg-gray-100 text-gray-600"
-                      }`}
-                    >
-                      {status}
-                    </button>
-                  )
-                )}
+                {[
+                  { key: "all", label: "All", count: bookingStats.total },
+                  {
+                    key: "pending",
+                    label: "Pending",
+                    count: bookingStats.pending,
+                  },
+                  {
+                    key: "confirmed",
+                    label: "Confirmed",
+                    count: bookingStats.confirmed,
+                  },
+                  {
+                    key: "cancelled",
+                    label: "Cancelled",
+                    count: bookingStats.cancelled,
+                  },
+                ].map((filter) => (
+                  <button
+                    key={filter.key}
+                    onClick={() => setSelectedOrderStatus(filter.key)}
+                    className={`px-4 py-2 rounded-lg text-xs font-medium whitespace-nowrap flex-shrink-0 ${
+                      selectedOrderStatus === filter.key
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
+                    {filter.label} ({filter.count})
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Recent Orders List */}
+            {/* Bookings List */}
             <div className="space-y-3">
-              {[
-                {
-                  id: "ORD001",
-                  customer: "Priya Sharma",
-                  service: "Wedding Catering",
-                  amount: "₹8,500",
-                  status: "confirmed",
-                  date: "Today, 2:30 PM",
-                },
-                {
-                  id: "ORD002",
-                  customer: "Rajesh Kumar",
-                  service: "Birthday Party",
-                  amount: "₹3,200",
-                  status: "pending",
-                  date: "Today, 11:15 AM",
-                },
-                {
-                  id: "ORD003",
-                  customer: "Anjali Thapa",
-                  service: "Corporate Event",
-                  amount: "₹12,000",
-                  status: "completed",
-                  date: "Yesterday",
-                },
-              ].map((order) => (
+              {filteredBookings.map((booking) => (
                 <div
-                  key={order.id}
+                  key={booking.id}
                   className="bg-white rounded-xl p-4 shadow-sm border border-gray-100"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center space-x-3 flex-1 min-w-0">
                       <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-sm flex-shrink-0">
-                        {order.customer.split(" ")[0][0]}
+                        {booking.customerName.split(" ")[0][0]}
                       </div>
                       <div className="min-w-0 flex-1">
                         <p className="font-medium text-gray-900 text-sm truncate">
-                          {order.customer}
+                          {booking.customerName}
                         </p>
                         <p className="text-xs text-gray-500 truncate">
-                          {order.service}
+                          {booking.service}
                         </p>
                       </div>
                     </div>
                     <div className="text-right flex-shrink-0 ml-2">
                       <p className="font-bold text-gray-900 text-sm">
-                        {order.amount}
+                        {booking.budget}
                       </p>
                       <span
-                        className={`text-xs px-2 py-1 rounded-full ${
-                          order.status === "confirmed"
-                            ? "bg-green-100 text-green-700"
-                            : order.status === "pending"
-                            ? "bg-yellow-100 text-yellow-700"
-                            : order.status === "completed"
-                            ? "bg-blue-100 text-blue-700"
-                            : "bg-red-100 text-red-700"
-                        }`}
+                        className={`text-xs px-2 py-1 rounded-full ${getStatusColor(
+                          booking.status
+                        )}`}
                       >
-                        {order.status}
+                        {booking.status}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <p className="text-xs text-gray-500 flex-1 min-w-0 truncate">
-                      {order.date}
+                      {booking.eventDate} • {booking.guestCount} guests
                     </p>
-                    <button className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium flex-shrink-0 ml-2">
+                    <button
+                      onClick={() => setSelectedBooking(booking)}
+                      className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium flex-shrink-0 ml-2"
+                    >
                       View Details
                     </button>
                   </div>
