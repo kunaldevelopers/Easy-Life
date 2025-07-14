@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useWebsiteConfig } from "../context/WebsiteConfigContext";
 import Hero from "../components/home/Hero";
+import VideoSection from "../components/home/VideoSection";
 import CategoriesGrid from "../components/home/CategoriesGrid";
 import TopRatedCarousel from "../components/home/TopRatedCarousel";
 import FreshRecommendations from "../components/home/FreshRecommendations";
@@ -38,6 +39,7 @@ const Home = () => {
 
       <main>
         <Hero />
+        <VideoSection />
         <CategoriesGrid />
         <TopRatedCarousel />
         <FreshRecommendations />
