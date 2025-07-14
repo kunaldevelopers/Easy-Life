@@ -69,7 +69,7 @@ const FinancialManager = ({ onBack }) => {
     { month: "Nov", revenue: 35800, expenses: 7200, profit: 22400 },
     { month: "Oct", revenue: 40100, expenses: 8100, profit: 25200 },
     { month: "Sep", revenue: 36900, expenses: 7600, profit: 23100 },
-    { month: "Aug", revenue: 39500, experiences: 8000, profit: 24875 },
+    { month: "Aug", revenue: 39500, expenses: 8000, profit: 24875 },
   ];
 
   // Mock transaction data

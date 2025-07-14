@@ -32,8 +32,8 @@ import NotFound from "./pages/NotFound";
 function AppContent() {
   const location = useLocation();
 
-  // Routes where footer should be hidden
-  const hideFooterRoutes = ["/seller-panel", "/admin-panel"];
+  // Routes where footer should be hidden (all dashboard panels)
+  const hideFooterRoutes = ["/seller-panel", "/admin-panel", "/customer-panel"];
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
 
   return (
