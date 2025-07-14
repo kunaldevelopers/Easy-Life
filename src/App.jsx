@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "./context/AuthContext";
 import { WebsiteConfigProvider } from "./context/WebsiteConfigContext";
@@ -24,45 +29,54 @@ import Orders from "./pages/Orders";
 import SavedBusinesses from "./pages/SavedBusinesses";
 import NotFound from "./pages/NotFound";
 
+function AppContent() {
+  const location = useLocation();
+
+  // Routes where footer should be hidden
+  const hideFooterRoutes = ["/seller-panel", "/admin-panel"];
+  const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/listings" element={<Listings />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/help" element={<FAQ />} />
+          <Route path="/agreement" element={<ServiceAgreement />} />
+          <Route path="/terms" element={<ServiceAgreement />} />
+          <Route path="/data" element={<DataPolicy />} />
+          <Route path="/privacy" element={<DataPolicy />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/business/:id" element={<BusinessDetail />} />
+          <Route path="/book/:id" element={<BookService />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/customer-panel" element={<CustomerPanel />} />
+          <Route path="/seller-panel" element={<SellerPanel />} />
+          <Route path="/admin-panel" element={<AdminPanel />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/order/:id" element={<Orders />} />
+          <Route path="/saved-businesses" element={<SavedBusinesses />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+      {!shouldHideFooter && <Footer />}
+    </div>
+  );
+}
+
 function App() {
   return (
     <HelmetProvider>
       <AuthProvider>
         <WebsiteConfigProvider>
           <Router>
-            <div className="min-h-screen flex flex-col">
-              <Navbar />
-              <main className="flex-1">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/listings" element={<Listings />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/faq" element={<FAQ />} />
-                  <Route path="/help" element={<FAQ />} />
-                  <Route path="/agreement" element={<ServiceAgreement />} />
-                  <Route path="/terms" element={<ServiceAgreement />} />
-                  <Route path="/data" element={<DataPolicy />} />
-                  <Route path="/privacy" element={<DataPolicy />} />
-                  <Route path="/support" element={<Support />} />
-                  <Route path="/business/:id" element={<BusinessDetail />} />
-                  <Route path="/book/:id" element={<BookService />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/customer-panel" element={<CustomerPanel />} />
-                  <Route path="/seller-panel" element={<SellerPanel />} />
-                  <Route path="/admin-panel" element={<AdminPanel />} />
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/order/:id" element={<Orders />} />
-                  <Route
-                    path="/saved-businesses"
-                    element={<SavedBusinesses />}
-                  />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-            </div>
+            <AppContent />
           </Router>
         </WebsiteConfigProvider>
       </AuthProvider>

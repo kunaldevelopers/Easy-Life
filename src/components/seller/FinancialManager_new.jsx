@@ -19,6 +19,8 @@ import {
   XCircle,
   Percent,
   ArrowLeft,
+  Menu,
+  X,
 } from "lucide-react";
 import Card from "../common/Card";
 import Button from "../common/Button";
@@ -30,6 +32,7 @@ const FinancialManager = ({ onBack }) => {
   const [selectedMonth, setSelectedMonth] = useState(1); // January
   const [activeTab, setActiveTab] = useState("overview"); // overview, transactions, reports, expenses
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -362,6 +365,16 @@ const FinancialManager = ({ onBack }) => {
                 </p>
               </div>
             </div>
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="p-2 hover:bg-gray-100 rounded-lg lg:hidden"
+            >
+              {showMobileMenu ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
           </div>
 
           {/* Mobile Search */}
@@ -651,6 +664,16 @@ const FinancialManager = ({ onBack }) => {
               <p className="text-sm text-gray-500">Revenue & Analytics</p>
             </div>
           </div>
+          <button
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="p-2 hover:bg-gray-100 rounded-lg lg:hidden"
+          >
+            {showMobileMenu ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </button>
         </div>
 
         {/* Mobile Tab Navigation */}

@@ -19,6 +19,8 @@ import {
   XCircle,
   Percent,
   ArrowLeft,
+  Menu,
+  X,
 } from "lucide-react";
 import Card from "../common/Card";
 import Button from "../common/Button";
@@ -30,6 +32,7 @@ const FinancialManager = ({ onBack }) => {
   const [selectedMonth, setSelectedMonth] = useState(1); // January
   const [activeTab, setActiveTab] = useState("overview"); // overview, transactions, reports, expenses
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -362,6 +365,16 @@ const FinancialManager = ({ onBack }) => {
                 </p>
               </div>
             </div>
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="p-2 hover:bg-gray-100 rounded-lg lg:hidden"
+            >
+              {showMobileMenu ? (
+                <X className="w-5 h-5" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
           </div>
 
           {/* Mobile Search */}
@@ -446,7 +459,7 @@ const FinancialManager = ({ onBack }) => {
         <div className="lg:hidden p-4 space-y-3">
           {filteredTransactions.map((transaction) => {
             const StatusIcon = getStatusIcon(transaction.status);
-
+            
             return (
               <motion.div
                 key={transaction.id}
@@ -454,7 +467,7 @@ const FinancialManager = ({ onBack }) => {
                 animate={{ opacity: 1, y: 0 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Card
+                <Card 
                   className="p-4 cursor-pointer hover:shadow-md transition-shadow"
                   onClick={() => setSelectedTransaction(transaction)}
                 >
@@ -511,9 +524,7 @@ const FinancialManager = ({ onBack }) => {
             <Card className="p-8 text-center">
               <div className="text-gray-500">
                 <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                <h3 className="text-lg font-medium mb-2">
-                  No transactions found
-                </h3>
+                <h3 className="text-lg font-medium mb-2">No transactions found</h3>
                 <p className="text-sm">
                   Try adjusting your search or filter criteria
                 </p>
@@ -648,9 +659,21 @@ const FinancialManager = ({ onBack }) => {
               <h1 className="text-lg font-semibold text-gray-900">
                 Financial Dashboard
               </h1>
-              <p className="text-sm text-gray-500">Revenue & Analytics</p>
+              <p className="text-sm text-gray-500">
+                Revenue & Analytics
+              </p>
             </div>
           </div>
+          <button
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="p-2 hover:bg-gray-100 rounded-lg lg:hidden"
+          >
+            {showMobileMenu ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </button>
         </div>
 
         {/* Mobile Tab Navigation */}
@@ -713,61 +736,58 @@ const FinancialManager = ({ onBack }) => {
             </div>
           </div>
 
-          {/* Desktop Period Selector */}
-          <Card className="p-6 mb-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <Calendar className="w-5 h-5 text-gray-500" />
-                <div className="flex space-x-2">
-                  {["week", "month", "quarter", "year"].map((period) => (
-                    <button
-                      key={period}
-                      onClick={() => setSelectedPeriod(period)}
-                      className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                        selectedPeriod === period
-                          ? "bg-primary-100 text-primary-700"
-                          : "text-gray-600 hover:bg-gray-100"
-                      }`}
-                    >
-                      {period.charAt(0).toUpperCase() + period.slice(1)}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <select
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-                  className="border border-gray-300 rounded-lg px-3 py-2"
-                >
-                  <option value={2024}>2024</option>
-                  <option value={2025}>2025</option>
-                </select>
-                {selectedPeriod === "month" && (
-                  <select
-                    value={selectedMonth}
-                    onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
-                    className="border border-gray-300 rounded-lg px-3 py-2"
+        {/* Desktop Period Selector */}
+        <Card className="p-6 mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Calendar className="w-5 h-5 text-gray-500" />
+              <div className="flex space-x-2">
+                {["week", "month", "quarter", "year"].map((period) => (
+                  <button
+                    key={period}
+                    onClick={() => setSelectedPeriod(period)}
+                    className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                      selectedPeriod === period
+                        ? "bg-primary-100 text-primary-700"
+                        : "text-gray-600 hover:bg-gray-100"
+                    }`}
                   >
-                    {Array.from({ length: 12 }, (_, i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {new Date(2025, i).toLocaleDateString("en-US", {
-                          month: "long",
-                        })}
-                      </option>
-                    ))}
-                  </select>
-                )}
+                    {period.charAt(0).toUpperCase() + period.slice(1)}
+                  </button>
+                ))}
               </div>
             </div>
-          </Card>
-        </div>
-      </div>
 
-      {/* Mobile Quick Stats */}
-      <div className="lg:hidden p-4">
-        <div className="grid grid-cols-2 gap-3 mb-4">
+            <div className="flex items-center space-x-2">
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+                className="border border-gray-300 rounded-lg px-3 py-2"
+              >
+                <option value={2024}>2024</option>
+                <option value={2025}>2025</option>
+              </select>
+              {selectedPeriod === "month" && (
+                <select
+                  value={selectedMonth}
+                  onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+                  className="border border-gray-300 rounded-lg px-3 py-2"
+                >
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {new Date(2025, i).toLocaleDateString("en-US", {
+                        month: "long",
+                      })}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </div>
+          </div>
+        </Card>
+
+        {/* Key Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
             {
               label: "Total Revenue",
@@ -775,6 +795,7 @@ const FinancialManager = ({ onBack }) => {
               previous: financialOverview.previousMonth.totalRevenue,
               icon: DollarSign,
               color: "bg-green-100 text-green-600",
+              format: "currency",
             },
             {
               label: "Net Revenue",
@@ -782,6 +803,7 @@ const FinancialManager = ({ onBack }) => {
               previous: financialOverview.previousMonth.netRevenue,
               icon: TrendingUp,
               color: "bg-blue-100 text-blue-600",
+              format: "currency",
             },
             {
               label: "Platform Fees",
@@ -789,6 +811,7 @@ const FinancialManager = ({ onBack }) => {
               previous: financialOverview.previousMonth.platformFees,
               icon: Percent,
               color: "bg-orange-100 text-orange-600",
+              format: "currency",
             },
             {
               label: "Profit",
@@ -796,6 +819,7 @@ const FinancialManager = ({ onBack }) => {
               previous: financialOverview.previousMonth.profit,
               icon: PieChart,
               color: "bg-purple-100 text-purple-600",
+              format: "currency",
             },
           ].map((metric, index) => {
             const change = calculateChange(metric.value, metric.previous);
@@ -808,34 +832,43 @@ const FinancialManager = ({ onBack }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="p-3">
-                  <div className="flex items-center space-x-3">
-                    <div
-                      className={`p-2 rounded-lg ${metric.color.split(" ")[0]}`}
-                    >
-                      <metric.icon
-                        className={`w-4 h-4 ${metric.color.split(" ")[1]}`}
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-gray-600 truncate">
-                        {metric.label}
-                      </p>
-                      <p className="text-lg font-bold text-gray-900">
-                        ₹{(metric.value / 1000).toFixed(0)}k
-                      </p>
+                <Card className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
                       <div
-                        className={`flex items-center text-xs font-medium ${
+                        className={`p-3 rounded-lg ${
+                          metric.color.split(" ")[0]
+                        }`}
+                      >
+                        <metric.icon
+                          className={`w-6 h-6 ${metric.color.split(" ")[1]}`}
+                        />
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-medium text-gray-600">
+                          {metric.label}
+                        </p>
+                        <p className="text-2xl font-bold text-gray-900">
+                          {metric.format === "currency"
+                            ? `₹${metric.value.toLocaleString()}`
+                            : metric.value.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div
+                        className={`flex items-center text-sm font-medium ${
                           isPositive ? "text-green-600" : "text-red-600"
                         }`}
                       >
                         {isPositive ? (
-                          <TrendingUp className="w-3 h-3 mr-1" />
+                          <TrendingUp className="w-4 h-4 mr-1" />
                         ) : (
-                          <TrendingDown className="w-3 h-3 mr-1" />
+                          <TrendingDown className="w-4 h-4 mr-1" />
                         )}
                         {Math.abs(change).toFixed(1)}%
                       </div>
+                      <p className="text-xs text-gray-500">vs last month</p>
                     </div>
                   </div>
                 </Card>
@@ -844,384 +877,185 @@ const FinancialManager = ({ onBack }) => {
           })}
         </div>
 
-        {/* Mobile Quick Actions */}
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <Button
-            variant="outline"
-            onClick={() => setActiveTab("transactions")}
-            className="w-full"
-          >
-            <FileText className="w-4 h-4 mr-2" />
-            Transactions
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() => handleDownloadReport("financial")}
-            className="w-full"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Export
-          </Button>
-        </div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Revenue Chart */}
+          <div className="lg:col-span-2">
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  Revenue Trend
+                </h2>
+                <Button variant="outline" size="sm" icon={BarChart3}>
+                  View Details
+                </Button>
+              </div>
 
-        {/* Mobile Revenue Trend */}
-        <Card className="p-4 mb-4">
-          <h3 className="font-semibold text-gray-900 mb-3">Revenue Trend</h3>
-          <div className="space-y-3">
-            {monthlyData.slice(0, 3).map((data, index) => (
-              <div key={data.month} className="flex items-center space-x-3">
-                <span className="w-8 text-sm text-gray-600">{data.month}</span>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm font-medium">
-                      ₹{(data.revenue / 1000).toFixed(0)}k
+              <div className="space-y-4">
+                {monthlyData.map((data, index) => (
+                  <div key={data.month} className="flex items-center space-x-4">
+                    <span className="w-8 text-sm text-gray-600">
+                      {data.month}
                     </span>
-                    <span className="text-xs text-gray-500">
-                      {((data.revenue / 50000) * 100).toFixed(0)}%
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-sm font-medium">
+                          ₹{data.revenue.toLocaleString()}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {((data.revenue / 50000) * 100).toFixed(0)}%
+                        </span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-blue-600 h-2 rounded-full"
+                          style={{
+                            width: `${Math.min(
+                              (data.revenue / 50000) * 100,
+                              100
+                            )}%`,
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                    <span className="text-sm text-gray-500 w-16 text-right">
+                      ₹{data.profit.toLocaleString()}
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                ))}
+              </div>
+            </Card>
+          </div>
+
+          {/* Sidebar Cards */}
+          <div className="space-y-6">
+            {/* Transaction Summary */}
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-4">
+                Transaction Summary
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Total</span>
+                  <span className="font-medium">{transactions.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Completed</span>
+                  <span className="font-medium text-green-600">
+                    {
+                      transactions.filter((t) => t.status === "completed")
+                        .length
+                    }
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Pending</span>
+                  <span className="font-medium text-yellow-600">
+                    {transactions.filter((t) => t.status === "pending").length}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Failed</span>
+                  <span className="font-medium text-red-600">
+                    {transactions.filter((t) => t.status === "failed").length}
+                  </span>
+                </div>
+                <div className="flex justify-between pt-2 border-t">
+                  <span className="text-gray-600">Success Rate</span>
+                  <span className="font-medium">
+                    {(
+                      (transactions.filter((t) => t.status === "completed")
+                        .length /
+                        transactions.length) *
+                      100
+                    ).toFixed(1)}
+                    %
+                  </span>
+                </div>
+              </div>
+            </Card>
+
+            {/* Recent Transactions */}
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-gray-900">
+                  Recent Transactions
+                </h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setActiveTab("transactions")}
+                >
+                  View All
+                </Button>
+              </div>
+
+              <div className="space-y-3">
+                {transactions.slice(0, 4).map((transaction) => {
+                  const StatusIcon = getStatusIcon(transaction.status);
+
+                  return (
                     <div
-                      className="bg-blue-600 h-2 rounded-full"
-                      style={{
-                        width: `${Math.min(
-                          (data.revenue / 50000) * 100,
-                          100
-                        )}%`,
-                      }}
-                    ></div>
+                      key={transaction.id}
+                      className="flex items-center space-x-3"
+                    >
+                      <div
+                        className={`p-2 rounded-lg ${
+                          getStatusColor(transaction.status).split(" ")[0]
+                        }`}
+                      >
+                        <StatusIcon className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {transaction.customerName}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          ₹{transaction.netAmount.toLocaleString()} •{" "}
+                          {transaction.date}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </Card>
+
+            {/* Expense Summary */}
+            <Card className="p-6">
+              <h3 className="font-semibold text-gray-900 mb-4">
+                This Month's Expenses
+              </h3>
+              <div className="space-y-3">
+                {expenses.slice(0, 3).map((expense) => (
+                  <div key={expense.id} className="flex justify-between">
+                    <div>
+                      <span className="text-sm font-medium text-gray-900">
+                        {expense.category}
+                      </span>
+                      <p className="text-xs text-gray-500">
+                        {expense.description}
+                      </p>
+                    </div>
+                    <span className="text-sm font-medium text-red-600">
+                      -₹{expense.amount.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+                <div className="pt-3 border-t">
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-900">
+                      Total Expenses
+                    </span>
+                    <span className="text-sm font-bold text-red-600">
+                      -₹
+                      {expenses
+                        .reduce((sum, exp) => sum + exp.amount, 0)
+                        .toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </Card>
-
-        {/* Mobile Recent Transactions */}
-        <Card className="p-4 mb-4">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-gray-900">Recent Transactions</h3>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setActiveTab("transactions")}
-            >
-              View All
-            </Button>
-          </div>
-
-          <div className="space-y-3">
-            {transactions.slice(0, 3).map((transaction) => {
-              const StatusIcon = getStatusIcon(transaction.status);
-
-              return (
-                <div
-                  key={transaction.id}
-                  className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer"
-                  onClick={() => setSelectedTransaction(transaction)}
-                >
-                  <div
-                    className={`p-2 rounded-lg ${
-                      getStatusColor(transaction.status).split(" ")[0]
-                    }`}
-                  >
-                    <StatusIcon className="w-3 h-3" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {transaction.customerName}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      ₹{transaction.netAmount.toLocaleString()} •{" "}
-                      {transaction.date}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Card>
-      </div>
-
-      {/* Desktop Content */}
-      <div className="hidden lg:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {[
-              {
-                label: "Total Revenue",
-                value: financialOverview.currentMonth.totalRevenue,
-                previous: financialOverview.previousMonth.totalRevenue,
-                icon: DollarSign,
-                color: "bg-green-100 text-green-600",
-                format: "currency",
-              },
-              {
-                label: "Net Revenue",
-                value: financialOverview.currentMonth.netRevenue,
-                previous: financialOverview.previousMonth.netRevenue,
-                icon: TrendingUp,
-                color: "bg-blue-100 text-blue-600",
-                format: "currency",
-              },
-              {
-                label: "Platform Fees",
-                value: financialOverview.currentMonth.platformFees,
-                previous: financialOverview.previousMonth.platformFees,
-                icon: Percent,
-                color: "bg-orange-100 text-orange-600",
-                format: "currency",
-              },
-              {
-                label: "Profit",
-                value: financialOverview.currentMonth.profit,
-                previous: financialOverview.previousMonth.profit,
-                icon: PieChart,
-                color: "bg-purple-100 text-purple-600",
-                format: "currency",
-              },
-            ].map((metric, index) => {
-              const change = calculateChange(metric.value, metric.previous);
-              const isPositive = change >= 0;
-
-              return (
-                <motion.div
-                  key={metric.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <div
-                          className={`p-3 rounded-lg ${
-                            metric.color.split(" ")[0]
-                          }`}
-                        >
-                          <metric.icon
-                            className={`w-6 h-6 ${metric.color.split(" ")[1]}`}
-                          />
-                        </div>
-                        <div className="ml-4">
-                          <p className="text-sm font-medium text-gray-600">
-                            {metric.label}
-                          </p>
-                          <p className="text-2xl font-bold text-gray-900">
-                            {metric.format === "currency"
-                              ? `₹${metric.value.toLocaleString()}`
-                              : metric.value.toLocaleString()}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div
-                          className={`flex items-center text-sm font-medium ${
-                            isPositive ? "text-green-600" : "text-red-600"
-                          }`}
-                        >
-                          {isPositive ? (
-                            <TrendingUp className="w-4 h-4 mr-1" />
-                          ) : (
-                            <TrendingDown className="w-4 h-4 mr-1" />
-                          )}
-                          {Math.abs(change).toFixed(1)}%
-                        </div>
-                        <p className="text-xs text-gray-500">vs last month</p>
-                      </div>
-                    </div>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Revenue Chart */}
-            <div className="lg:col-span-2">
-              <Card className="p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    Revenue Trend
-                  </h2>
-                  <Button variant="outline" size="sm" icon={BarChart3}>
-                    View Details
-                  </Button>
-                </div>
-
-                <div className="space-y-4">
-                  {monthlyData.map((data, index) => (
-                    <div
-                      key={data.month}
-                      className="flex items-center space-x-4"
-                    >
-                      <span className="w-8 text-sm text-gray-600">
-                        {data.month}
-                      </span>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium">
-                            ₹{data.revenue.toLocaleString()}
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {((data.revenue / 50000) * 100).toFixed(0)}%
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-blue-600 h-2 rounded-full"
-                            style={{
-                              width: `${Math.min(
-                                (data.revenue / 50000) * 100,
-                                100
-                              )}%`,
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                      <span className="text-sm text-gray-500 w-16 text-right">
-                        ₹{data.profit.toLocaleString()}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-
-            {/* Sidebar Cards */}
-            <div className="space-y-6">
-              {/* Transaction Summary */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  Transaction Summary
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Total</span>
-                    <span className="font-medium">{transactions.length}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Completed</span>
-                    <span className="font-medium text-green-600">
-                      {
-                        transactions.filter((t) => t.status === "completed")
-                          .length
-                      }
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Pending</span>
-                    <span className="font-medium text-yellow-600">
-                      {
-                        transactions.filter((t) => t.status === "pending")
-                          .length
-                      }
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Failed</span>
-                    <span className="font-medium text-red-600">
-                      {transactions.filter((t) => t.status === "failed").length}
-                    </span>
-                  </div>
-                  <div className="flex justify-between pt-2 border-t">
-                    <span className="text-gray-600">Success Rate</span>
-                    <span className="font-medium">
-                      {(
-                        (transactions.filter((t) => t.status === "completed")
-                          .length /
-                          transactions.length) *
-                        100
-                      ).toFixed(1)}
-                      %
-                    </span>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Recent Transactions */}
-              <Card className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-gray-900">
-                    Recent Transactions
-                  </h3>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setActiveTab("transactions")}
-                  >
-                    View All
-                  </Button>
-                </div>
-
-                <div className="space-y-3">
-                  {transactions.slice(0, 4).map((transaction) => {
-                    const StatusIcon = getStatusIcon(transaction.status);
-
-                    return (
-                      <div
-                        key={transaction.id}
-                        className="flex items-center space-x-3"
-                      >
-                        <div
-                          className={`p-2 rounded-lg ${
-                            getStatusColor(transaction.status).split(" ")[0]
-                          }`}
-                        >
-                          <StatusIcon className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
-                            {transaction.customerName}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            ₹{transaction.netAmount.toLocaleString()} •{" "}
-                            {transaction.date}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </Card>
-
-              {/* Expense Summary */}
-              <Card className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-4">
-                  This Month's Expenses
-                </h3>
-                <div className="space-y-3">
-                  {expenses.slice(0, 3).map((expense) => (
-                    <div key={expense.id} className="flex justify-between">
-                      <div>
-                        <span className="text-sm font-medium text-gray-900">
-                          {expense.category}
-                        </span>
-                        <p className="text-xs text-gray-500">
-                          {expense.description}
-                        </p>
-                      </div>
-                      <span className="text-sm font-medium text-red-600">
-                        -₹{expense.amount.toLocaleString()}
-                      </span>
-                    </div>
-                  ))}
-                  <div className="pt-3 border-t">
-                    <div className="flex justify-between">
-                      <span className="text-sm font-medium text-gray-900">
-                        Total Expenses
-                      </span>
-                      <span className="text-sm font-bold text-red-600">
-                        -₹
-                        {expenses
-                          .reduce((sum, exp) => sum + exp.amount, 0)
-                          .toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </div>
+            </Card>
           </div>
         </div>
       </div>
