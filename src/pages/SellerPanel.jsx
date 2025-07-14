@@ -38,6 +38,7 @@ import ServiceManagement from "../components/seller/ServiceManagement";
 import NotificationManager from "../components/seller/NotificationManager";
 import CalendarManager from "../components/seller/CalendarManager";
 import FinancialManager from "../components/seller/FinancialManager";
+import FinancialDashboard from "../components/seller/FinancialDashboard";
 import CRMManager from "../components/seller/CRMManager";
 import SellerCustomerAnalytics from "../components/seller/SellerCustomerAnalytics";
 
@@ -423,6 +424,13 @@ const SellerPanel = () => {
           <div className="grid lg:grid-cols-4 gap-6">
             {/* Left Column - Main Content */}
             <div className="lg:col-span-3 space-y-6">
+              {/* Financial Dashboard Section */}
+              <div>
+                <FinancialDashboard
+                  onViewDetails={() => handleViewChange("financial")}
+                />
+              </div>
+
               {/* First Row - Analytics Cards */}
               <div className="grid lg:grid-cols-2 gap-6">
                 {/* Customer Analytics */}
