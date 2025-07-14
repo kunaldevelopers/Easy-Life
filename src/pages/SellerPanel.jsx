@@ -21,6 +21,10 @@ import {
   Bell,
   CalendarCheck,
   Clock,
+  Settings,
+  MapPin,
+  Tag,
+  Camera,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Card from "../components/common/Card";
@@ -144,7 +148,230 @@ const SellerPanel = () => {
   }
 
   if (currentView === "analytics") {
-    return <BusinessAnalytics onBack={handleBackToDashboard} />;
+    return (
+      <>
+        <Helmet>
+          <title>Analytics - Easy Life Gangtok</title>
+        </Helmet>
+        <div className="min-h-screen bg-gray-50">
+          {/* Mobile Header */}
+          <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4 safe-area-top">
+            <div className="flex items-center justify-between max-w-md mx-auto">
+              <div className="flex items-center space-x-3 flex-1 min-w-0">
+                <button
+                  onClick={() => setCurrentView("dashboard")}
+                  className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-600" />
+                </button>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg font-bold text-gray-900 truncate">
+                    Business Analytics
+                  </h1>
+                  <p className="text-xs text-gray-500 truncate">
+                    Track your business performance and insights
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <select className="text-xs px-2 py-1 border rounded bg-white">
+                  <option>Last 30 days</option>
+                  <option>Last 7 days</option>
+                  <option>Last 90 days</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Analytics Content */}
+          <div className="px-4 space-y-4 pb-24">
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 bg-blue-100 rounded-lg">
+                    <Eye className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span className="text-xs font-medium text-green-600">
+                    +12%
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">2,847</p>
+                  <p className="text-xs text-gray-600">Total Views</p>
+                  <p className="text-xs text-gray-500">+12% vs last month</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 bg-green-100 rounded-lg">
+                    <MessageCircle className="w-4 h-4 text-green-600" />
+                  </div>
+                  <span className="text-xs font-medium text-green-600">
+                    +8%
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">47</p>
+                  <p className="text-xs text-gray-600">Inquiries</p>
+                  <p className="text-xs text-gray-500">+8% vs last month</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 bg-yellow-100 rounded-lg">
+                    <Star className="w-4 h-4 text-yellow-600" />
+                  </div>
+                  <span className="text-xs font-medium text-green-600">
+                    +0.2
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">4.6</p>
+                  <p className="text-xs text-gray-600">Avg Rating</p>
+                  <p className="text-xs text-gray-500">+0.2 vs last month</p>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 bg-purple-100 rounded-lg">
+                    <TrendingUp className="w-4 h-4 text-purple-600" />
+                  </div>
+                  <span className="text-xs font-medium text-green-600">
+                    +0.3%
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">1.65%</p>
+                  <p className="text-xs text-gray-600">Conversion</p>
+                  <p className="text-xs text-gray-500">+0.3% vs last month</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Performance Chart */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Performance Trends
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600">Views Growth</span>
+                  <span className="font-medium text-green-600">+24%</span>
+                </div>
+                {[
+                  { month: "Jan", views: 2100 },
+                  { month: "Feb", views: 2300 },
+                  { month: "Mar", views: 2847 },
+                ].map((data, index) => (
+                  <div key={data.month} className="flex items-center space-x-3">
+                    <span className="w-8 text-sm text-gray-600">
+                      {data.month}
+                    </span>
+                    <div className="flex-1 flex items-center space-x-2">
+                      <div className="flex-1 bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
+                          style={{ width: `${(data.views / 3000) * 100}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-sm text-gray-600 w-12">
+                        {data.views}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Customer Insights */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Customer Insights
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">
+                    Peak Activity Time
+                  </span>
+                  <span className="text-sm font-medium">2-6 PM</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">
+                    Top Service Category
+                  </span>
+                  <span className="text-sm font-medium">Food & Catering</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600">Response Rate</span>
+                  <span className="text-sm font-medium text-green-600">
+                    95%
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Shared Bottom Navigation */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom">
+            <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
+              <button
+                onClick={() => setCurrentView("dashboard")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "dashboard"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Dashboard</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("orders")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "orders" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <ShoppingCart className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Orders</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("earnings")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "earnings" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <DollarSign className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Earnings</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("analytics")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "analytics"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <BarChart3 className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Analytics</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("profile")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "profile" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <Store className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Profile</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
   }
 
   if (currentView === "business-hours") {
@@ -194,6 +421,593 @@ const SellerPanel = () => {
 
   if (currentView === "customer-analytics") {
     return <SellerCustomerAnalytics onBack={handleBackToDashboard} />;
+  }
+
+  // Mobile Orders View
+  if (currentView === "orders") {
+    return (
+      <>
+        <Helmet>
+          <title>Orders - Easy Life Gangtok</title>
+        </Helmet>
+        <div className="min-h-screen bg-gray-50">
+          {/* Mobile Header */}
+          <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4 safe-area-top">
+            <div className="flex items-center justify-between max-w-md mx-auto">
+              <div className="flex items-center space-x-3 flex-1 min-w-0">
+                <button
+                  onClick={() => setCurrentView("dashboard")}
+                  className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-600" />
+                </button>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg font-bold text-gray-900 truncate">
+                    Orders
+                  </h1>
+                  <p className="text-xs text-gray-500 truncate">
+                    Manage your orders
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <button className="p-2 rounded-lg bg-gray-100">
+                  <Activity className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Orders Stats */}
+          <div className="px-4 mb-6 max-w-md mx-auto">
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 rounded-lg bg-green-100 flex-shrink-0">
+                    <ShoppingCart className="w-4 h-4 text-green-600" />
+                  </div>
+                  <span className="text-xs font-medium text-green-600">
+                    +15%
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">24</p>
+                  <p className="text-xs text-gray-600">Total Orders</p>
+                </div>
+              </div>
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 rounded-lg bg-blue-100 flex-shrink-0">
+                    <Clock className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span className="text-xs font-medium text-blue-600">
+                    3 pending
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">₹12,450</p>
+                  <p className="text-xs text-gray-600">This Month</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Order Status Filter */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-4">
+              <div className="flex space-x-2 overflow-x-auto scrollbar-hide pb-2">
+                {["All", "Pending", "Confirmed", "Completed", "Cancelled"].map(
+                  (status) => (
+                    <button
+                      key={status}
+                      className={`px-4 py-2 rounded-lg text-xs font-medium whitespace-nowrap flex-shrink-0 ${
+                        status === "All"
+                          ? "bg-blue-100 text-blue-700"
+                          : "bg-gray-100 text-gray-600"
+                      }`}
+                    >
+                      {status}
+                    </button>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Recent Orders List */}
+            <div className="space-y-3">
+              {[
+                {
+                  id: "ORD001",
+                  customer: "Priya Sharma",
+                  service: "Wedding Catering",
+                  amount: "₹8,500",
+                  status: "confirmed",
+                  date: "Today, 2:30 PM",
+                },
+                {
+                  id: "ORD002",
+                  customer: "Rajesh Kumar",
+                  service: "Birthday Party",
+                  amount: "₹3,200",
+                  status: "pending",
+                  date: "Today, 11:15 AM",
+                },
+                {
+                  id: "ORD003",
+                  customer: "Anjali Thapa",
+                  service: "Corporate Event",
+                  amount: "₹12,000",
+                  status: "completed",
+                  date: "Yesterday",
+                },
+              ].map((order) => (
+                <div
+                  key={order.id}
+                  className="bg-white rounded-xl p-4 shadow-sm border border-gray-100"
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex items-center space-x-3 flex-1 min-w-0">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-sm flex-shrink-0">
+                        {order.customer.split(" ")[0][0]}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-gray-900 text-sm truncate">
+                          {order.customer}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {order.service}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right flex-shrink-0 ml-2">
+                      <p className="font-bold text-gray-900 text-sm">
+                        {order.amount}
+                      </p>
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full ${
+                          order.status === "confirmed"
+                            ? "bg-green-100 text-green-700"
+                            : order.status === "pending"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : order.status === "completed"
+                            ? "bg-blue-100 text-blue-700"
+                            : "bg-red-100 text-red-700"
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <p className="text-xs text-gray-500 flex-1 min-w-0 truncate">
+                      {order.date}
+                    </p>
+                    <button className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium flex-shrink-0 ml-2">
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="h-20"></div>
+        </div>
+      </>
+    );
+  }
+
+  // Mobile Earnings View
+  if (currentView === "earnings") {
+    return (
+      <>
+        <Helmet>
+          <title>Earnings - Easy Life Gangtok</title>
+        </Helmet>
+        <div className="min-h-screen bg-gray-50">
+          {/* Mobile Header */}
+          <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4 safe-area-top">
+            <div className="flex items-center justify-between max-w-md mx-auto">
+              <div className="flex items-center space-x-3 flex-1 min-w-0">
+                <button
+                  onClick={() => setCurrentView("dashboard")}
+                  className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-600" />
+                </button>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg font-bold text-gray-900 truncate">
+                    Earnings
+                  </h1>
+                  <p className="text-xs text-gray-500 truncate">
+                    Track your income
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <button className="p-2 rounded-lg bg-gray-100">
+                  <Calendar className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Earnings Summary */}
+          <div className="px-4 mb-6 max-w-md mx-auto">
+            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 shadow-sm border border-green-100 mb-4">
+              <div className="text-center">
+                <h2 className="text-xs text-gray-600 mb-1">
+                  Total Earnings This Month
+                </h2>
+                <p className="text-3xl font-bold text-gray-900 mb-2">₹28,500</p>
+                <div className="flex items-center justify-center space-x-1">
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                  <span className="text-sm font-medium text-green-600">
+                    +24% from last month
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Earnings Breakdown */}
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 rounded-lg bg-blue-100">
+                    <DollarSign className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span className="text-xs font-medium text-blue-600">
+                    Today
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">₹2,480</p>
+                  <p className="text-xs text-gray-600">8 orders</p>
+                </div>
+              </div>
+              <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 rounded-lg bg-purple-100">
+                    <Calendar className="w-4 h-4 text-purple-600" />
+                  </div>
+                  <span className="text-xs font-medium text-purple-600">
+                    This Week
+                  </span>
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-gray-900">₹12,340</p>
+                  <p className="text-xs text-gray-600">32 orders</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment Status */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-4">
+              <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <CreditCard className="h-4 w-4 text-green-600" />
+                Payment Status
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">
+                    Available Balance
+                  </span>
+                  <span className="font-bold text-green-600">₹15,200</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">
+                    Pending Settlement
+                  </span>
+                  <span className="font-bold text-yellow-600">₹8,300</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-600">Total Withdrawn</span>
+                  <span className="font-bold text-gray-900">₹45,600</span>
+                </div>
+              </div>
+              <button className="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg font-medium">
+                Withdraw Earnings
+              </button>
+            </div>
+
+            {/* Recent Transactions */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Recent Transactions
+              </h3>
+              <div className="space-y-3">
+                {[
+                  {
+                    type: "order",
+                    amount: "+₹1,200",
+                    desc: "Wedding Catering - Priya S.",
+                    time: "2 hours ago",
+                  },
+                  {
+                    type: "withdrawal",
+                    amount: "-₹5,000",
+                    desc: "Bank Transfer",
+                    time: "1 day ago",
+                  },
+                  {
+                    type: "order",
+                    amount: "+₹800",
+                    desc: "Birthday Party - Rajesh K.",
+                    time: "2 days ago",
+                  },
+                ].map((transaction, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  >
+                    <div className="flex items-center space-x-3 flex-1 min-w-0">
+                      <div
+                        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                          transaction.type === "order"
+                            ? "bg-green-100"
+                            : "bg-blue-100"
+                        }`}
+                      >
+                        {transaction.type === "order" ? (
+                          <TrendingUp className="w-4 h-4 text-green-600" />
+                        ) : (
+                          <DollarSign className="w-4 h-4 text-blue-600" />
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {transaction.desc}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {transaction.time}
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      className={`font-bold flex-shrink-0 ml-2 ${
+                        transaction.type === "order"
+                          ? "text-green-600"
+                          : "text-blue-600"
+                      }`}
+                    >
+                      {transaction.amount}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="h-20"></div>
+        </div>
+      </>
+    );
+  }
+
+  // Mobile Profile View
+  if (currentView === "profile") {
+    return (
+      <>
+        <Helmet>
+          <title>Business Profile - Easy Life Gangtok</title>
+        </Helmet>
+        <div className="min-h-screen bg-gray-50">
+          {/* Mobile Header */}
+          <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4 safe-area-top">
+            <div className="flex items-center justify-between max-w-md mx-auto">
+              <div className="flex items-center space-x-3 flex-1 min-w-0">
+                <button
+                  onClick={() => setCurrentView("dashboard")}
+                  className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
+                >
+                  <ArrowLeft className="w-5 h-5 text-gray-600" />
+                </button>
+                <div className="min-w-0 flex-1">
+                  <h1 className="text-lg font-bold text-gray-900 truncate">
+                    Profile
+                  </h1>
+                  <p className="text-xs text-gray-500 truncate">
+                    Manage your business
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 flex-shrink-0">
+                <button className="p-2 rounded-lg bg-gray-100">
+                  <Settings className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Profile Content */}
+          <div className="px-4 mb-6 max-w-md mx-auto">
+            {/* Business Info Card */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-4">
+              <div className="flex items-center space-x-4 mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                  HD
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-gray-900">
+                    Himalayan Delights
+                  </h3>
+                  <p className="text-sm text-gray-600">Food & Catering</p>
+                  <div className="flex items-center space-x-1 mt-1">
+                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                    <span className="text-sm font-medium">4.6</span>
+                    <span className="text-xs text-gray-500">(12 reviews)</span>
+                  </div>
+                </div>
+                <button className="p-2 rounded-lg bg-blue-100">
+                  <Camera className="w-5 h-5 text-blue-600" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center bg-blue-50 rounded-lg p-3">
+                  <p className="text-lg font-bold text-blue-900">2,847</p>
+                  <p className="text-xs text-blue-700">Profile Views</p>
+                </div>
+                <div className="text-center bg-green-50 rounded-lg p-3">
+                  <p className="text-lg font-bold text-green-900">85%</p>
+                  <p className="text-xs text-green-700">Profile Complete</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Profile Management */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-4">
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Profile Management
+              </h3>
+              <div className="space-y-3">
+                {[
+                  {
+                    icon: Store,
+                    label: "Edit Business Info",
+                    badge: null,
+                    color: "blue",
+                  },
+                  {
+                    icon: Plus,
+                    label: "Add Photos",
+                    badge: "3 pending",
+                    color: "red",
+                  },
+                  {
+                    icon: Clock,
+                    label: "Business Hours",
+                    badge: null,
+                    color: "purple",
+                  },
+                  {
+                    icon: MapPin,
+                    label: "Location & Contact",
+                    badge: null,
+                    color: "green",
+                  },
+                  {
+                    icon: Tag,
+                    label: "Services & Pricing",
+                    badge: "Update",
+                    color: "yellow",
+                  },
+                ].map((item, index) => (
+                  <button
+                    key={index}
+                    className="w-full flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3 flex-1 min-w-0">
+                      <div
+                        className={`p-2 rounded-lg bg-${item.color}-100 flex-shrink-0`}
+                      >
+                        <item.icon
+                          className={`w-5 h-5 text-${item.color}-600`}
+                        />
+                      </div>
+                      <span className="text-sm font-medium text-gray-900 truncate">
+                        {item.label}
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 flex-shrink-0">
+                      {item.badge && (
+                        <span
+                          className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${
+                            item.color === "red"
+                              ? "bg-red-100 text-red-600"
+                              : "bg-yellow-100 text-yellow-600"
+                          }`}
+                        >
+                          {item.badge}
+                        </span>
+                      )}
+                      <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Business Stats */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-4">
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Business Status
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600 flex-1 min-w-0 truncate">
+                    Profile Status
+                  </span>
+                  <span className="flex items-center flex-shrink-0">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                    <span className="font-medium text-green-600">Active</span>
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600 flex-1 min-w-0 truncate">
+                    Verification
+                  </span>
+                  <span className="flex items-center flex-shrink-0">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                    <span className="font-medium text-green-600">Verified</span>
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 flex-1 min-w-0 truncate">
+                    Listed Since
+                  </span>
+                  <span className="font-medium flex-shrink-0">
+                    Jan 15, 2024
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600 flex-1 min-w-0 truncate">
+                    Response Time
+                  </span>
+                  <span className="font-medium text-green-600 flex-shrink-0">
+                    &lt; 2 hours
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Account Settings */}
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <h3 className="font-semibold text-gray-900 mb-3">
+                Account Settings
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { icon: Bell, label: "Notifications", color: "blue" },
+                  { icon: Users, label: "Privacy Settings", color: "purple" },
+                  { icon: Phone, label: "Contact Support", color: "green" },
+                  { icon: Settings, label: "App Preferences", color: "gray" },
+                ].map((item, index) => (
+                  <button
+                    key={index}
+                    className="w-full flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    <div className="flex items-center space-x-3 flex-1 min-w-0">
+                      <div
+                        className={`p-2 rounded-lg bg-${item.color}-100 flex-shrink-0`}
+                      >
+                        <item.icon
+                          className={`w-5 h-5 text-${item.color}-600`}
+                        />
+                      </div>
+                      <span className="text-sm font-medium text-gray-900 truncate">
+                        {item.label}
+                      </span>
+                    </div>
+                    <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180 flex-shrink-0" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="h-20"></div>
+        </div>
+      </>
+    );
   }
 
   const stats = [
@@ -726,51 +1540,6 @@ const SellerPanel = () => {
                   <ArrowLeft className="w-4 h-4 text-gray-400 rotate-180" />
                 </button>
               </div>
-            </div>
-          </div>
-
-          {/* Mobile Bottom Navigation */}
-          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
-            <div className="grid grid-cols-5 gap-1">
-              <button
-                onClick={() => handleViewChange("dashboard")}
-                className={`flex flex-col items-center py-2 px-1 ${
-                  currentView === "dashboard"
-                    ? "text-blue-600"
-                    : "text-gray-500"
-                }`}
-              >
-                <Activity className="w-5 h-5 mb-1" />
-                <span className="text-xs font-medium">Dashboard</span>
-              </button>
-              <button
-                onClick={() => handleServiceManagementView("orders")}
-                className="flex flex-col items-center py-2 px-1 text-gray-500"
-              >
-                <ShoppingCart className="w-5 h-5 mb-1" />
-                <span className="text-xs font-medium">Orders</span>
-              </button>
-              <button
-                onClick={() => handleViewChange("financial")}
-                className="flex flex-col items-center py-2 px-1 text-gray-500"
-              >
-                <DollarSign className="w-5 h-5 mb-1" />
-                <span className="text-xs font-medium">Earnings</span>
-              </button>
-              <button
-                onClick={() => handleViewChange("analytics")}
-                className="flex flex-col items-center py-2 px-1 text-gray-500"
-              >
-                <BarChart3 className="w-5 h-5 mb-1" />
-                <span className="text-xs font-medium">Analytics</span>
-              </button>
-              <button
-                onClick={() => handleViewChange("business-profile")}
-                className="flex flex-col items-center py-2 px-1 text-gray-500"
-              >
-                <Store className="w-5 h-5 mb-1" />
-                <span className="text-xs font-medium">Profile</span>
-              </button>
             </div>
           </div>
 
@@ -1455,6 +2224,61 @@ const SellerPanel = () => {
                   </div>
                 </Card>
               </div>
+            </div>
+          </div>
+
+          {/* Mobile Bottom Navigation */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
+            <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
+              <button
+                onClick={() => setCurrentView("dashboard")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "dashboard"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Dashboard</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("orders")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "orders" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <ShoppingCart className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Orders</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("earnings")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "earnings" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <DollarSign className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Earnings</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("analytics")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "analytics"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <BarChart3 className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Analytics</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("profile")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "profile" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <Store className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Profile</span>
+              </button>
             </div>
           </div>
 
