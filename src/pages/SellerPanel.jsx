@@ -315,8 +315,8 @@ const SellerPanel = () => {
             </div>
           </div>
 
-          {/* Shared Bottom Navigation */}
-          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom">
+          {/* Mobile Bottom Navigation */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
                 onClick={() => setCurrentView("dashboard")}
@@ -589,6 +589,61 @@ const SellerPanel = () => {
             </div>
           </div>
 
+          {/* Mobile Bottom Navigation */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
+            <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
+              <button
+                onClick={() => setCurrentView("dashboard")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "dashboard"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Dashboard</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("orders")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "orders" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <ShoppingCart className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Orders</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("earnings")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "earnings" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <DollarSign className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Earnings</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("analytics")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "analytics"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <BarChart3 className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Analytics</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("profile")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "profile" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <Store className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Profile</span>
+              </button>
+            </div>
+          </div>
+
           <div className="h-20"></div>
         </div>
       </>
@@ -773,6 +828,61 @@ const SellerPanel = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Mobile Bottom Navigation */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
+            <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
+              <button
+                onClick={() => setCurrentView("dashboard")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "dashboard"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Dashboard</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("orders")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "orders" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <ShoppingCart className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Orders</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("earnings")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "earnings" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <DollarSign className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Earnings</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("analytics")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "analytics"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <BarChart3 className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Analytics</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("profile")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "profile" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <Store className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Profile</span>
+              </button>
             </div>
           </div>
 
@@ -1001,6 +1111,61 @@ const SellerPanel = () => {
                   </button>
                 ))}
               </div>
+            </div>
+          </div>
+
+          {/* Mobile Bottom Navigation */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
+            <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
+              <button
+                onClick={() => setCurrentView("dashboard")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "dashboard"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Dashboard</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("orders")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "orders" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <ShoppingCart className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Orders</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("earnings")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "earnings" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <DollarSign className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Earnings</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("analytics")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "analytics"
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                }`}
+              >
+                <BarChart3 className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Analytics</span>
+              </button>
+              <button
+                onClick={() => setCurrentView("profile")}
+                className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+                  currentView === "profile" ? "text-blue-600" : "text-gray-500"
+                }`}
+              >
+                <Store className="w-5 h-5 mb-1 flex-shrink-0" />
+                <span className="text-xs font-medium truncate">Profile</span>
+              </button>
             </div>
           </div>
 
