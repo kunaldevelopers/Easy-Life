@@ -581,21 +581,21 @@ const Auth = () => {
   const renderSignupForm = () => (
     <motion.form
       onSubmit={handleSignup}
-      className="space-y-6"
+      className="space-y-6 sm:space-y-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <div className="space-y-5">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+      <div className="space-y-6">
+        <div className="mb-8">
+          <label className="block text-sm font-medium text-gray-700 mb-4">
             <User className="w-4 h-4 inline mr-2" />
             Account Type
           </label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <label
               className={`
-              relative flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-200
+              relative flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200
               ${
                 formData.userType === "customer"
                   ? "border-primary-500 bg-primary-50 shadow-md"
@@ -611,10 +611,12 @@ const Auth = () => {
                 onChange={handleInputChange}
                 className="sr-only"
               />
-              <div className="flex-1">
-                <div className="flex items-center">
-                  <Users className="w-5 h-5 mr-2 text-primary-600" />
-                  <span className="font-medium text-gray-900">Customer</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center flex-wrap sm:flex-nowrap">
+                  <Users className="w-5 h-5 mr-2 text-primary-600 flex-shrink-0" />
+                  <span className="font-medium text-gray-900 text-sm sm:text-base">
+                    Customer
+                  </span>
                 </div>
                 <p className="text-xs text-gray-600 mt-1">
                   Find and book services
@@ -627,7 +629,7 @@ const Auth = () => {
 
             <label
               className={`
-              relative flex items-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-200
+              relative flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200
               ${
                 formData.userType === "seller"
                   ? "border-primary-500 bg-primary-50 shadow-md"
@@ -643,10 +645,10 @@ const Auth = () => {
                 onChange={handleInputChange}
                 className="sr-only"
               />
-              <div className="flex-1">
-                <div className="flex items-center">
-                  <Shield className="w-5 h-5 mr-2 text-primary-600" />
-                  <span className="font-medium text-gray-900">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center flex-wrap sm:flex-nowrap">
+                  <Shield className="w-5 h-5 mr-2 text-primary-600 flex-shrink-0" />
+                  <span className="font-medium text-gray-900 text-sm sm:text-base">
                     Business Partner
                   </span>
                 </div>
@@ -665,7 +667,7 @@ const Auth = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-4"
+            className="space-y-6 pt-4"
           >
             <div className="text-center">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -676,7 +678,7 @@ const Auth = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button
                 type="button"
                 onClick={() =>
@@ -734,7 +736,7 @@ const Auth = () => {
               </button>
             </div>
 
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-8">
               <Button
                 type="button"
                 onClick={() =>
@@ -756,7 +758,7 @@ const Auth = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-4"
+            className="space-y-6 pt-4"
           >
             <Input
               label="Full Name"
@@ -1602,19 +1604,19 @@ const Auth = () => {
         </div>
 
         {/* Right Panel - Form */}
-        <div className="flex-1 flex items-center justify-center p-8">
-          <div className="w-full max-w-md">
+        <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
+          <div className="w-full max-w-md sm:max-w-lg">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="p-8 shadow-xl">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <Card className="p-6 sm:p-8 shadow-xl">
+                <div className="text-center mb-6 sm:mb-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                     {mode === "login" ? "Welcome Back!" : "Join Easy Life"}
                   </h2>
-                  <p className="text-gray-600">
+                  <p className="text-sm sm:text-base text-gray-600">
                     {mode === "login"
                       ? "Sign in to your account"
                       : "Create your account today"}
