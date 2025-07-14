@@ -6,8 +6,6 @@ import {
   Mail,
   Lock,
   User,
-  Eye,
-  EyeOff,
   ArrowLeft,
   Shield,
   CheckCircle,
@@ -52,7 +50,6 @@ const Auth = () => {
   const initialMode = searchParams.get("mode") || "login";
   const [mode, setMode] = useState(initialMode);
   const [loginMethod, setLoginMethod] = useState("email");
-  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showOTP, setShowOTP] = useState(false);
@@ -413,30 +410,17 @@ const Auth = () => {
                 required
                 className="transform transition-all hover:scale-[1.02]"
               />
-              <div className="relative">
-                <Input
-                  label="Password"
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  icon={Lock}
-                  placeholder="Enter your password"
-                  required
-                  className="transform transition-all hover:scale-[1.02]"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-9 text-gray-400 hover:text-gray-600"
-                >
-                  {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
-                  ) : (
-                    <Eye className="w-5 h-5" />
-                  )}
-                </button>
-              </div>
+              <Input
+                label="Password"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                icon={Lock}
+                placeholder="Enter your password"
+                required
+                className="transform transition-all hover:scale-[1.02]"
+              />
             </motion.div>
           ) : (
             <motion.div
