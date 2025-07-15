@@ -71,7 +71,7 @@ const VideoSection = () => {
   };
 
   return (
-    <section className="py-4 lg:py-6">
+    <section className="pt-0 pb-4 lg:pt-1 lg:pb-6">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

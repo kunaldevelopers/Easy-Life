@@ -70,7 +70,7 @@ const Hero = () => {
     }
   };
   return (
-    <section className="relative bg-gradient-to-br from-gray-50 to-white overflow-hidden py-8 lg:py-12">
+    <section className="relative bg-gradient-to-br from-gray-50 to-white overflow-hidden py-4 lg:py-6">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -81,7 +81,7 @@ const Hero = () => {
         />
       </div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-6">
+        <div className="text-center space-y-3">
           {/* Main Heading - First */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -141,18 +141,6 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
-
-          {/* Description - Third */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Your trusted local business directory. Discover the best services,
-              restaurants, hotels, and more in your neighborhood.
-            </p>
           </motion.div>
         </div>
       </div>
