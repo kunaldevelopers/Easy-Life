@@ -88,9 +88,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight">
-              Find Everything You Need in{" "}
-              <span className="text-primary-600">Gangtok</span>
+            <h1 className="text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight text-center font-sans">
+              <span className="inline-block">Find Everything You Need in</span>{" "}
+              <span className="text-primary-600 inline-block">Gangtok</span>
             </h1>
           </motion.div>
 
