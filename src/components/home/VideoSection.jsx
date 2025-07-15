@@ -60,12 +60,12 @@ const VideoSection = () => {
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
-    // Auto-slide timer - every 5 seconds
+    // Auto-slide timer - every 2.5 seconds
     const slideTimer = setInterval(() => {
       if (!isPaused) {
         setCurrentSlide((prev) => (prev + 1) % sliderContent.length);
       }
-    }, 5000);
+    }, 2500);
 
     return () => {
       window.removeEventListener("resize", checkMobile);
