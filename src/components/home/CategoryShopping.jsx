@@ -122,6 +122,7 @@ const CategoryShopping = () => {
       "sweepers",
       "painter",
       "electronic-repair",
+      "loan-finance-consultant",
     ].includes(cat.id)
   );
 
@@ -635,7 +636,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 1.4 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("restaurants")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-red-100 to-orange-100 rounded-t-xl overflow-hidden">
@@ -645,11 +646,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
                               Fast Food
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Quick Bites
                             </p>
                           </div>
@@ -660,7 +661,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 1.5 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("food-delivery")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-green-100 to-emerald-100 rounded-t-xl overflow-hidden">
@@ -670,11 +671,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
                               Home Delivery
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Door to Door
                             </p>
                           </div>
@@ -685,7 +686,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 1.6 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("restaurants")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-purple-100 to-pink-100 rounded-t-xl overflow-hidden">
@@ -695,11 +696,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
-                              Local Restaurants
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Restaurants
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Dine In
                             </p>
                           </div>
@@ -710,7 +711,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 1.7 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("local-food")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-yellow-100 to-orange-100 rounded-t-xl overflow-hidden">
@@ -720,11 +721,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
                               Street Food
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Local Treats
                             </p>
                           </div>
@@ -735,7 +736,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 1.8 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("restaurants")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-pink-100 to-rose-100 rounded-t-xl overflow-hidden">
@@ -745,11 +746,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
                               Bakery
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Fresh Baked
                             </p>
                           </div>
@@ -760,7 +761,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 1.9 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("hotels")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-blue-100 to-indigo-100 rounded-t-xl overflow-hidden">
@@ -770,11 +771,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
                               Hotels
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Stay & Dine
                             </p>
                           </div>
@@ -785,7 +786,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 2.0 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("restaurants")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-amber-100 to-yellow-100 rounded-t-xl overflow-hidden">
@@ -795,11 +796,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
                               Fine Dining
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Premium
                             </p>
                           </div>
@@ -810,7 +811,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 2.1 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("restaurants")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-brown-100 to-orange-100 rounded-t-xl overflow-hidden">
@@ -820,11 +821,11 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
                               Cafe & Coffee
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Relax & Sip
                             </p>
                           </div>
@@ -835,7 +836,7 @@ const CategoryShopping = () => {
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.5, delay: 2.2 }}
-                          className="flex-shrink-0 w-32 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
                           onClick={() => handleCategoryClick("local-food")}
                         >
                           <div className="aspect-square bg-gradient-to-br from-green-100 to-teal-100 rounded-t-xl overflow-hidden">
@@ -845,12 +846,284 @@ const CategoryShopping = () => {
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
-                          <div className="p-3">
-                            <h3 className="font-semibold text-sm text-gray-900 text-center">
-                              Traditional Food
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Traditional
                             </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1">
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
                               Local Flavors
+                            </p>
+                          </div>
+                        </motion.div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Loan And Finance Consultant Section */}
+                  <div className="mt-8">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 2.3 }}
+                      className="flex items-center gap-3 mb-4 sm:mb-6"
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
+                        <Icons.CreditCard className="w-4 h-4 text-white" />
+                      </div>
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                        Loan And Finance Consultant
+                      </h2>
+                      <div className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                        <Icons.TrendingUp className="w-3 h-3" />
+                        Financial
+                      </div>
+                    </motion.div>
+
+                    {/* Horizontal Scrolling Cards */}
+                    <div className="relative">
+                      <div
+                        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory touch-manipulation"
+                        style={{ scrollBehavior: "smooth" }}
+                      >
+                        {/* Card 1: Personal Loans */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 2.4 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-blue-100 to-cyan-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=200&h=200&fit=crop&crop=center"
+                              alt="Personal Loans"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Personal Loans
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Quick Approval
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 2: Business Loans */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 2.5 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-green-100 to-emerald-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop&crop=center"
+                              alt="Business Loans"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Business Loans
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Growth Capital
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 3: Investment Advisory */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 2.6 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-purple-100 to-pink-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=200&fit=crop&crop=center"
+                              alt="Investment Advisory"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Investment
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Wealth Building
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 4: Financial Planning */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 2.7 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-yellow-100 to-orange-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=200&h=200&fit=crop&crop=center"
+                              alt="Financial Planning"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Financial Planning
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Future Security
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 5: Insurance Policies */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 2.8 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-indigo-100 to-blue-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=200&fit=crop&crop=center"
+                              alt="Insurance Policies"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Insurance
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Risk Protection
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 6: Tax Consultation */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 2.9 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-red-100 to-pink-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1554224154-26032fced8bd?w=200&h=200&fit=crop&crop=center"
+                              alt="Tax Consultation"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Tax Consultation
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Expert Advice
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 7: Home Loans */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 3.0 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-teal-100 to-green-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200&h=200&fit=crop&crop=center"
+                              alt="Home Loans"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Home Loans
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Dream Home
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 8: Credit Assistance */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 3.1 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-amber-100 to-yellow-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&h=200&fit=crop&crop=center"
+                              alt="Credit Assistance"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Credit Help
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Score Boost
+                            </p>
+                          </div>
+                        </motion.div>
+
+                        {/* Card 9: Retirement Planning */}
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5, delay: 3.2 }}
+                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
+                          onClick={() =>
+                            handleCategoryClick("loan-finance-consultant")
+                          }
+                        >
+                          <div className="aspect-square bg-gradient-to-br from-violet-100 to-purple-100 rounded-t-xl overflow-hidden">
+                            <img
+                              src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=200&h=200&fit=crop&crop=center"
+                              alt="Retirement Planning"
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="p-2.5">
+                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
+                              Retirement
+                            </h3>
+                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
+                              Golden Years
                             </p>
                           </div>
                         </motion.div>

@@ -113,6 +113,18 @@ export const categories = [
         name: "Mochi (Shoe Repair)",
         services: ["Sole stitching", "Heel/zip fix", "Bag/sandal repair"],
       },
+      {
+        id: "loan-finance-consultant",
+        name: "Loan And Finance Consultant",
+        services: [
+          "Personal loans",
+          "Business loans",
+          "Investment advice",
+          "Financial planning",
+          "Insurance policies",
+          "Tax consultation",
+        ],
+      },
     ],
   },
   {
@@ -330,5 +342,11 @@ export const topCategories = [
     name: "On Job Training",
     icon: "GraduationCap",
     count: "30+ programs",
+  },
+  {
+    id: "loan-finance-consultant",
+    name: "Loan & Finance",
+    icon: "CreditCard",
+    count: "15+ consultants",
   },
 ];
