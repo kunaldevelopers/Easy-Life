@@ -15,9 +15,19 @@ const VideoSection = () => {
   // Slider content - mixed videos and images
   const sliderContent = [
     {
+      type: "image",
+      src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/2.png",
+      title: "Featured Banner 1",
+    },
+    {
       type: "video",
       src: "https://memolatest.com/wp-content/uploads/2025/07/%E2%80%98Samajhdaar-Jaante-Hain-Har-Paani-Ki-Bottle-Bisleri-Nahin-Hindi-30-Sec-Bisleri-India-720p-h264.mp4",
       title: "Bisleri Advertisement",
+    },
+    {
+      type: "image",
+      src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/1.png",
+      title: "Featured Banner 2",
     },
     {
       type: "image",
