@@ -1032,7 +1032,7 @@ const CategoryShopping = () => {
                         >
                           <div className="aspect-square bg-gradient-to-br from-red-100 to-pink-100 rounded-t-xl overflow-hidden">
                             <img
-                              src="https://images.unsplash.com/photo-1554224154-26032fced8bd?w=200&h=200&fit=crop&crop=center"
+                              src="https://images.unsplash.com/photo-1554224154-22dec7ec8818?w=200&h=200&fit=crop&crop=center"
                               alt="Tax Consultation"
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             />
