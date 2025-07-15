@@ -17,7 +17,6 @@ const VideoSection = () => {
     {
       type: "video",
       src: "https://memolatest.com/wp-content/uploads/2025/07/%E2%80%98Samajhdaar-Jaante-Hain-Har-Paani-Ki-Bottle-Bisleri-Nahin-Hindi-30-Sec-Bisleri-India-720p-h264.mp4",
-      poster: "https://marketingmind.in/wp-content/uploads/2020/07/Bisleri.png",
       title: "Bisleri Advertisement",
     },
     {
@@ -176,7 +175,6 @@ const VideoSection = () => {
                   playsInline
                   preload="auto"
                   onError={(e) => console.error("Video loading error:", e)}
-                  poster={currentItem.poster}
                 >
                   <source src={currentItem.src} type="video/mp4" />
                   Your browser does not support the video tag.
