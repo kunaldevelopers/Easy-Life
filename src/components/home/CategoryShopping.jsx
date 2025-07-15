@@ -37,12 +37,40 @@ const CategoryShopping = () => {
       count: "45+ stores",
     },
     services: topCategories.find((cat) => cat.id === "electrician") || {
-      id: "services",
-      name: "Services",
-      icon: "Tool",
-      count: "200+ providers",
+      id: "electrician",
+      name: "Electrician",
+      icon: "Zap",
+      count: "150+ providers",
     },
   };
+
+  // Additional categories for desktop sidebar
+  const popularCategories = [
+    topCategories.find((cat) => cat.id === "restaurants") || {
+      id: "restaurants",
+      name: "Restaurants",
+      icon: "UtensilsCrossed",
+      count: "80+",
+    },
+    topCategories.find((cat) => cat.id === "hotels") || {
+      id: "hotels",
+      name: "Hotels",
+      icon: "Hotel",
+      count: "45+",
+    },
+    topCategories.find((cat) => cat.id === "plumber") || {
+      id: "plumber",
+      name: "Plumber",
+      icon: "Droplets",
+      count: "120+",
+    },
+    topCategories.find((cat) => cat.id === "pharmacy") || {
+      id: "pharmacy",
+      name: "Pharmacy",
+      icon: "Pill",
+      count: "25+",
+    },
+  ];
 
   // Modern color palette for category backgrounds
   const categoryColors = [
@@ -146,6 +174,113 @@ const CategoryShopping = () => {
     </motion.div>
   );
 
+  // Desktop Sidebar Component
+  const DesktopSidebar = () => (
+    <div className="hidden xl:block">
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 sticky top-8"
+      >
+        {/* Popular Today */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <Icons.TrendingUp className="w-5 h-5 text-orange-500" />
+            <h3 className="font-bold text-gray-900 text-lg">Popular Today</h3>
+          </div>
+          <div className="space-y-3">
+            {popularCategories.map((category, index) => {
+              const IconComponent = Icons[category.icon] || Icons.Store;
+              const colorClass =
+                categoryColors[(index + 5) % categoryColors.length];
+              return (
+                <motion.div
+                  key={category.id}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                  onClick={() => handleCategoryClick(category.id)}
+                  className="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-all duration-200 cursor-pointer group"
+                >
+                  <div
+                    className={`w-10 h-10 ${colorClass} rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform`}
+                  >
+                    <IconComponent className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-gray-900 text-sm">
+                      {category.name}
+                    </h4>
+                    <p className="text-xs text-gray-500">{category.count}</p>
+                  </div>
+                  <Icons.ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600" />
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="bg-white rounded-xl p-4">
+          <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+            <Icons.Zap className="w-4 h-4 text-purple-500" />
+            Quick Actions
+          </h3>
+          <div className="space-y-3">
+            <button
+              onClick={() => navigate("/listings")}
+              className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-lg transition-all duration-200 group"
+            >
+              <div className="flex items-center gap-2">
+                <Icons.Search className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-medium text-blue-900">
+                  Browse All
+                </span>
+              </div>
+              <Icons.ChevronRight className="w-4 h-4 text-blue-600 group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            <button
+              onClick={() => navigate("/listings?category=restaurants")}
+              className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 rounded-lg transition-all duration-200 group"
+            >
+              <div className="flex items-center gap-2">
+                <Icons.UtensilsCrossed className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-medium text-green-900">
+                  Find Food
+                </span>
+              </div>
+              <Icons.ChevronRight className="w-4 h-4 text-green-600 group-hover:translate-x-1 transition-transform" />
+            </button>
+
+            <button
+              onClick={() => navigate("/listings?category=electrician")}
+              className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 rounded-lg transition-all duration-200 group"
+            >
+              <div className="flex items-center gap-2">
+                <Icons.Wrench className="w-4 h-4 text-orange-600" />
+                <span className="text-sm font-medium text-orange-900">
+                  Get Service
+                </span>
+              </div>
+              <Icons.ChevronRight className="w-4 h-4 text-orange-600 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+
+  // Background Pattern Component
+  const BackgroundPattern = () => (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-gradient-to-br from-green-100/30 to-blue-100/30 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-orange-100/20 to-pink-100/20 rounded-full blur-2xl"></div>
+    </div>
+  );
+
   const AllCategoriesGrid = () => {
     const container = {
       hidden: { opacity: 0 },
@@ -207,89 +342,124 @@ const CategoryShopping = () => {
   };
 
   return (
-    <section className="py-6 sm:py-8 lg:py-12 bg-white">
+    <section className="py-6 sm:py-8 lg:py-12 bg-white relative">
+      <BackgroundPattern />
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <AnimatePresence mode="wait">
-          {!showAllCategories ? (
-            <motion.div
-              key="featured-categories"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* Shopping Section */}
-              <div className="mb-8">
-                <motion.h2
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6"
+        <div
+          className={
+            showAllCategories ? "w-full" : "xl:grid xl:grid-cols-12 xl:gap-8"
+          }
+        >
+          {/* Main Content */}
+          <div className={showAllCategories ? "w-full" : "xl:col-span-8"}>
+            <AnimatePresence mode="wait">
+              {!showAllCategories ? (
+                <motion.div
+                  key="featured-categories"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  Shopping
-                </motion.h2>
-                <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-                  <CategoryBox
-                    category={featuredCategories.grocery}
-                    colorIndex={1}
-                    delay={0.1}
-                  />
-                  <CategoryBox
-                    category={featuredCategories.fashion}
-                    colorIndex={4}
-                    delay={0.2}
-                  />
-                </div>
-              </div>
+                  {/* Shopping Section */}
+                  <div className="mb-8">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5 }}
+                      className="flex items-center gap-3 mb-4 sm:mb-6"
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                        <Icons.ShoppingBag className="w-4 h-4 text-white" />
+                      </div>
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                        Shopping
+                      </h2>
+                      <div className="hidden lg:flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                        <Icons.Flame className="w-3 h-3" />
+                        Trending
+                      </div>
+                    </motion.div>
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                      <CategoryBox
+                        category={featuredCategories.grocery}
+                        colorIndex={1}
+                        delay={0.1}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.fashion}
+                        colorIndex={4}
+                        delay={0.2}
+                      />
+                    </div>
+                  </div>
 
-              {/* Others Section */}
-              <div>
-                <motion.h2
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-6"
+                  {/* Others Section */}
+                  <div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                      className="flex items-center gap-3 mb-4 sm:mb-6"
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center">
+                        <Icons.Grid3X3 className="w-4 h-4 text-white" />
+                      </div>
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                        Others
+                      </h2>
+                      <div className="hidden lg:flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                        <Icons.Star className="w-3 h-3" />
+                        Popular
+                      </div>
+                    </motion.div>
+                    <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                      <CategoryBox
+                        category={featuredCategories.hardware}
+                        colorIndex={2}
+                        delay={0.4}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.services}
+                        colorIndex={0}
+                        delay={0.5}
+                      />
+                      <ViewAllBox delay={0.6} />
+                    </div>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="all-categories"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  Others
-                </motion.h2>
-                <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-                  <CategoryBox
-                    category={featuredCategories.hardware}
-                    colorIndex={2}
-                    delay={0.4}
-                  />
-                  <CategoryBox
-                    category={featuredCategories.services}
-                    colorIndex={0}
-                    delay={0.5}
-                  />
-                  <ViewAllBox delay={0.6} />
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="all-categories"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
-                  All Categories
-                </h2>
-                <button
-                  onClick={() => setShowAllCategories(false)}
-                  className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
-                >
-                  <Icons.ArrowLeft className="w-4 h-4" />
-                  <span className="text-sm font-medium">Back</span>
-                </button>
-              </div>
-              <AllCategoriesGrid />
-            </motion.div>
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                      All Categories
+                    </h2>
+                    <button
+                      onClick={() => setShowAllCategories(false)}
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
+                    >
+                      <Icons.ArrowLeft className="w-4 h-4" />
+                      <span className="text-sm font-medium">Back</span>
+                    </button>
+                  </div>
+                  <AllCategoriesGrid />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Desktop Sidebar - Only show when not showing all categories */}
+          {!showAllCategories && (
+            <div className="xl:col-span-4">
+              <DesktopSidebar />
+            </div>
           )}
-        </AnimatePresence>
+        </div>
       </div>
     </section>
   );
