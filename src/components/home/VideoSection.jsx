@@ -6,9 +6,18 @@ const VideoSection = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [showControls, setShowControls] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
+    // Check if mobile on mount and resize
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     const video = videoRef.current;
     if (video) {
       // Handle video loading events
@@ -41,12 +50,17 @@ const VideoSection = () => {
 
       // Cleanup event listeners
       return () => {
+        window.removeEventListener("resize", checkMobile);
         video.removeEventListener("loadeddata", handleLoadedData);
         video.removeEventListener("canplay", handleCanPlay);
         video.removeEventListener("waiting", handleWaiting);
         video.removeEventListener("playing", handlePlaying);
       };
     }
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
   }, []);
 
   const toggleMute = () => {
@@ -68,14 +82,21 @@ const VideoSection = () => {
         >
           {/* Video Container - Reduced Height */}
           <div
-            className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 bg-black rounded-xl lg:rounded-2xl shadow-xl overflow-hidden"
+            className="relative w-full h-40 sm:h-56 md:h-64 lg:h-72 bg-black rounded-xl lg:rounded-2xl shadow-xl overflow-hidden"
             onMouseEnter={() => setShowControls(true)}
             onMouseLeave={() => setShowControls(false)}
           >
             {/* Video Element */}
             <video
               ref={videoRef}
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: isMobile ? "cover" : "cover",
+                objectPosition: isMobile ? "center center" : "center",
+                transform: isMobile ? "scale(1.2)" : "none",
+              }}
               muted={isMuted}
               loop
               autoPlay
