@@ -76,7 +76,21 @@ const CategoryShopping = () => {
 
   // Shopping categories only
   const shoppingCategories = topCategories.filter((cat) =>
-    ["groceries", "pharmacy", "electronic-repair", "clothes"].includes(cat.id)
+    ["groceries", "pharmacy", "fashion"].includes(cat.id)
+  );
+
+  // Service categories only
+  const serviceCategories = topCategories.filter((cat) =>
+    [
+      "electrician",
+      "plumber",
+      "cctv-services",
+      "carpenter",
+      "barber",
+      "sweepers",
+      "painter",
+      "electronic-repair",
+    ].includes(cat.id)
   );
 
   // Modern color palette for category backgrounds
@@ -174,7 +188,7 @@ const CategoryShopping = () => {
             View All
           </h3>
           <p className="text-gray-500 text-xs lg:text-sm leading-tight">
-            All Categories
+            {type === "services" ? "Services Categories" : "All Categories"}
           </p>
         </div>
       </div>
@@ -306,7 +320,11 @@ const CategoryShopping = () => {
 
     // Choose categories based on view type
     const categoriesToShow =
-      viewType === "shopping" ? shoppingCategories : topCategories;
+      viewType === "shopping"
+        ? shoppingCategories
+        : viewType === "services"
+        ? serviceCategories
+        : topCategories;
 
     return (
       <motion.div
@@ -428,7 +446,7 @@ const CategoryShopping = () => {
                     </div>
                   </div>
 
-                  {/* Others Section */}
+                  {/* Services Section */}
                   <div>
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
@@ -440,7 +458,7 @@ const CategoryShopping = () => {
                         <Icons.Grid3X3 className="w-4 h-4 text-white" />
                       </div>
                       <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
-                        Others
+                        Services
                       </h2>
                       <div className="flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
                         <Icons.Star className="w-3 h-3" />
@@ -458,7 +476,7 @@ const CategoryShopping = () => {
                         colorIndex={0}
                         delay={0.5}
                       />
-                      <ViewAllBox delay={0.6} type="all" />
+                      <ViewAllBox delay={0.6} type="services" />
                     </div>
                   </div>
                 </motion.div>
@@ -473,6 +491,8 @@ const CategoryShopping = () => {
                     <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
                       {viewType === "shopping"
                         ? "Shopping Categories"
+                        : viewType === "services"
+                        ? "Services Categories"
                         : "All Categories"}
                     </h2>
                     <button

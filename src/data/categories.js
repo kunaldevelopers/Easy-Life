@@ -264,8 +264,8 @@ export const topCategories = [
     count: "25+ providers",
   },
   {
-    id: "clothes",
-    name: "Clothes",
+    id: "fashion",
+    name: "Fashion",
     icon: "Shirt",
     count: "35+ stores",
   },
