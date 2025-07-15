@@ -375,7 +375,7 @@ const CategoryShopping = () => {
                       <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
                         Shopping
                       </h2>
-                      <div className="hidden lg:flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                      <div className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
                         <Icons.Flame className="w-3 h-3" />
                         Trending
                       </div>
@@ -408,7 +408,7 @@ const CategoryShopping = () => {
                       <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
                         Others
                       </h2>
-                      <div className="hidden lg:flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                      <div className="flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
                         <Icons.Star className="w-3 h-3" />
                         Popular
                       </div>
