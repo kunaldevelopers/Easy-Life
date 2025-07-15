@@ -72,7 +72,7 @@ const CategoryShopping = () => {
     },
     jobTraining: {
       id: "job-training",
-      name: "On Job Training",
+      name: "Available Jobs",
       icon: "GraduationCap",
       count: "30+ programs",
     },

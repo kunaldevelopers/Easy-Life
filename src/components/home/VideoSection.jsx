@@ -12,18 +12,18 @@ const VideoSection = () => {
   const videoRef = useRef(null);
   const sliderRef = useRef(null);
 
-  // Slider content - mixed videos and images
+  // Slider content - images only (videos commented out)
   const sliderContent = [
     {
       type: "image",
       src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/2.png",
       title: "Featured Banner 1",
     },
-    {
-      type: "video",
-      src: "https://memolatest.com/wp-content/uploads/2025/07/%E2%80%98Samajhdaar-Jaante-Hain-Har-Paani-Ki-Bottle-Bisleri-Nahin-Hindi-30-Sec-Bisleri-India-720p-h264.mp4",
-      title: "Bisleri Advertisement",
-    },
+    // {
+    //   type: "video",
+    //   src: "https://memolatest.com/wp-content/uploads/2025/07/%E2%80%98Samajhdaar-Jaante-Hain-Har-Paani-Ki-Bottle-Bisleri-Nahin-Hindi-30-Sec-Bisleri-India-720p-h264.mp4",
+    //   title: "Bisleri Advertisement",
+    // },
     {
       type: "image",
       src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/1.png",
@@ -34,21 +34,21 @@ const VideoSection = () => {
       src: "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/007a00eb13e5b489.jpg?q=80",
       title: "Special Offers",
     },
-    {
-      type: "video",
-      src: "https://videos.pexels.com/video-files/7721267/7721267-uhd_2732_1440_25fps.mp4",
-      title: "Business Showcase",
-    },
+    // {
+    //   type: "video",
+    //   src: "https://videos.pexels.com/video-files/7721267/7721267-uhd_2732_1440_25fps.mp4",
+    //   title: "Business Showcase",
+    // },
     {
       type: "image",
       src: "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/9cb1a4418dfd0451.jpg?q=80",
       title: "Local Services",
     },
-    {
-      type: "video",
-      src: "https://videos.pexels.com/video-files/3055287/3055287-uhd_2560_1440_24fps.mp4",
-      title: "Service Providers",
-    },
+    // {
+    //   type: "video",
+    //   src: "https://videos.pexels.com/video-files/3055287/3055287-uhd_2560_1440_24fps.mp4",
+    //   title: "Service Providers",
+    // },
     {
       type: "image",
       src: "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/f5b3f45e2775e6c5.jpeg?q=80",
@@ -70,12 +70,12 @@ const VideoSection = () => {
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
-    // Auto-slide timer - every 2.5 seconds
+    // Auto-slide timer - every 3.2 seconds
     const slideTimer = setInterval(() => {
       if (!isPaused) {
         setCurrentSlide((prev) => (prev + 1) % sliderContent.length);
       }
-    }, 2500);
+    }, 3200);
 
     return () => {
       window.removeEventListener("resize", checkMobile);
@@ -168,9 +168,12 @@ const VideoSection = () => {
             {/* Current Slide Content */}
             <div className="absolute inset-0 w-full h-full">
               {currentItem?.type === "video" ? (
-                <video
+                <motion.video
                   ref={videoRef}
                   key={currentSlide} // Force re-render for new video
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
                   className="absolute inset-0 w-full h-full"
                   style={{
                     width: "100%",
@@ -188,13 +191,13 @@ const VideoSection = () => {
                 >
                   <source src={currentItem.src} type="video/mp4" />
                   Your browser does not support the video tag.
-                </video>
+                </motion.video>
               ) : (
                 <motion.img
                   key={currentSlide}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
                   src={currentItem?.src}
                   alt={currentItem?.title}
                   className="absolute inset-0 w-full h-full object-cover"
