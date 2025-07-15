@@ -44,6 +44,38 @@ const CategoryShopping = () => {
       icon: "Zap",
       count: "150+ providers",
     },
+    // Hotels & Transport categories
+    hotels: topCategories.find((cat) => cat.id === "hotels") || {
+      id: "hotels",
+      name: "Hotel Booking",
+      icon: "Hotel",
+      count: "45+ hotels",
+    },
+    cab: topCategories.find((cat) => cat.id === "car-taxi-booking") || {
+      id: "car-taxi-booking",
+      name: "Cab",
+      icon: "Car",
+      count: "40+ services",
+    },
+    // Job Seeker & Providers categories
+    jobFinder: {
+      id: "jobs",
+      name: "Job Finder",
+      icon: "Search",
+      count: "200+ openings",
+    },
+    jobProviders: {
+      id: "job-providers",
+      name: "Job Providers",
+      icon: "Briefcase",
+      count: "50+ companies",
+    },
+    jobTraining: {
+      id: "job-training",
+      name: "On Job Training",
+      icon: "GraduationCap",
+      count: "30+ programs",
+    },
   };
 
   // Additional categories for desktop sidebar
@@ -91,6 +123,16 @@ const CategoryShopping = () => {
       "painter",
       "electronic-repair",
     ].includes(cat.id)
+  );
+
+  // Hotels & Transport categories only
+  const hotelsTransportCategories = topCategories.filter((cat) =>
+    ["hotels", "room-rent", "car-taxi-booking", "bike-rental"].includes(cat.id)
+  );
+
+  // Job Seeker & Providers categories only
+  const jobsSeekerProvidersCategories = topCategories.filter((cat) =>
+    ["jobs", "job-providers", "job-training"].includes(cat.id)
   );
 
   // Modern color palette for category backgrounds
@@ -188,7 +230,13 @@ const CategoryShopping = () => {
             View All
           </h3>
           <p className="text-gray-500 text-xs lg:text-sm leading-tight">
-            {type === "services" ? "Services Categories" : "All Categories"}
+            {type === "services"
+              ? "Services Categories"
+              : type === "hotels-transport"
+              ? "Hotels & Transport"
+              : type === "jobs-training"
+              ? "Job Seeker & Providers"
+              : "All Categories"}
           </p>
         </div>
       </div>
@@ -324,6 +372,10 @@ const CategoryShopping = () => {
         ? shoppingCategories
         : viewType === "services"
         ? serviceCategories
+        : viewType === "hotels-transport"
+        ? hotelsTransportCategories
+        : viewType === "jobs-training"
+        ? jobsSeekerProvidersCategories
         : topCategories;
 
     return (
@@ -479,6 +531,78 @@ const CategoryShopping = () => {
                       <ViewAllBox delay={0.6} type="services" />
                     </div>
                   </div>
+
+                  {/* Hotels & Transport Section */}
+                  <div className="mt-8">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.6 }}
+                      className="flex items-center gap-3 mb-4 sm:mb-6"
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                        <Icons.Car className="w-4 h-4 text-white" />
+                      </div>
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                        Hotels & Transport
+                      </h2>
+                      <div className="flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
+                        <Icons.MapPin className="w-3 h-3" />
+                        Travel
+                      </div>
+                    </motion.div>
+                    <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                      <CategoryBox
+                        category={featuredCategories.hotels}
+                        colorIndex={3}
+                        delay={0.7}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.cab}
+                        colorIndex={5}
+                        delay={0.8}
+                      />
+                      <ViewAllBox delay={0.9} type="hotels-transport" />
+                    </div>
+                  </div>
+
+                  {/* Job Seeker & Providers Section */}
+                  <div className="mt-8">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.9 }}
+                      className="flex items-center gap-3 mb-4 sm:mb-6"
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                        <Icons.Briefcase className="w-4 h-4 text-white" />
+                      </div>
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                        Job Seeker & Providers
+                      </h2>
+                      <div className="flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                        <Icons.TrendingUp className="w-3 h-3" />
+                        Career
+                      </div>
+                    </motion.div>
+                    <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                      <CategoryBox
+                        category={featuredCategories.jobFinder}
+                        colorIndex={6}
+                        delay={1.0}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.jobProviders}
+                        colorIndex={7}
+                        delay={1.1}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.jobTraining}
+                        colorIndex={8}
+                        delay={1.2}
+                      />
+                    </div>
+                  </div>
                 </motion.div>
               ) : (
                 <motion.div
@@ -493,6 +617,10 @@ const CategoryShopping = () => {
                         ? "Shopping Categories"
                         : viewType === "services"
                         ? "Services Categories"
+                        : viewType === "hotels-transport"
+                        ? "Hotels & Transport Categories"
+                        : viewType === "jobs-training"
+                        ? "Job Seeker & Providers Categories"
                         : "All Categories"}
                     </h2>
                     <button

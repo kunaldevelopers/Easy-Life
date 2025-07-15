@@ -319,4 +319,16 @@ export const topCategories = [
     icon: "Paintbrush",
     count: "45+ painters",
   },
+  {
+    id: "job-providers",
+    name: "Job Providers",
+    icon: "Briefcase",
+    count: "50+ companies",
+  },
+  {
+    id: "job-training",
+    name: "On Job Training",
+    icon: "GraduationCap",
+    count: "30+ programs",
+  },
 ];
