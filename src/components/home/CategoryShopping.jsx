@@ -7,13 +7,15 @@ import { topCategories } from "../../data/categories";
 const CategoryShopping = () => {
   const navigate = useNavigate();
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [viewType, setViewType] = useState(""); // "shopping" or "all"
 
   const handleCategoryClick = (categoryId) => {
     navigate(`/listings?category=${categoryId}`);
   };
 
-  const handleViewAllClick = () => {
+  const handleViewAllClick = (type = "all") => {
     setShowAllCategories(true);
+    setViewType(type);
   };
 
   // Define specific featured categories
@@ -71,6 +73,11 @@ const CategoryShopping = () => {
       count: "25+",
     },
   ];
+
+  // Shopping categories only
+  const shoppingCategories = topCategories.filter((cat) =>
+    ["groceries", "pharmacy", "electronic-repair", "clothes"].includes(cat.id)
+  );
 
   // Modern color palette for category backgrounds
   const categoryColors = [
@@ -148,12 +155,12 @@ const CategoryShopping = () => {
     );
   };
 
-  const ViewAllBox = ({ delay = 0 }) => (
+  const ViewAllBox = ({ delay = 0, type = "all" }) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      onClick={handleViewAllClick}
+      onClick={() => handleViewAllClick(type)}
       className="group cursor-pointer"
     >
       <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl lg:rounded-2xl p-4 sm:p-5 lg:p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 h-32 sm:h-36 lg:h-40 overflow-hidden flex flex-col">
@@ -297,6 +304,10 @@ const CategoryShopping = () => {
       show: { opacity: 1, y: 0 },
     };
 
+    // Choose categories based on view type
+    const categoriesToShow =
+      viewType === "shopping" ? shoppingCategories : topCategories;
+
     return (
       <motion.div
         variants={container}
@@ -304,7 +315,7 @@ const CategoryShopping = () => {
         animate="show"
         className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3 lg:gap-4 xl:gap-6 mt-6"
       >
-        {topCategories.map((category, index) => {
+        {categoriesToShow.map((category, index) => {
           const IconComponent = Icons[category.icon] || Icons.Wrench;
           const colorClass = categoryColors[index % categoryColors.length];
 
@@ -395,7 +406,7 @@ const CategoryShopping = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.25 }}
-                        onClick={handleViewAllClick}
+                        onClick={() => handleViewAllClick("shopping")}
                         className="group cursor-pointer"
                       >
                         <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl lg:rounded-2xl p-4 sm:p-5 lg:p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 h-32 sm:h-36 lg:h-40 overflow-hidden flex flex-col">
@@ -447,7 +458,7 @@ const CategoryShopping = () => {
                         colorIndex={0}
                         delay={0.5}
                       />
-                      <ViewAllBox delay={0.6} />
+                      <ViewAllBox delay={0.6} type="all" />
                     </div>
                   </div>
                 </motion.div>
@@ -460,10 +471,15 @@ const CategoryShopping = () => {
                 >
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
-                      All Categories
+                      {viewType === "shopping"
+                        ? "Shopping Categories"
+                        : "All Categories"}
                     </h2>
                     <button
-                      onClick={() => setShowAllCategories(false)}
+                      onClick={() => {
+                        setShowAllCategories(false);
+                        setViewType("");
+                      }}
                       className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
                     >
                       <Icons.ArrowLeft className="w-4 h-4" />

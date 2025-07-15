@@ -263,6 +263,12 @@ export const topCategories = [
     icon: "Bike",
     count: "25+ providers",
   },
+  {
+    id: "clothes",
+    name: "Clothes",
+    icon: "Shirt",
+    count: "35+ stores",
+  },
 
   // SERVICES (8) - Professional work someone does for you
   {
