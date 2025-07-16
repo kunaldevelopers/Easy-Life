@@ -106,23 +106,23 @@ const PendingBusinesses = ({ onBack }) => {
 
   if (selectedBusiness) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <button
             onClick={() => setSelectedBusiness(null)}
-            className="flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-6"
+            className="flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-4 sm:mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Pending Businesses
           </button>
 
-          <Card className="p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold text-gray-900">
+          <Card className="p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 Business Review Details
               </h1>
               <span
-                className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+                className={`px-3 py-1 rounded-full text-sm font-medium self-start sm:self-auto ${getStatusColor(
                   selectedBusiness.status
                 )}`}
               >
@@ -130,34 +130,36 @@ const PendingBusinesses = ({ onBack }) => {
               </span>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
               {/* Business Information */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                     Business Information
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-500">
+                      <label className="block text-sm font-medium text-gray-500 mb-1">
                         Business Name
                       </label>
-                      <p className="text-gray-900">{selectedBusiness.name}</p>
+                      <p className="text-gray-900 text-sm sm:text-base break-words">
+                        {selectedBusiness.name}
+                      </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-500">
+                      <label className="block text-sm font-medium text-gray-500 mb-1">
                         Category
                       </label>
-                      <p className="text-gray-900 capitalize">
+                      <p className="text-gray-900 text-sm sm:text-base capitalize break-words">
                         {selectedBusiness.category} -{" "}
                         {selectedBusiness.subcategory}
                       </p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-500">
+                      <label className="block text-sm font-medium text-gray-500 mb-1">
                         Description
                       </label>
-                      <p className="text-gray-900">
+                      <p className="text-gray-900 text-sm sm:text-base leading-relaxed">
                         {selectedBusiness.description}
                       </p>
                     </div>
@@ -165,28 +167,28 @@ const PendingBusinesses = ({ onBack }) => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                     Contact Information
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <MapPin className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-900">
+                    <div className="flex items-start space-x-2">
+                      <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-900 text-sm sm:text-base break-words">
                         {selectedBusiness.address}
                       </span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <Phone className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-900">
+                      <Phone className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                      <span className="text-gray-900 text-sm sm:text-base">
                         {selectedBusiness.phone}
                       </span>
                     </div>
                     {selectedBusiness.email && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-500">
+                        <label className="block text-sm font-medium text-gray-500 mb-1">
                           Email
                         </label>
-                        <p className="text-gray-900">
+                        <p className="text-gray-900 text-sm sm:text-base break-words">
                           {selectedBusiness.email}
                         </p>
                       </div>
@@ -195,19 +197,19 @@ const PendingBusinesses = ({ onBack }) => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                     Services & Pricing
                   </h3>
                   <div className="space-y-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-500">
+                      <label className="block text-sm font-medium text-gray-500 mb-2">
                         Services Offered
                       </label>
-                      <div className="flex flex-wrap gap-2 mt-2">
+                      <div className="flex flex-wrap gap-2">
                         {selectedBusiness.services?.map((service, index) => (
                           <span
                             key={index}
-                            className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                            className="px-2 sm:px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm break-words"
                           >
                             {service}
                           </span>
@@ -216,10 +218,10 @@ const PendingBusinesses = ({ onBack }) => {
                     </div>
                     {selectedBusiness.pricing && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-500">
+                        <label className="block text-sm font-medium text-gray-500 mb-1">
                           Pricing Range
                         </label>
-                        <p className="text-gray-900">
+                        <p className="text-gray-900 text-sm sm:text-base">
                           {selectedBusiness.pricing}
                         </p>
                       </div>
@@ -229,19 +231,19 @@ const PendingBusinesses = ({ onBack }) => {
               </div>
 
               {/* Submission Details */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                     Submission Details
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <Calendar className="w-4 h-4 text-gray-400" />
+                    <div className="flex items-start space-x-2">
+                      <Calendar className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <label className="block text-sm font-medium text-gray-500">
+                        <label className="block text-sm font-medium text-gray-500 mb-1">
                           Submitted Date
                         </label>
-                        <p className="text-gray-900">
+                        <p className="text-gray-900 text-sm sm:text-base">
                           {selectedBusiness.submittedDate}
                         </p>
                       </div>
@@ -250,7 +252,7 @@ const PendingBusinesses = ({ onBack }) => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                     Required Documents
                   </h3>
                   <div className="space-y-2">
@@ -259,11 +261,13 @@ const PendingBusinesses = ({ onBack }) => {
                         key={index}
                         className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
                       >
-                        <div className="flex items-center space-x-2">
-                          <FileText className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-900">{doc}</span>
+                        <div className="flex items-center space-x-2 min-w-0 flex-1">
+                          <FileText className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                          <span className="text-gray-900 text-sm sm:text-base truncate">
+                            {doc}
+                          </span>
                         </div>
-                        <span className="text-green-600 text-sm">
+                        <span className="text-green-600 text-xs sm:text-sm font-medium ml-2 flex-shrink-0">
                           ✓ Uploaded
                         </span>
                       </div>
@@ -272,10 +276,10 @@ const PendingBusinesses = ({ onBack }) => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                     Business Images
                   </h3>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-3">
                     {selectedBusiness.images
                       ?.slice(0, 4)
                       .map((image, index) => (
@@ -283,7 +287,7 @@ const PendingBusinesses = ({ onBack }) => {
                           key={index}
                           src={image}
                           alt={`Business ${index + 1}`}
-                          className="w-full h-24 object-cover rounded-lg"
+                          className="w-full h-20 sm:h-24 object-cover rounded-lg"
                         />
                       ))}
                   </div>
@@ -292,12 +296,12 @@ const PendingBusinesses = ({ onBack }) => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-end space-x-3 mt-8 pt-6 border-t">
+            <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t">
               <Button
                 variant="outline"
                 icon={X}
                 onClick={() => handleAction(selectedBusiness.id, "reject")}
-                className="text-red-600 border-red-300 hover:bg-red-50"
+                className="text-red-600 border-red-300 hover:bg-red-50 w-full sm:w-auto text-sm sm:text-base"
               >
                 Reject
               </Button>
@@ -307,7 +311,7 @@ const PendingBusinesses = ({ onBack }) => {
                 onClick={() =>
                   handleAction(selectedBusiness.id, "under_review")
                 }
-                className="text-blue-600 border-blue-300 hover:bg-blue-50"
+                className="text-blue-600 border-blue-300 hover:bg-blue-50 w-full sm:w-auto text-sm sm:text-base"
               >
                 Under Review
               </Button>
@@ -315,6 +319,7 @@ const PendingBusinesses = ({ onBack }) => {
                 variant="primary"
                 icon={CheckCircle}
                 onClick={() => handleAction(selectedBusiness.id, "approve")}
+                className="w-full sm:w-auto text-sm sm:text-base"
               >
                 Approve Business
               </Button>
