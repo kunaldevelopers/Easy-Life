@@ -48,12 +48,9 @@ import PendingBusinesses from "../components/admin/PendingBusinesses";
 import UnderReviewBusinesses from "../components/admin/UnderReviewBusinesses";
 import WebsiteControlCenter from "../components/admin/WebsiteControlCenter";
 import ViewReports from "../components/admin/ViewReports";
-import SystemSettings from "../components/admin/SystemSettings";
 import AdminNotificationCenter from "../components/admin/AdminNotificationCenter";
 import FinancialDashboard from "../components/admin/FinancialDashboard";
 import ContentModerationPanel from "../components/admin/ContentModerationPanel";
-import ActivityMonitor from "../components/admin/ActivityMonitor";
-import DataManagement from "../components/admin/DataManagement";
 import CustomerAnalytics from "../components/admin/CustomerAnalytics";
 import CustomerAnalyticsCard from "../components/common/CustomerAnalyticsCard";
 
@@ -805,16 +802,6 @@ const AdminPanel = () => {
               <div className="space-y-3">
                 {[
                   {
-                    icon: Settings,
-                    label: "System Settings",
-                    action: "system-settings",
-                  },
-                  {
-                    icon: Database,
-                    label: "Data Management",
-                    action: "data-management",
-                  },
-                  {
                     icon: Globe,
                     label: "Website Control",
                     action: "website-control-center",
@@ -908,11 +895,6 @@ const AdminPanel = () => {
                     icon: Shield,
                     label: "Content Moderation",
                     action: "content-moderation",
-                  },
-                  {
-                    icon: Activity,
-                    label: "Activity Monitor",
-                    action: "activity-monitor",
                   },
                   { icon: Eye, label: "View Reports", action: "view-reports" },
                 ].map((item, index) => (
@@ -1100,10 +1082,6 @@ const AdminPanel = () => {
     return <ViewReports onBack={handleBackToDashboard} />;
   }
 
-  if (currentView === "system-settings") {
-    return <SystemSettings onBack={handleBackToDashboard} />;
-  }
-
   if (currentView === "notifications") {
     return <AdminNotificationCenter onBack={handleBackToDashboard} />;
   }
@@ -1114,14 +1092,6 @@ const AdminPanel = () => {
 
   if (currentView === "content-moderation") {
     return <ContentModerationPanel onBack={handleBackToDashboard} />;
-  }
-
-  if (currentView === "activity-monitor") {
-    return <ActivityMonitor onBack={handleBackToDashboard} />;
-  }
-
-  if (currentView === "data-management") {
-    return <DataManagement onBack={handleBackToDashboard} />;
   }
 
   if (currentView === "customer-analytics") {
@@ -1401,12 +1371,6 @@ const AdminPanel = () => {
             <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-semibold text-gray-900">Recent Activity</h3>
-                <button
-                  onClick={() => handleViewChange("activity-monitor")}
-                  className="text-xs text-blue-600 font-medium"
-                >
-                  View All
-                </button>
               </div>
               <div className="space-y-3">
                 {recentActivity.slice(0, 3).map((activity, index) => (
@@ -1834,14 +1798,6 @@ const AdminPanel = () => {
                     >
                       Customer Analytics
                     </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start"
-                      icon={Activity}
-                      onClick={() => handleViewChange("activity-monitor")}
-                    >
-                      Activity Monitor
-                    </Button>
                   </div>
                 </Card>
 
@@ -1867,22 +1823,6 @@ const AdminPanel = () => {
                       onClick={() => handleViewChange("notifications")}
                     >
                       Notification Center
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start"
-                      icon={Settings}
-                      onClick={() => handleViewChange("system-settings")}
-                    >
-                      System Settings
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start"
-                      icon={Database}
-                      onClick={() => handleViewChange("data-management")}
-                    >
-                      Data Management
                     </Button>
                   </div>
                 </Card>
