@@ -38,7 +38,6 @@ import CustomerAnalyticsCard from "../components/common/CustomerAnalyticsCard";
 import BusinessProfileEditor from "../components/seller/BusinessProfileEditor";
 import InquiriesManager from "../components/seller/InquiriesManager";
 import PhotoManager from "../components/seller/PhotoManager";
-import BusinessAnalytics from "../components/seller/BusinessAnalytics";
 import BusinessHoursManager from "../components/seller/BusinessHoursManager";
 import ReviewsManager from "../components/seller/ReviewsManager";
 import EngagementManager from "../components/seller/EngagementManager";
