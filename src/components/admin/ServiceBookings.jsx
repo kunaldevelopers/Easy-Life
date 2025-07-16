@@ -241,26 +241,26 @@ const ServiceBookings = ({ onBack }) => {
 
   if (selectedBooking) {
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-6">
+          <div className="mb-4 sm:mb-6">
             <Button
               variant="outline"
               onClick={() => setSelectedBooking(null)}
-              className="mb-4"
+              className="mb-4 text-sm sm:text-base"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Service Bookings
             </Button>
           </div>
 
-          <Card className="p-6">
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <Card className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 sm:mb-6 space-y-4 sm:space-y-0">
+              <div className="min-w-0 flex-1">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
                   Booking #{selectedBooking.id}
                 </h3>
-                <div className="flex items-center space-x-3">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                   {getStatusIcon(selectedBooking.status)}
                   <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
@@ -281,7 +281,7 @@ const ServiceBookings = ({ onBack }) => {
                   </span>
                 </div>
               </div>
-              <div className="text-right">
+              <div className="text-left sm:text-right flex-shrink-0">
                 <div className="text-lg font-semibold text-gray-900">
                   ₹{selectedBooking.amount.toLocaleString()}
                 </div>
@@ -292,32 +292,32 @@ const ServiceBookings = ({ onBack }) => {
             </div>
 
             {/* Service & Seller Information */}
-            <div className="grid lg:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
               <div>
                 <h4 className="text-sm font-medium text-gray-900 mb-3">
                   Service Provider
                 </h4>
-                <div className="space-y-3 bg-blue-50 p-4 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <User className="w-4 h-4 text-gray-500" />
-                    <span className="text-gray-900">
+                <div className="space-y-3 bg-blue-50 p-3 sm:p-4 rounded-lg">
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <User className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                    <span className="text-gray-900 text-sm sm:text-base truncate">
                       {selectedBooking.seller.name}
                     </span>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="w-4 h-4 text-gray-500" />
+                  <div className="flex items-start space-x-3 min-w-0">
+                    <Mail className="w-4 h-4 text-gray-500 flex-shrink-0 mt-0.5" />
                     <a
                       href={`mailto:${selectedBooking.seller.email}`}
-                      className="text-primary-600 hover:underline"
+                      className="text-primary-600 hover:underline text-sm sm:text-base break-all"
                     >
                       {selectedBooking.seller.email}
                     </a>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-4 h-4 text-gray-500" />
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
                     <a
                       href={`tel:${selectedBooking.seller.phone}`}
-                      className="text-primary-600 hover:underline"
+                      className="text-primary-600 hover:underline text-sm sm:text-base"
                     >
                       {selectedBooking.seller.phone}
                     </a>
@@ -329,27 +329,27 @@ const ServiceBookings = ({ onBack }) => {
                 <h4 className="text-sm font-medium text-gray-900 mb-3">
                   Customer Information
                 </h4>
-                <div className="space-y-3 bg-green-50 p-4 rounded-lg">
-                  <div className="flex items-center space-x-3">
-                    <User className="w-4 h-4 text-gray-500" />
-                    <span className="text-gray-900">
+                <div className="space-y-3 bg-green-50 p-3 sm:p-4 rounded-lg">
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <User className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                    <span className="text-gray-900 text-sm sm:text-base truncate">
                       {selectedBooking.customer.name}
                     </span>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="w-4 h-4 text-gray-500" />
+                  <div className="flex items-start space-x-3 min-w-0">
+                    <Mail className="w-4 h-4 text-gray-500 flex-shrink-0 mt-0.5" />
                     <a
                       href={`mailto:${selectedBooking.customer.email}`}
-                      className="text-primary-600 hover:underline"
+                      className="text-primary-600 hover:underline text-sm sm:text-base break-all"
                     >
                       {selectedBooking.customer.email}
                     </a>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-4 h-4 text-gray-500" />
+                  <div className="flex items-center space-x-3 min-w-0">
+                    <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
                     <a
                       href={`tel:${selectedBooking.customer.phone}`}
-                      className="text-primary-600 hover:underline"
+                      className="text-primary-600 hover:underline text-sm sm:text-base"
                     >
                       {selectedBooking.customer.phone}
                     </a>
@@ -359,32 +359,34 @@ const ServiceBookings = ({ onBack }) => {
             </div>
 
             {/* Service Details */}
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <h4 className="text-sm font-medium text-gray-900 mb-3">
                 Service Details
               </h4>
-              <div className="bg-gray-50 p-4 rounded-lg space-y-3">
-                <div className="flex items-center space-x-3">
-                  <span className="font-medium text-gray-900">Service:</span>
-                  <span className="text-gray-700">
+              <div className="bg-gray-50 p-3 sm:p-4 rounded-lg space-y-3">
+                <div className="flex items-start space-x-3 min-w-0">
+                  <span className="font-medium text-gray-900 text-sm flex-shrink-0">
+                    Service:
+                  </span>
+                  <span className="text-gray-700 text-sm sm:text-base">
                     {selectedBooking.service}
                   </span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-900">
+                <div className="flex items-start space-x-3 min-w-0">
+                  <Calendar className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-900 text-sm sm:text-base">
                     {selectedBooking.eventDate}
                   </span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <Clock className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-900">
+                <div className="flex items-start space-x-3 min-w-0">
+                  <Clock className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-900 text-sm sm:text-base">
                     {selectedBooking.eventTime}
                   </span>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-4 h-4 text-gray-500" />
-                  <span className="text-gray-900">
+                <div className="flex items-start space-x-3 min-w-0">
+                  <MapPin className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-gray-900 text-sm sm:text-base break-words">
                     {selectedBooking.location}
                   </span>
                 </div>
@@ -392,11 +394,11 @@ const ServiceBookings = ({ onBack }) => {
             </div>
 
             {/* Special Requests */}
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <h4 className="text-sm font-medium text-gray-900 mb-3">
                 Special Requests
               </h4>
-              <p className="text-gray-700 bg-blue-50 p-3 rounded-lg">
+              <p className="text-gray-700 text-sm sm:text-base bg-blue-50 p-3 rounded-lg leading-relaxed">
                 {selectedBooking.specialRequests}
               </p>
             </div>
@@ -453,12 +455,13 @@ const ServiceBookings = ({ onBack }) => {
               )}
 
             {/* Admin Actions */}
-            <div className="flex flex-wrap gap-3 pt-6 border-t">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-3 pt-4 sm:pt-6 border-t">
               <Button
                 variant="outline"
                 onClick={() =>
                   handleAdminAction(selectedBooking.id, "view-seller")
                 }
+                className="text-sm w-full sm:w-auto"
               >
                 <Eye className="w-4 h-4 mr-2" />
                 View Seller Profile
@@ -470,6 +473,7 @@ const ServiceBookings = ({ onBack }) => {
                   onClick={() =>
                     handleAdminAction(selectedBooking.id, "force-cancel")
                   }
+                  className="text-sm w-full sm:w-auto"
                 >
                   <Ban className="w-4 h-4 mr-2" />
                   Force Cancel
@@ -482,6 +486,7 @@ const ServiceBookings = ({ onBack }) => {
                   onClick={() =>
                     handleAdminAction(selectedBooking.id, "refund")
                   }
+                  className="text-sm w-full sm:w-auto"
                 >
                   <DollarSign className="w-4 h-4 mr-2" />
                   Initiate Refund
@@ -491,6 +496,7 @@ const ServiceBookings = ({ onBack }) => {
               <Button
                 variant="outline"
                 onClick={() => handleAdminAction(selectedBooking.id, "contact")}
+                className="text-sm w-full sm:w-auto"
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Contact Parties
@@ -503,45 +509,55 @@ const ServiceBookings = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <Button variant="outline" onClick={onBack} className="mb-4">
+        <div className="mb-4 sm:mb-6">
+          <Button
+            variant="outline"
+            onClick={onBack}
+            className="mb-4 text-sm sm:text-base"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Admin Dashboard
           </Button>
-          <h1 className="text-2xl font-bold text-gray-900">Service Bookings</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+            Service Bookings
+          </h1>
+          <p className="text-gray-600 mt-1 text-sm sm:text-base">
             Monitor and manage all service bookings across the platform
           </p>
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <Card className="p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-blue-100 rounded-lg mr-3">
-                <Calendar className="w-6 h-6 text-blue-600" />
+              <div className="p-2 bg-blue-100 rounded-lg mr-3 flex-shrink-0">
+                <Calendar className="w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
               </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">
+              <div className="min-w-0">
+                <div className="text-xl sm:text-2xl font-bold text-gray-900">
                   {bookingStats.total}
                 </div>
-                <div className="text-sm text-gray-600">Total Bookings</div>
+                <div className="text-xs sm:text-sm text-gray-600">
+                  Total Bookings
+                </div>
               </div>
             </div>
           </Card>
 
-          <Card className="p-6">
+          <Card className="p-4 sm:p-6">
             <div className="flex items-center">
-              <div className="p-2 bg-green-100 rounded-lg mr-3">
-                <DollarSign className="w-6 h-6 text-green-600" />
+              <div className="p-2 bg-green-100 rounded-lg mr-3 flex-shrink-0">
+                <DollarSign className="w-5 sm:w-6 h-5 sm:h-6 text-green-600" />
               </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">
+              <div className="min-w-0">
+                <div className="text-xl sm:text-2xl font-bold text-gray-900">
                   ₹{bookingStats.totalRevenue.toLocaleString()}
                 </div>
-                <div className="text-sm text-gray-600">Total Revenue</div>
+                <div className="text-xs sm:text-sm text-gray-600">
+                  Total Revenue
+                </div>
               </div>
             </div>
           </Card>
@@ -609,8 +625,8 @@ const ServiceBookings = ({ onBack }) => {
         </Card>
 
         {/* Filters */}
-        <Card className="p-6 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <Card className="p-4 sm:p-6 mb-6">
+          <div className="flex flex-col space-y-4">
             <div className="flex-1">
               <Input
                 type="text"
@@ -621,9 +637,14 @@ const ServiceBookings = ({ onBack }) => {
                 icon={Search}
               />
             </div>
-            <div className="flex items-center space-x-2">
-              <Filter className="w-4 h-4 text-gray-500" />
-              <div className="flex space-x-1">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
+              <div className="flex items-center space-x-2">
+                <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                <span className="text-sm text-gray-600 whitespace-nowrap">
+                  Filter by:
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
                 {[
                   { key: "all", label: "All", count: bookingStats.total },
                   {
@@ -650,7 +671,7 @@ const ServiceBookings = ({ onBack }) => {
                   <button
                     key={filter.key}
                     onClick={() => setSelectedStatus(filter.key)}
-                    className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                    className={`px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-lg transition-colors whitespace-nowrap ${
                       selectedStatus === filter.key
                         ? "bg-primary-100 text-primary-700"
                         : "text-gray-600 hover:bg-gray-100"
@@ -671,80 +692,85 @@ const ServiceBookings = ({ onBack }) => {
               key={booking.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow"
             >
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <h4 className="text-lg font-medium text-gray-900">
+              <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between space-y-4 lg:space-y-0">
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-3">
+                    <h4 className="text-lg font-medium text-gray-900 mb-2 sm:mb-0">
                       #{booking.id}
                     </h4>
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
-                        booking.status
-                      )}`}
-                    >
-                      {booking.status.charAt(0).toUpperCase() +
-                        booking.status.slice(1)}
-                    </span>
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(
-                        booking.paymentStatus
-                      )}`}
-                    >
-                      {booking.paymentStatus.charAt(0).toUpperCase() +
-                        booking.paymentStatus.slice(1)}
-                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
+                          booking.status
+                        )}`}
+                      >
+                        {booking.status.charAt(0).toUpperCase() +
+                          booking.status.slice(1)}
+                      </span>
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPaymentStatusColor(
+                          booking.paymentStatus
+                        )}`}
+                      >
+                        {booking.paymentStatus.charAt(0).toUpperCase() +
+                          booking.paymentStatus.slice(1)}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-3 text-sm">
-                    <div>
-                      <span className="text-gray-600">Service:</span>
-                      <div className="font-medium text-gray-900">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 text-sm">
+                    <div className="min-w-0">
+                      <span className="text-gray-600 block">Service:</span>
+                      <div className="font-medium text-gray-900 truncate">
                         {booking.service}
                       </div>
                     </div>
-                    <div>
-                      <span className="text-gray-600">Provider:</span>
-                      <div className="font-medium text-gray-900">
+                    <div className="min-w-0">
+                      <span className="text-gray-600 block">Provider:</span>
+                      <div className="font-medium text-gray-900 truncate">
                         {booking.seller.name}
                       </div>
                     </div>
-                    <div>
-                      <span className="text-gray-600">Customer:</span>
-                      <div className="font-medium text-gray-900">
+                    <div className="min-w-0">
+                      <span className="text-gray-600 block">Customer:</span>
+                      <div className="font-medium text-gray-900 truncate">
                         {booking.customer.name}
                       </div>
                     </div>
-                    <div>
-                      <span className="text-gray-600">Amount:</span>
+                    <div className="min-w-0">
+                      <span className="text-gray-600 block">Amount:</span>
                       <div className="font-medium text-gray-900">
                         ₹{booking.amount.toLocaleString()}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4 text-sm text-gray-600">
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{booking.eventDate}</span>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 text-sm text-gray-600">
+                    <div className="flex items-center space-x-1 min-w-0">
+                      <Calendar className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">{booking.eventDate}</span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <MapPin className="w-4 h-4" />
-                      <span>{booking.location}</span>
+                    <div className="flex items-center space-x-1 min-w-0">
+                      <MapPin className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">{booking.location}</span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Clock className="w-4 h-4" />
-                      <span>Booked {booking.bookingDate}</span>
+                    <div className="flex items-center space-x-1 min-w-0">
+                      <Clock className="w-4 h-4 flex-shrink-0" />
+                      <span className="truncate">
+                        Booked {booking.bookingDate}
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col space-y-2 ml-4">
+                <div className="flex flex-row sm:flex-col lg:flex-col space-x-2 sm:space-x-0 sm:space-y-2 lg:ml-4">
                   <Button
                     size="sm"
                     variant="outline"
                     onClick={() => setSelectedBooking(booking)}
+                    className="flex-1 sm:flex-none text-xs sm:text-sm"
                   >
                     View Details
                   </Button>
@@ -753,6 +779,7 @@ const ServiceBookings = ({ onBack }) => {
                       size="sm"
                       variant="primary"
                       onClick={() => setSelectedBooking(booking)}
+                      className="flex-1 sm:flex-none text-xs sm:text-sm"
                     >
                       Manage
                     </Button>
