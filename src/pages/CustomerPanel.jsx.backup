@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
@@ -39,6 +39,21 @@ const CustomerPanel = () => {
     setSearchParams({});
   };
 
+  // Render different views based on currentView
+  const renderCurrentView = () => {
+    switch (currentView) {
+      case "activity":
+        return <CustomerActivityManager onBack={handleBackToDashboard} />;
+      case "bookings":
+        return <BookingManager onBack={handleBackToDashboard} />;
+      default:
+        return renderDashboard();
+    }
+  };
+
+  // Dashboard content as a separate function
+  const renderDashboard = () => {
+
   if (!user || user.type !== "customer") {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -56,7 +71,6 @@ const CustomerPanel = () => {
       </div>
     );
   }
-
   // Mobile-focused essential stats only
   const stats = [
     {
@@ -165,11 +179,63 @@ const CustomerPanel = () => {
     );
   };
 
+  return (
+    <>
+      <Helmet>
+        <title>Customer Dashboard - Easy Life Gangtok</title>
+      </Helmet>
+
+      {/* Render the current view */}
+      {renderCurrentView()}
+
+      {/* Mobile Bottom Navigation - Always visible */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
+        <div className="grid grid-cols-4 gap-1 max-w-sm mx-auto">
+          <button
+            onClick={() => setSearchParams({})}
+            className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+              currentView === "dashboard"
+                ? "text-blue-600"
+                : "text-gray-500"
+            }`}
+          >
+            <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Dashboard</span>
+          </button>
+          <button
+            onClick={() => setSearchParams({ view: "bookings" })}
+            className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+              currentView === "bookings" ? "text-blue-600" : "text-gray-500"
+            }`}
+          >
+            <Calendar className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Bookings</span>
+          </button>
+          <button
+            onClick={() => setSearchParams({ view: "activity" })}
+            className={`flex flex-col items-center py-2 px-1 min-w-0 ${
+              currentView === "activity" ? "text-blue-600" : "text-gray-500"
+            }`}
+          >
+            <MessageCircle className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Activity</span>
+          </button>
+          <button
+            onClick={() => navigate("/saved-businesses")}
+            className="flex flex-col items-center py-2 px-1 min-w-0 text-gray-500"
+          >
+            <Heart className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Saved</span>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+
   // Dashboard content as a separate function
-  const renderDashboard = () => {
+  function renderDashboard() {
     return (
-      <div className="min-h-screen bg-gray-50 py-8 pb-20 lg:pb-8">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gray-50 py-8 pb-20 lg:pb-8">{/* Add bottom padding for mobile to account for fixed bottom navigation */}
           {/* Back Button */}
           <button
             onClick={() => navigate(-1)}
@@ -271,6 +337,26 @@ const CustomerPanel = () => {
                     status: "confirmed",
                     image:
                       "https://images.pexels.com/photos/1264210/pexels-photo-1264210.jpeg?auto=compress&cs=tinysrgb&w=100",
+                  },
+                  {
+                    id: "ORD004",
+                    business: "Sikkim Mobile Repair",
+                    service: "Screen Replacement",
+                    date: "Dec 18, 2024",
+                    amount: "₹2,800",
+                    status: "completed",
+                    image:
+                      "https://images.pexels.com/photos/4792264/pexels-photo-4792264.jpeg?auto=compress&cs=tinysrgb&w=100",
+                  },
+                  {
+                    id: "ORD005",
+                    business: "Mountain Bike Service",
+                    service: "Bike Maintenance",
+                    date: "Dec 15, 2024",
+                    amount: "₹950",
+                    status: "delivered",
+                    image:
+                      "https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&w=100",
                   },
                 ]
                   .slice(0, 3)
@@ -486,6 +572,30 @@ const CustomerPanel = () => {
                       "https://images.pexels.com/photos/2882509/pexels-photo-2882509.jpeg?auto=compress&cs=tinysrgb&w=100",
                     speciality: "Laptop & Desktop Repair",
                   },
+                  {
+                    id: "saved-4",
+                    business: "Mountain View Salon & Spa",
+                    category: "Beauty & Wellness",
+                    location: "Development Area, Gangtok",
+                    rating: 4.9,
+                    reviewCount: 127,
+                    savedDate: "Dec 12, 2024",
+                    image:
+                      "https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=100",
+                    speciality: "Hair Care & Spa Services",
+                  },
+                  {
+                    id: "saved-5",
+                    business: "Gangtok Dental Clinic",
+                    category: "Healthcare",
+                    location: "Tadong, Gangtok",
+                    rating: 4.8,
+                    reviewCount: 95,
+                    savedDate: "Dec 10, 2024",
+                    image:
+                      "https://images.pexels.com/photos/6812540/pexels-photo-6812540.jpeg?auto=compress&cs=tinysrgb&w=100",
+                    speciality: "Dental Care & Treatment",
+                  },
                 ]
                   .slice(0, 3)
                   .map((saved) => (
@@ -557,7 +667,17 @@ const CustomerPanel = () => {
                   size="sm"
                   className="w-full text-sm"
                 >
-                  View All Saved (5)
+                  View All Saved (
+                  {
+                    [
+                      "Royal Enfield Service Center",
+                      "Orchid Hotel & Restaurant",
+                      "Tech Zone Computer Repair",
+                      "Mountain View Salon & Spa",
+                      "Gangtok Dental Clinic",
+                    ].length
+                  }
+                  )
                 </Button>
               </div>
             </Card>
@@ -565,70 +685,7 @@ const CustomerPanel = () => {
         </div>
       </div>
     );
-  };
-
-  // Render different views based on currentView
-  const renderCurrentView = () => {
-    switch (currentView) {
-      case "activity":
-        return <CustomerActivityManager onBack={handleBackToDashboard} />;
-      case "bookings":
-        return <BookingManager onBack={handleBackToDashboard} />;
-      default:
-        return renderDashboard();
-    }
-  };
-
-  return (
-    <>
-      <Helmet>
-        <title>Customer Dashboard - Easy Life Gangtok</title>
-      </Helmet>
-
-      {/* Render the current view */}
-      {renderCurrentView()}
-
-      {/* Mobile Bottom Navigation - Always visible */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
-        <div className="grid grid-cols-4 gap-1 max-w-sm mx-auto">
-          <button
-            onClick={() => setSearchParams({})}
-            className={`flex flex-col items-center py-2 px-1 min-w-0 ${
-              currentView === "dashboard" ? "text-blue-600" : "text-gray-500"
-            }`}
-          >
-            <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
-            <span className="text-xs font-medium truncate">Dashboard</span>
-          </button>
-          <button
-            onClick={() => setSearchParams({ view: "bookings" })}
-            className={`flex flex-col items-center py-2 px-1 min-w-0 ${
-              currentView === "bookings" ? "text-blue-600" : "text-gray-500"
-            }`}
-          >
-            <Calendar className="w-5 h-5 mb-1 flex-shrink-0" />
-            <span className="text-xs font-medium truncate">Bookings</span>
-          </button>
-          <button
-            onClick={() => setSearchParams({ view: "activity" })}
-            className={`flex flex-col items-center py-2 px-1 min-w-0 ${
-              currentView === "activity" ? "text-blue-600" : "text-gray-500"
-            }`}
-          >
-            <MessageCircle className="w-5 h-5 mb-1 flex-shrink-0" />
-            <span className="text-xs font-medium truncate">Activity</span>
-          </button>
-          <button
-            onClick={() => navigate("/saved-businesses")}
-            className="flex flex-col items-center py-2 px-1 min-w-0 text-gray-500 hover:text-gray-700"
-          >
-            <Heart className="w-5 h-5 mb-1 flex-shrink-0" />
-            <span className="text-xs font-medium truncate">Saved</span>
-          </button>
-        </div>
-      </div>
-    </>
-  );
+  }
 };
 
 export default CustomerPanel;

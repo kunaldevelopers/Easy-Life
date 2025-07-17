@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
@@ -13,6 +13,9 @@ import {
   Filter,
   Grid,
   List,
+  Calendar,
+  Activity,
+  MessageCircle,
 } from "lucide-react";
 import Card from "../components/common/Card";
 import Button from "../components/common/Button";
@@ -322,7 +325,7 @@ const SavedBusinesses = () => {
         <title>Saved Businesses - Easy Life Gangtok</title>
       </Helmet>
 
-      <div className="min-h-screen bg-gray-50 py-8">
+      <div className="min-h-screen bg-gray-50 py-8 pb-20 lg:pb-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
@@ -404,6 +407,40 @@ const SavedBusinesses = () => {
               </Card>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Mobile Bottom Navigation - Always visible */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
+        <div className="grid grid-cols-4 gap-1 max-w-sm mx-auto">
+          <button
+            onClick={() => navigate("/customer-panel")}
+            className="flex flex-col items-center py-2 px-1 min-w-0 text-gray-500"
+          >
+            <Activity className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Dashboard</span>
+          </button>
+          <button
+            onClick={() => navigate("/customer-panel?view=bookings")}
+            className="flex flex-col items-center py-2 px-1 min-w-0 text-gray-500"
+          >
+            <Calendar className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Bookings</span>
+          </button>
+          <button
+            onClick={() => navigate("/customer-panel?view=activity")}
+            className="flex flex-col items-center py-2 px-1 min-w-0 text-gray-500"
+          >
+            <MessageCircle className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Activity</span>
+          </button>
+          <button
+            onClick={() => navigate("/saved-businesses")}
+            className="flex flex-col items-center py-2 px-1 min-w-0 text-blue-600"
+          >
+            <Heart className="w-5 h-5 mb-1 flex-shrink-0" />
+            <span className="text-xs font-medium truncate">Saved</span>
+          </button>
         </div>
       </div>
     </>
