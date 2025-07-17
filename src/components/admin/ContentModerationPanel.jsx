@@ -21,6 +21,7 @@ import {
   Trash2,
   Mail,
   Phone,
+  ArrowLeft,
 } from "lucide-react";
 import Card from "../common/Card";
 import Button from "../common/Button";
@@ -272,29 +273,71 @@ const ContentModerationPanel = ({ onBack }) => {
     const TypeIcon = getTypeIcon(selectedReport.type);
 
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <Button variant="outline" onClick={() => setSelectedReport(null)}>
-                ← Back to Reports
-              </Button>
+      <div className="min-h-screen bg-gray-50">
+        {/* Mobile Header */}
+        <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4 safe-area-top">
+          <div className="flex items-center justify-between max-w-md mx-auto">
+            <div className="flex items-center space-x-3 flex-1 min-w-0">
+              <button
+                onClick={() => setSelectedReport(null)}
+                className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
+              >
+                <ArrowLeft className="w-5 h-5 text-gray-600" />
+              </button>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-lg font-bold text-gray-900 truncate">
+                  Report Details
+                </h1>
+                <p className="text-xs text-gray-500 truncate">
+                  {selectedReport.reason}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              <span
+                className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                  selectedReport.status
+                )}`}
+              >
+                {selectedReport.status.replace("_", " ")}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Header */}
+        <div className="hidden lg:block py-8">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Button
+              variant="outline"
+              onClick={() => setSelectedReport(null)}
+              className="mb-4"
+            >
+              ← Back to Reports
+            </Button>
+          </div>
+        </div>
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 lg:pb-8">
+          <Card className="p-4 lg:p-6">
+            {/* Desktop Header */}
+            <div className="hidden lg:flex items-center justify-between mb-6">
               <h1 className="text-2xl font-bold text-gray-900">
                 Report Details
               </h1>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4 lg:space-y-6">
               {/* Report Header */}
-              <div className="border-l-4 border-red-500 pl-6 py-4 bg-red-50 rounded-r-lg">
+              <div className="border-l-4 border-red-500 pl-4 lg:pl-6 py-3 lg:py-4 bg-red-50 rounded-r-lg">
                 <div className="flex items-start justify-between">
-                  <div className="flex items-start space-x-4">
-                    <TypeIcon className="w-6 h-6 text-red-600 mt-1" />
-                    <div>
+                  <div className="flex items-start space-x-3 lg:space-x-4">
+                    <TypeIcon className="w-5 h-5 lg:w-6 lg:h-6 text-red-600 mt-1" />
+                    <div className="min-w-0 flex-1">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2">
                         {selectedReport.reason}
                       </h3>
-                      <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
+                      <div className="flex flex-wrap items-center gap-2 lg:gap-4 text-sm text-gray-600 mb-3">
                         <span className="flex items-center">
                           <Clock className="w-4 h-4 mr-1" />
                           {selectedReport.reportDate} at{" "}
@@ -318,7 +361,7 @@ const ContentModerationPanel = ({ onBack }) => {
                     </div>
                   </div>
                   <span
-                    className={`inline-flex px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(
+                    className={`hidden lg:inline-flex px-3 py-1 text-sm font-medium rounded-full ${getStatusColor(
                       selectedReport.status
                     )}`}
                   >
@@ -336,39 +379,39 @@ const ContentModerationPanel = ({ onBack }) => {
                 <h4 className="text-lg font-semibold text-gray-900 mb-3">
                   Reported Content
                 </h4>
-                <Card className="p-4 bg-gray-50 border border-gray-200">
-                  <p className="text-gray-700 italic">
+                <Card className="p-3 lg:p-4 bg-gray-50 border border-gray-200">
+                  <p className="text-gray-700 italic text-sm lg:text-base">
                     "{selectedReport.content}"
                   </p>
                 </Card>
               </div>
 
               {/* Report Details */}
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-4 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-6">
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900 mb-3">
                     Reporter Information
                   </h4>
-                  <Card className="p-4">
-                    <div className="space-y-3">
+                  <Card className="p-3 lg:p-4">
+                    <div className="space-y-2 lg:space-y-3">
                       <div className="flex items-center space-x-2">
-                        <User className="w-4 h-4 text-gray-500" />
+                        <User className="w-4 h-4 text-gray-500 flex-shrink-0" />
                         <span className="text-sm text-gray-600">Name:</span>
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-gray-900 truncate">
                           {selectedReport.reportedBy.name}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Mail className="w-4 h-4 text-gray-500" />
+                        <Mail className="w-4 h-4 text-gray-500 flex-shrink-0" />
                         <span className="text-sm text-gray-600">Email:</span>
-                        <span className="text-sm font-medium text-gray-900">
+                        <span className="text-sm font-medium text-gray-900 truncate">
                           {selectedReport.reportedBy.email}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Shield className="w-4 h-4 text-gray-500" />
+                        <Shield className="w-4 h-4 text-gray-500 flex-shrink-0" />
                         <span className="text-sm text-gray-600">User ID:</span>
-                        <span className="text-sm font-mono text-gray-900">
+                        <span className="text-sm font-mono text-gray-900 truncate">
                           {selectedReport.reportedBy.id}
                         </span>
                       </div>
@@ -380,57 +423,57 @@ const ContentModerationPanel = ({ onBack }) => {
                   <h4 className="text-lg font-semibold text-gray-900 mb-3">
                     Target Information
                   </h4>
-                  <Card className="p-4">
+                  <Card className="p-3 lg:p-4">
                     {selectedReport.targetBusiness ? (
-                      <div className="space-y-3">
+                      <div className="space-y-2 lg:space-y-3">
                         <div className="flex items-center space-x-2">
-                          <Store className="w-4 h-4 text-gray-500" />
+                          <Store className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           <span className="text-sm text-gray-600">
                             Business:
                           </span>
-                          <span className="text-sm font-medium text-gray-900">
+                          <span className="text-sm font-medium text-gray-900 truncate">
                             {selectedReport.targetBusiness.name}
                           </span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <User className="w-4 h-4 text-gray-500" />
+                          <User className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           <span className="text-sm text-gray-600">Owner:</span>
-                          <span className="text-sm font-medium text-gray-900">
+                          <span className="text-sm font-medium text-gray-900 truncate">
                             {selectedReport.targetBusiness.owner}
                           </span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Shield className="w-4 h-4 text-gray-500" />
+                          <Shield className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           <span className="text-sm text-gray-600">
                             Business ID:
                           </span>
-                          <span className="text-sm font-mono text-gray-900">
+                          <span className="text-sm font-mono text-gray-900 truncate">
                             {selectedReport.targetBusiness.id}
                           </span>
                         </div>
                       </div>
                     ) : selectedReport.targetUser ? (
-                      <div className="space-y-3">
+                      <div className="space-y-2 lg:space-y-3">
                         <div className="flex items-center space-x-2">
-                          <User className="w-4 h-4 text-gray-500" />
+                          <User className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           <span className="text-sm text-gray-600">User:</span>
-                          <span className="text-sm font-medium text-gray-900">
+                          <span className="text-sm font-medium text-gray-900 truncate">
                             {selectedReport.targetUser.name}
                           </span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Mail className="w-4 h-4 text-gray-500" />
+                          <Mail className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           <span className="text-sm text-gray-600">Email:</span>
-                          <span className="text-sm font-medium text-gray-900">
+                          <span className="text-sm font-medium text-gray-900 truncate">
                             {selectedReport.targetUser.email}
                           </span>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <Shield className="w-4 h-4 text-gray-500" />
+                          <Shield className="w-4 h-4 text-gray-500 flex-shrink-0" />
                           <span className="text-sm text-gray-600">
                             User ID:
                           </span>
-                          <span className="text-sm font-mono text-gray-900">
+                          <span className="text-sm font-mono text-gray-900 truncate">
                             {selectedReport.targetUser.id}
                           </span>
                         </div>
@@ -449,8 +492,8 @@ const ContentModerationPanel = ({ onBack }) => {
                 <h4 className="text-lg font-semibold text-gray-900 mb-3">
                   Additional Information
                 </h4>
-                <Card className="p-4">
-                  <div className="space-y-3">
+                <Card className="p-3 lg:p-4">
+                  <div className="space-y-2 lg:space-y-3">
                     <div>
                       <span className="text-sm font-medium text-gray-600">
                         Description:
@@ -487,13 +530,14 @@ const ContentModerationPanel = ({ onBack }) => {
                   <h4 className="text-lg font-semibold text-gray-900 mb-3">
                     Moderation Actions
                   </h4>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap gap-3">
                     <Button
                       variant="primary"
                       onClick={() =>
                         handleModerationAction(selectedReport.id, "investigate")
                       }
                       icon={Eye}
+                      className="w-full sm:w-auto"
                     >
                       Investigate Further
                     </Button>
@@ -503,6 +547,7 @@ const ContentModerationPanel = ({ onBack }) => {
                         handleModerationAction(selectedReport.id, "remove")
                       }
                       icon={Trash2}
+                      className="w-full sm:w-auto"
                     >
                       Remove Content
                     </Button>
@@ -512,6 +557,7 @@ const ContentModerationPanel = ({ onBack }) => {
                         handleModerationAction(selectedReport.id, "warn")
                       }
                       icon={AlertTriangle}
+                      className="w-full sm:w-auto"
                     >
                       Send Warning
                     </Button>
@@ -521,6 +567,7 @@ const ContentModerationPanel = ({ onBack }) => {
                         handleModerationAction(selectedReport.id, "ban")
                       }
                       icon={Ban}
+                      className="w-full sm:w-auto"
                     >
                       Ban User
                     </Button>
@@ -530,6 +577,7 @@ const ContentModerationPanel = ({ onBack }) => {
                         handleModerationAction(selectedReport.id, "approve")
                       }
                       icon={CheckCircle}
+                      className="w-full sm:w-auto"
                     >
                       Approve Content
                     </Button>
@@ -539,6 +587,7 @@ const ContentModerationPanel = ({ onBack }) => {
                         handleModerationAction(selectedReport.id, "dismiss")
                       }
                       icon={XCircle}
+                      className="w-full sm:w-auto"
                     >
                       Dismiss Report
                     </Button>
@@ -557,26 +606,98 @@ const ContentModerationPanel = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <Button variant="outline" onClick={onBack} className="mb-4">
-            ← Back to Dashboard
-          </Button>
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+    <div className="min-h-screen bg-gray-50">
+      {/* Mobile Header */}
+      <div className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4 safe-area-top">
+        <div className="flex items-center justify-between max-w-md mx-auto">
+          <div className="flex items-center space-x-3 flex-1 min-w-0">
+            <button
+              onClick={onBack}
+              className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
+            >
+              <ArrowLeft className="w-5 h-5 text-gray-600" />
+            </button>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-lg font-bold text-gray-900 truncate">
                 Content Moderation
               </h1>
-              <p className="text-gray-600 mt-1">
-                Review and moderate reported content, manage user violations
+              <p className="text-xs text-gray-500 truncate">
+                {moderationStats.pending} pending reports
               </p>
             </div>
           </div>
+          <div className="flex items-center space-x-2 flex-shrink-0">
+            <div className="bg-red-50 border border-red-200 rounded-lg px-2 py-1">
+              <span className="text-red-800 font-medium text-xs">
+                {moderationStats.highSeverity}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Header */}
+      <div className="hidden lg:block py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-6">
+            <Button variant="outline" onClick={onBack} className="mb-4">
+              ← Back to Dashboard
+            </Button>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Content Moderation
+                </h1>
+                <p className="text-gray-600 mt-1">
+                  Review and moderate reported content, manage user violations
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 lg:pb-8">
+        {/* Mobile Quick Stats */}
+        <div className="lg:hidden mb-4">
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            <Card className="p-3 text-center">
+              <div className="text-lg font-bold text-yellow-600">
+                {moderationStats.pending}
+              </div>
+              <div className="text-xs text-gray-500">Pending</div>
+            </Card>
+            <Card className="p-3 text-center">
+              <div className="text-lg font-bold text-red-600">
+                {moderationStats.highSeverity}
+              </div>
+              <div className="text-xs text-gray-500">High Severity</div>
+            </Card>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <Card className="p-3 text-center">
+              <div className="text-base font-bold text-gray-900">
+                {moderationStats.total}
+              </div>
+              <div className="text-xs text-gray-500">Total</div>
+            </Card>
+            <Card className="p-3 text-center">
+              <div className="text-base font-bold text-blue-600">
+                {moderationStats.underReview}
+              </div>
+              <div className="text-xs text-gray-500">Review</div>
+            </Card>
+            <Card className="p-3 text-center">
+              <div className="text-base font-bold text-green-600">
+                {moderationStats.resolved}
+              </div>
+              <div className="text-xs text-gray-500">Resolved</div>
+            </Card>
+          </div>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+        {/* Desktop Stats Overview */}
+        <div className="hidden lg:grid lg:grid-cols-5 gap-6 mb-8">
           <Card className="p-6">
             <div className="text-2xl font-bold text-gray-900">
               {moderationStats.total}
@@ -609,8 +730,49 @@ const ContentModerationPanel = ({ onBack }) => {
           </Card>
         </div>
 
-        {/* Filters */}
-        <Card className="p-6 mb-6">
+        {/* Mobile Search and Filters */}
+        <div className="lg:hidden mb-4">
+          <Card className="p-4">
+            <div className="space-y-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Input
+                  type="text"
+                  placeholder="Search reports..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <div className="flex items-center space-x-2">
+                <Filter className="w-4 h-4 text-gray-500" />
+                <div className="flex flex-wrap gap-1 flex-1">
+                  {[
+                    { key: "all", label: "All" },
+                    { key: "pending", label: "Pending" },
+                    { key: "under_review", label: "Review" },
+                    { key: "resolved", label: "Resolved" },
+                  ].map((filter) => (
+                    <button
+                      key={filter.key}
+                      onClick={() => setSelectedFilter(filter.key)}
+                      className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                        selectedFilter === filter.key
+                          ? "bg-primary-100 text-primary-700"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Desktop Filters */}
+        <Card className="hidden lg:block p-6 mb-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <Input
@@ -647,8 +809,82 @@ const ContentModerationPanel = ({ onBack }) => {
           </div>
         </Card>
 
-        {/* Reports List */}
-        <div className="space-y-4">
+        {/* Mobile Reports List */}
+        <div className="lg:hidden space-y-3">
+          {filteredReports.map((report) => {
+            const TypeIcon = getTypeIcon(report.type);
+
+            return (
+              <motion.div
+                key={report.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow"
+                onClick={() => setSelectedReport(report)}
+              >
+                <div className="flex items-start space-x-3">
+                  <div
+                    className={`p-2 rounded-lg flex-shrink-0 ${
+                      report.severity === "high"
+                        ? "bg-red-100"
+                        : report.severity === "medium"
+                        ? "bg-yellow-100"
+                        : "bg-gray-100"
+                    }`}
+                  >
+                    <TypeIcon
+                      className={`w-4 h-4 ${
+                        report.severity === "high"
+                          ? "text-red-600"
+                          : report.severity === "medium"
+                          ? "text-yellow-600"
+                          : "text-gray-600"
+                      }`}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-semibold text-gray-900 text-sm truncate">
+                        {report.reason}
+                      </h3>
+                      <span
+                        className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                          report.status
+                        )}`}
+                      >
+                        {report.status.replace("_", " ")}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 text-sm line-clamp-2 mb-2">
+                      {report.content}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                      <span className="flex items-center">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {report.reportDate}
+                      </span>
+                      <span className="flex items-center">
+                        <Flag className="w-3 h-3 mr-1" />
+                        {report.reportCount} report
+                        {report.reportCount > 1 ? "s" : ""}
+                      </span>
+                      <span
+                        className={`px-1 py-0.5 rounded text-xs font-medium ${getSeverityColor(
+                          report.severity
+                        )}`}
+                      >
+                        {report.severity}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Desktop Reports List */}
+        <div className="hidden lg:block space-y-4">
           {filteredReports.map((report) => {
             const TypeIcon = getTypeIcon(report.type);
 
@@ -737,8 +973,9 @@ const ContentModerationPanel = ({ onBack }) => {
           })}
         </div>
 
+        {/* No Reports Found */}
         {filteredReports.length === 0 && (
-          <Card className="p-12 text-center">
+          <Card className="p-8 lg:p-12 text-center">
             <Shield className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">
               No reports found
