@@ -23,6 +23,7 @@ import {
   Globe,
   ArrowLeft,
   FileText,
+  Menu,
 } from "lucide-react";
 import Card from "../common/Card";
 import Button from "../common/Button";
@@ -33,6 +34,14 @@ const AdminNotificationCenter = ({ onBack }) => {
   const [selectedNotification, setSelectedNotification] = useState(null);
   const [showSettings, setShowSettings] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Mock admin notifications data
   const notifications = [
@@ -245,49 +254,110 @@ const AdminNotificationCenter = ({ onBack }) => {
     const CategoryIcon = getCategoryIcon(selectedNotification.category);
 
     return (
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="p-6">
-            <div className="flex items-center justify-between mb-6">
+      <div className="min-h-screen bg-gray-50">
+        {/* Mobile Header */}
+        {isMobile ? (
+          <div className="bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4">
+            <div className="flex items-center justify-between">
               <Button
-                variant="outline"
+                variant="ghost"
+                size="sm"
                 onClick={() => setSelectedNotification(null)}
                 icon={ArrowLeft}
               >
                 Back to Notifications
               </Button>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-lg font-bold text-gray-900 truncate">
                 Notification Details
               </h1>
+              <div className="w-20"></div> {/* Spacer for balance */}
             </div>
+          </div>
+        ) : (
+          /* Desktop Header */
+          <div className="py-8">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <Button
+                    variant="outline"
+                    onClick={() => setSelectedNotification(null)}
+                    icon={ArrowLeft}
+                  >
+                    Back to Notifications
+                  </Button>
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    Notification Details
+                  </h1>
+                </div>
+              </Card>
+            </div>
+          </div>
+        )}
 
+        <div
+          className={`mx-auto px-4 sm:px-6 lg:px-8 ${
+            isMobile ? "max-w-md" : "max-w-4xl"
+          }`}
+        >
+          <Card className={`${isMobile ? "p-4" : "p-6"}`}>
             <div
-              className={`border-l-4 p-6 rounded-lg ${getNotificationColor(
+              className={`border-l-4 rounded-lg ${getNotificationColor(
                 selectedNotification.type,
                 selectedNotification.priority
-              )}`}
+              )} ${isMobile ? "p-4" : "p-6"}`}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-start space-x-4">
+              <div
+                className={`mb-4 ${
+                  isMobile ? "space-y-4" : "flex items-start justify-between"
+                }`}
+              >
+                <div
+                  className={`${
+                    isMobile ? "space-y-3" : "flex items-start space-x-4"
+                  }`}
+                >
                   <div className="flex items-center space-x-2">
-                    <NotificationIcon className="w-6 h-6" />
-                    <CategoryIcon className="w-5 h-5 text-gray-600" />
+                    <NotificationIcon
+                      className={`${isMobile ? "w-5 h-5" : "w-6 h-6"}`}
+                    />
+                    <CategoryIcon
+                      className={`text-gray-600 ${
+                        isMobile ? "w-4 h-4" : "w-5 h-5"
+                      }`}
+                    />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h2
+                      className={`font-semibold text-gray-900 mb-2 ${
+                        isMobile ? "text-lg" : "text-xl"
+                      }`}
+                    >
                       {selectedNotification.title}
                     </h2>
-                    <div className="flex items-center space-x-4 text-sm text-gray-600 mb-4">
+                    <div
+                      className={`text-gray-600 mb-4 ${
+                        isMobile
+                          ? "space-y-2 text-xs"
+                          : "flex items-center space-x-4 text-sm"
+                      }`}
+                    >
                       <span className="flex items-center">
-                        <Clock className="w-4 h-4 mr-1" />
+                        <Clock
+                          className={`mr-1 ${isMobile ? "w-3 h-3" : "w-4 h-4"}`}
+                        />
                         {selectedNotification.timestamp}
                       </span>
                       <span className="flex items-center">
-                        <Activity className="w-4 h-4 mr-1" />
+                        <Activity
+                          className={`mr-1 ${isMobile ? "w-3 h-3" : "w-4 h-4"}`}
+                        />
                         {selectedNotification.source}
                       </span>
                       <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        className={`px-2 py-1 rounded-full font-medium ${
+                          isMobile ? "text-xs" : "text-xs"
+                        } ${
                           selectedNotification.priority === "high"
                             ? "bg-red-100 text-red-800"
                             : selectedNotification.priority === "medium"
@@ -302,12 +372,17 @@ const AdminNotificationCenter = ({ onBack }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex space-x-2">
+                <div
+                  className={`${
+                    isMobile ? "flex space-x-2" : "flex space-x-2"
+                  }`}
+                >
                   {!selectedNotification.isRead && (
                     <Button
                       size="sm"
                       variant="outline"
                       onClick={() => markAsRead(selectedNotification.id)}
+                      className={isMobile ? "flex-1 text-xs" : ""}
                     >
                       Mark as Read
                     </Button>
@@ -317,6 +392,7 @@ const AdminNotificationCenter = ({ onBack }) => {
                     variant="outline"
                     onClick={() => deleteNotification(selectedNotification.id)}
                     icon={Trash2}
+                    className={isMobile ? "flex-1 text-xs" : ""}
                   >
                     Delete
                   </Button>
@@ -324,7 +400,11 @@ const AdminNotificationCenter = ({ onBack }) => {
               </div>
 
               <div className="prose max-w-none mb-6">
-                <p className="text-gray-700 leading-relaxed text-lg">
+                <p
+                  className={`text-gray-700 leading-relaxed ${
+                    isMobile ? "text-sm" : "text-lg"
+                  }`}
+                >
                   {selectedNotification.message}
                 </p>
               </div>
@@ -332,10 +412,20 @@ const AdminNotificationCenter = ({ onBack }) => {
               {selectedNotification.actions &&
                 selectedNotification.actions.length > 0 && (
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                    <h3
+                      className={`font-semibold text-gray-900 mb-3 ${
+                        isMobile ? "text-base" : "text-lg"
+                      }`}
+                    >
                       Available Actions
                     </h3>
-                    <div className="flex flex-wrap gap-3">
+                    <div
+                      className={`gap-3 ${
+                        isMobile
+                          ? "grid grid-cols-1 space-y-2"
+                          : "flex flex-wrap"
+                      }`}
+                    >
                       {selectedNotification.actions.map((action, index) => (
                         <Button
                           key={index}
@@ -346,6 +436,7 @@ const AdminNotificationCenter = ({ onBack }) => {
                               action
                             )
                           }
+                          className={isMobile ? "w-full text-sm" : ""}
                         >
                           {action}
                         </Button>
@@ -361,44 +452,41 @@ const AdminNotificationCenter = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-6">
-          <Button
-            variant="outline"
-            onClick={onBack}
-            className="mb-4"
-            icon={ArrowLeft}
-          >
-            Back to Dashboard
-          </Button>
+    <div className="min-h-screen bg-gray-50">
+      {/* Mobile Header */}
+      {isMobile ? (
+        <div className="bg-white shadow-sm border-b border-gray-200 px-4 py-3 mb-4">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                Admin Notification Center
-              </h1>
-              <p className="text-gray-600 mt-1">
-                Monitor system alerts, user activities, and platform
-                notifications
-              </p>
+            <div className="flex items-center space-x-3 flex-1 min-w-0">
+              <Button
+                onClick={onBack}
+                variant="ghost"
+                size="sm"
+                icon={ArrowLeft}
+              >
+                Back
+              </Button>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-lg font-bold text-gray-900 truncate">
+                  Admin Notifications
+                </h1>
+                <p className="text-xs text-gray-500 truncate">
+                  System alerts and activities
+                </p>
+              </div>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
               <Button
-                variant="outline"
-                onClick={markAllAsRead}
-                icon={CheckCircle}
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMobileFilterOpen(!isMobileFilterOpen)}
+                icon={Filter}
               >
-                Mark All Read
+                Filter
               </Button>
               <Button
-                variant="outline"
-                onClick={clearAllNotifications}
-                icon={Trash2}
-              >
-                Clear All
-              </Button>
-              <Button
-                variant="outline"
+                variant="ghost"
+                size="sm"
                 onClick={() => setShowSettings(true)}
                 icon={Settings}
               >
@@ -406,79 +494,235 @@ const AdminNotificationCenter = ({ onBack }) => {
               </Button>
             </div>
           </div>
-        </div>
 
+          {/* Mobile Filter Panel */}
+          {isMobileFilterOpen && (
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {filterOptions.map((filter) => (
+                  <button
+                    key={filter.id}
+                    onClick={() => {
+                      setSelectedFilter(filter.id);
+                      setIsMobileFilterOpen(false);
+                    }}
+                    className={`p-2 text-xs font-medium rounded-lg transition-colors ${
+                      selectedFilter === filter.id
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-white text-gray-600 hover:bg-gray-100"
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
+              </div>
+              <div className="flex space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={markAllAsRead}
+                  icon={CheckCircle}
+                  className="flex-1 text-xs"
+                >
+                  Mark All Read
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={clearAllNotifications}
+                  icon={Trash2}
+                  className="flex-1 text-xs"
+                >
+                  Clear All
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        /* Desktop Header */
+        <div className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-6">
+              <Button
+                variant="outline"
+                onClick={onBack}
+                className="mb-4"
+                icon={ArrowLeft}
+              >
+                Back to Dashboard
+              </Button>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    Admin Notification Center
+                  </h1>
+                  <p className="text-gray-600 mt-1">
+                    Monitor system alerts, user activities, and platform
+                    notifications
+                  </p>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Button
+                    variant="outline"
+                    onClick={markAllAsRead}
+                    icon={CheckCircle}
+                  >
+                    Mark All Read
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={clearAllNotifications}
+                    icon={Trash2}
+                  >
+                    Clear All
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowSettings(true)}
+                    icon={Settings}
+                  >
+                    Settings
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div
+        className={`mx-auto px-4 sm:px-6 lg:px-8 ${
+          isMobile ? "max-w-md" : "max-w-7xl"
+        }`}
+      >
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-gray-900">
+        <div
+          className={`grid gap-4 mb-6 ${
+            isMobile ? "grid-cols-2" : "grid-cols-1 md:grid-cols-4"
+          }`}
+        >
+          <Card className={`${isMobile ? "p-4" : "p-6"}`}>
+            <div
+              className={`font-bold text-gray-900 ${
+                isMobile ? "text-lg" : "text-2xl"
+              }`}
+            >
               {notificationStats.total}
             </div>
-            <div className="text-sm text-gray-600">Total Notifications</div>
+            <div
+              className={`text-gray-600 ${isMobile ? "text-xs" : "text-sm"}`}
+            >
+              Total Notifications
+            </div>
           </Card>
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-blue-600">
+          <Card className={`${isMobile ? "p-4" : "p-6"}`}>
+            <div
+              className={`font-bold text-blue-600 ${
+                isMobile ? "text-lg" : "text-2xl"
+              }`}
+            >
               {notificationStats.unread}
             </div>
-            <div className="text-sm text-gray-600">Unread</div>
+            <div
+              className={`text-gray-600 ${isMobile ? "text-xs" : "text-sm"}`}
+            >
+              Unread
+            </div>
           </Card>
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-red-600">
+          <Card className={`${isMobile ? "p-4" : "p-6"}`}>
+            <div
+              className={`font-bold text-red-600 ${
+                isMobile ? "text-lg" : "text-2xl"
+              }`}
+            >
               {notificationStats.urgent}
             </div>
-            <div className="text-sm text-gray-600">Urgent</div>
+            <div
+              className={`text-gray-600 ${isMobile ? "text-xs" : "text-sm"}`}
+            >
+              Urgent
+            </div>
           </Card>
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-yellow-600">
+          <Card className={`${isMobile ? "p-4" : "p-6"}`}>
+            <div
+              className={`font-bold text-yellow-600 ${
+                isMobile ? "text-lg" : "text-2xl"
+              }`}
+            >
               {notificationStats.high}
             </div>
-            <div className="text-sm text-gray-600">High Priority</div>
+            <div
+              className={`text-gray-600 ${isMobile ? "text-xs" : "text-sm"}`}
+            >
+              High Priority
+            </div>
           </Card>
         </div>
 
         {/* Filters and Search */}
-        <Card className="p-6 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <Input
-                type="text"
-                placeholder="Search notifications..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                icon={Search}
-              />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Filter className="w-4 h-4 text-gray-500" />
-              <div className="flex space-x-1">
-                {[
-                  { key: "all", label: "All", count: notificationStats.total },
-                  {
-                    key: "urgent",
-                    label: "Urgent",
-                    count: notificationStats.urgent,
-                  },
-                  { key: "security", label: "Security" },
-                  { key: "financial", label: "Financial" },
-                  { key: "business", label: "Business" },
-                  { key: "content", label: "Content" },
-                ].map((filter) => (
-                  <button
-                    key={filter.key}
-                    onClick={() => setSelectedFilter(filter.key)}
-                    className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
-                      selectedFilter === filter.key
-                        ? "bg-primary-100 text-primary-700"
-                        : "text-gray-600 hover:bg-gray-100"
-                    }`}
-                  >
-                    {filter.label} {filter.count && `(${filter.count})`}
-                  </button>
-                ))}
+        {!isMobile && (
+          <Card className="p-6 mb-6">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex-1">
+                <Input
+                  type="text"
+                  placeholder="Search notifications..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  icon={Search}
+                />
+              </div>
+              <div className="flex items-center space-x-2">
+                <Filter className="w-4 h-4 text-gray-500" />
+                <div className="flex space-x-1">
+                  {[
+                    {
+                      key: "all",
+                      label: "All",
+                      count: notificationStats.total,
+                    },
+                    {
+                      key: "urgent",
+                      label: "Urgent",
+                      count: notificationStats.urgent,
+                    },
+                    { key: "security", label: "Security" },
+                    { key: "financial", label: "Financial" },
+                    { key: "business", label: "Business" },
+                    { key: "content", label: "Content" },
+                  ].map((filter) => (
+                    <button
+                      key={filter.key}
+                      onClick={() => setSelectedFilter(filter.key)}
+                      className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                        selectedFilter === filter.key
+                          ? "bg-primary-100 text-primary-700"
+                          : "text-gray-600 hover:bg-gray-100"
+                      }`}
+                    >
+                      {filter.label} {filter.count && `(${filter.count})`}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
+          </Card>
+        )}
+
+        {/* Mobile Search */}
+        {isMobile && (
+          <div className="mb-4">
+            <Input
+              type="text"
+              placeholder="Search notifications..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              icon={Search}
+              className="text-sm"
+            />
           </div>
-        </Card>
+        )}
 
         {/* Notifications List */}
         <div className="space-y-4">
@@ -491,26 +735,46 @@ const AdminNotificationCenter = ({ onBack }) => {
                 key={notification.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`border-l-4 p-6 rounded-lg cursor-pointer hover:shadow-md transition-shadow ${getNotificationColor(
+                className={`border-l-4 rounded-lg cursor-pointer hover:shadow-md transition-shadow ${getNotificationColor(
                   notification.type,
                   notification.priority
-                )} ${!notification.isRead ? "ring-2 ring-blue-100" : ""}`}
+                )} ${!notification.isRead ? "ring-2 ring-blue-100" : ""} ${
+                  isMobile ? "p-4" : "p-6"
+                }`}
                 onClick={() => setSelectedNotification(notification)}
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start space-x-4 flex-1">
+                <div
+                  className={`flex items-start ${
+                    isMobile ? "flex-col space-y-3" : "justify-between"
+                  }`}
+                >
+                  <div
+                    className={`flex items-start flex-1 ${
+                      isMobile ? "space-y-2 flex-col" : "space-x-4"
+                    }`}
+                  >
                     <div className="flex items-center space-x-2">
-                      <NotificationIcon className="w-5 h-5" />
-                      <CategoryIcon className="w-4 h-4 text-gray-600" />
+                      <NotificationIcon
+                        className={`${isMobile ? "w-4 h-4" : "w-5 h-5"}`}
+                      />
+                      <CategoryIcon
+                        className={`text-gray-600 ${
+                          isMobile ? "w-3 h-3" : "w-4 h-4"
+                        }`}
+                      />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
+                      <div
+                        className={`flex items-center space-x-2 mb-1 ${
+                          isMobile ? "flex-wrap" : ""
+                        }`}
+                      >
                         <h3
                           className={`font-semibold ${
                             !notification.isRead
                               ? "text-gray-900"
                               : "text-gray-700"
-                          }`}
+                          } ${isMobile ? "text-sm" : ""}`}
                         >
                           {notification.title}
                         </h3>
@@ -521,7 +785,13 @@ const AdminNotificationCenter = ({ onBack }) => {
                       <p className="text-gray-600 text-sm line-clamp-2 mb-2">
                         {notification.message}
                       </p>
-                      <div className="flex items-center space-x-4 text-xs text-gray-500">
+                      <div
+                        className={`flex items-center text-xs text-gray-500 ${
+                          isMobile
+                            ? "flex-col space-y-1 items-start"
+                            : "space-x-4"
+                        }`}
+                      >
                         <span className="flex items-center">
                           <Clock className="w-3 h-3 mr-1" />
                           {notification.timestamp}
@@ -544,7 +814,11 @@ const AdminNotificationCenter = ({ onBack }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div
+                    className={`flex items-center ${
+                      isMobile ? "space-x-1 mt-2" : "space-x-2"
+                    }`}
+                  >
                     {notification.actions &&
                       notification.actions.length > 0 && (
                         <span className="text-xs text-gray-500">
