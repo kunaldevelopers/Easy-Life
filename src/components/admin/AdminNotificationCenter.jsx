@@ -158,6 +158,20 @@ const AdminNotificationCenter = ({ onBack }) => {
     high: notifications.filter((n) => n.priority === "high").length,
   };
 
+  // Filter options for mobile filter panel
+  const filterOptions = [
+    { id: "all", label: "All" },
+    { id: "urgent", label: "Urgent" },
+    { id: "warning", label: "Warning" },
+    { id: "info", label: "Info" },
+    { id: "success", label: "Success" },
+    { id: "security", label: "Security" },
+    { id: "system", label: "System" },
+    { id: "financial", label: "Financial" },
+    { id: "business", label: "Business" },
+    { id: "content", label: "Content" },
+  ];
+
   const filteredNotifications = notifications.filter((notification) => {
     const matchesFilter =
       selectedFilter === "all" ||
