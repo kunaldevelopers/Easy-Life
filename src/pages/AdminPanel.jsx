@@ -1247,38 +1247,79 @@ const AdminPanel = () => {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 lg:pb-8">
-          {/* Stats Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 mb-6 lg:mb-8">
+          {/* Stats Cards - Professional Desktop Design */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-8 mb-6 lg:mb-12">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl p-4 lg:p-6 shadow-sm border border-gray-100"
+                className="group relative bg-white rounded-2xl lg:rounded-3xl p-4 lg:p-8 shadow-sm lg:shadow-xl border border-gray-100 lg:border-gray-200 hover:shadow-2xl lg:hover:shadow-2xl transition-all duration-300 overflow-hidden"
               >
-                <div className="flex items-center lg:block">
-                  <div
-                    className={`p-2 lg:p-3 rounded-lg ${
-                      stat.colorClass.split(" ")[0]
-                    } mb-0 lg:mb-4 flex-shrink-0`}
-                  >
-                    <stat.icon
-                      className={`w-4 h-4 lg:w-6 lg:h-6 ${
-                        stat.colorClass.split(" ")[1]
-                      }`}
-                    />
+                {/* Desktop Professional Layout */}
+                <div className="hidden lg:block">
+                  {/* Background Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50/50 to-gray-100/30 opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    {/* Icon and Change Indicator */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div
+                        className={`p-4 rounded-2xl ${
+                          stat.colorClass.split(" ")[0]
+                        } shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        <stat.icon
+                          className={`w-8 h-8 ${stat.colorClass.split(" ")[1]}`}
+                        />
+                      </div>
+                      <div className="text-right">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 shadow-sm">
+                          {stat.change}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="space-y-2">
+                      <h3 className="text-sm font-medium text-gray-600 uppercase tracking-wide">
+                        {stat.label}
+                      </h3>
+                      <p className="text-4xl font-bold text-gray-900 leading-none">
+                        {stat.value}
+                      </p>
+                      <p className="text-sm text-gray-500 font-medium">
+                        vs {stat.period}
+                      </p>
+                    </div>
                   </div>
-                  <div className="ml-3 lg:ml-0 min-w-0 flex-1">
-                    <p className="text-xs lg:text-sm font-medium text-gray-600 truncate">
-                      {stat.label}
-                    </p>
-                    <p className="text-lg lg:text-2xl font-bold text-gray-900">
-                      {stat.value}
-                    </p>
-                    <p className="text-xs text-green-600 lg:hidden">
-                      {stat.change} {stat.period}
-                    </p>
+                </div>
+
+                {/* Mobile Layout (unchanged for mobile compatibility) */}
+                <div className="lg:hidden">
+                  <div className="flex items-center">
+                    <div
+                      className={`p-2 rounded-lg ${
+                        stat.colorClass.split(" ")[0]
+                      } flex-shrink-0`}
+                    >
+                      <stat.icon
+                        className={`w-4 h-4 ${stat.colorClass.split(" ")[1]}`}
+                      />
+                    </div>
+                    <div className="ml-3 min-w-0 flex-1">
+                      <p className="text-xs font-medium text-gray-600 truncate">
+                        {stat.label}
+                      </p>
+                      <p className="text-lg font-bold text-gray-900">
+                        {stat.value}
+                      </p>
+                      <p className="text-xs text-green-600">
+                        {stat.change} {stat.period}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
