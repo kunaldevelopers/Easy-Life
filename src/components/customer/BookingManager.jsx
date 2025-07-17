@@ -569,72 +569,82 @@ const BookingManager = ({ onBack }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-8 pb-20 lg:pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-6">
           <Button variant="outline" onClick={onBack} className="mb-4">
             ← Back to Dashboard
           </Button>
-          <h1 className="text-2xl font-bold text-gray-900">My Bookings</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+            My Bookings
+          </h1>
+          <p className="text-gray-600 mt-1 text-sm sm:text-base">
             Track and manage your service bookings
           </p>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-gray-900">
-              {bookingStats.total}
+        {/* Stats Overview - Compact Mobile Design */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+          <Card className="p-3">
+            <div className="text-center">
+              <div className="text-lg sm:text-xl font-bold text-gray-900">
+                {bookingStats.total}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">Total</div>
             </div>
-            <div className="text-sm text-gray-600">Total Bookings</div>
           </Card>
 
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-yellow-600">
-              {bookingStats.pending}
+          <Card className="p-3">
+            <div className="text-center">
+              <div className="text-lg sm:text-xl font-bold text-yellow-600">
+                {bookingStats.pending}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">Pending</div>
             </div>
-            <div className="text-sm text-gray-600">Pending</div>
           </Card>
 
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-blue-600">
-              {bookingStats.confirmed}
+          <Card className="p-3">
+            <div className="text-center">
+              <div className="text-lg sm:text-xl font-bold text-blue-600">
+                {bookingStats.confirmed}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">Confirmed</div>
             </div>
-            <div className="text-sm text-gray-600">Confirmed</div>
           </Card>
 
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-green-600">
-              {bookingStats.completed}
+          <Card className="p-3">
+            <div className="text-center">
+              <div className="text-lg sm:text-xl font-bold text-green-600">
+                {bookingStats.completed}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">Completed</div>
             </div>
-            <div className="text-sm text-gray-600">Completed</div>
           </Card>
 
-          <Card className="p-6">
-            <div className="text-2xl font-bold text-red-600">
-              {bookingStats.cancelled}
+          <Card className="p-3">
+            <div className="text-center">
+              <div className="text-lg sm:text-xl font-bold text-red-600">
+                {bookingStats.cancelled}
+              </div>
+              <div className="text-xs text-gray-600 mt-1">Cancelled</div>
             </div>
-            <div className="text-sm text-gray-600">Cancelled</div>
           </Card>
         </div>
 
-        {/* Filters */}
-        <Card className="p-6 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <Input
-                type="text"
-                placeholder="Search bookings..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full"
-                icon={Search}
-              />
-            </div>
-            <div className="flex items-center space-x-2">
-              <Filter className="w-4 h-4 text-gray-500" />
-              <div className="flex space-x-1">
+        {/* Filters - Compact Mobile Design */}
+        <Card className="p-3 sm:p-4 mb-4">
+          <div className="space-y-3">
+            <Input
+              type="text"
+              placeholder="Search bookings..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full"
+              icon={Search}
+            />
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-gray-500 flex-shrink-0" />
+              <div className="flex flex-wrap gap-1.5">
                 {[
                   { key: "all", label: "All", count: bookingStats.total },
                   {
@@ -661,13 +671,13 @@ const BookingManager = ({ onBack }) => {
                   <button
                     key={filter.key}
                     onClick={() => setSelectedStatus(filter.key)}
-                    className={`px-3 py-1.5 text-sm rounded-lg transition-colors ${
+                    className={`px-2.5 py-1 text-xs rounded-md transition-colors ${
                       selectedStatus === filter.key
-                        ? "bg-primary-100 text-primary-700"
-                        : "text-gray-600 hover:bg-gray-100"
+                        ? "bg-primary-100 text-primary-700 border border-primary-200"
+                        : "text-gray-600 hover:bg-gray-100 border border-gray-200"
                     }`}
                   >
-                    {filter.label} ({filter.count})
+                    {filter.label} ({filter.count}))
                   </button>
                 ))}
               </div>
@@ -685,23 +695,23 @@ const BookingManager = ({ onBack }) => {
                 key={booking.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                className="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow"
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start space-x-4 flex-1">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                  <div className="flex items-start space-x-3 sm:space-x-4 flex-1 mb-4 sm:mb-0">
                     <img
                       src={booking.businessImage}
                       alt={booking.businessName}
-                      className="w-16 h-16 rounded-lg object-cover"
+                      className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0"
                     />
 
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-2">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
                           {booking.businessName}
                         </h3>
                         <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mt-1 sm:mt-0 self-start ${getStatusColor(
                             booking.status
                           )}`}
                         >
@@ -711,45 +721,51 @@ const BookingManager = ({ onBack }) => {
                         </span>
                       </div>
 
-                      <p className="text-gray-600 mb-2">{booking.service}</p>
+                      <p className="text-gray-600 mb-3 text-sm sm:text-base">
+                        {booking.service}
+                      </p>
 
-                      <div className="flex items-center space-x-4 text-sm text-gray-600">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 text-xs sm:text-sm text-gray-600">
                         <div className="flex items-center space-x-1">
-                          <Calendar className="w-4 h-4" />
+                          <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                           <span>{booking.serviceDate}</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                           <span>{booking.serviceTime}</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <MapPin className="w-4 h-4" />
-                          <span>{booking.location}</span>
+                          <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">{booking.location}</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="text-right ml-4">
-                    <div className="text-lg font-semibold text-gray-900 mb-1">
-                      ₹{booking.amount.toLocaleString()}
+                  <div className="flex flex-row sm:flex-col sm:text-right sm:ml-4 items-center sm:items-end justify-between sm:justify-start">
+                    <div className="sm:mb-3">
+                      <div className="text-base sm:text-lg font-semibold text-gray-900 mb-1">
+                        ₹{booking.amount.toLocaleString()}
+                      </div>
+                      <span
+                        className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${getPaymentStatusColor(
+                          booking.paymentStatus
+                        )}`}
+                      >
+                        {booking.paymentStatus.charAt(0).toUpperCase() +
+                          booking.paymentStatus.slice(1)}
+                      </span>
                     </div>
-                    <span
-                      className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${getPaymentStatusColor(
-                        booking.paymentStatus
-                      )}`}
-                    >
-                      {booking.paymentStatus.charAt(0).toUpperCase() +
-                        booking.paymentStatus.slice(1)}
-                    </span>
-                    <div className="mt-2">
+                    <div className="sm:mt-2">
                       <Button
                         size="sm"
                         variant="outline"
                         onClick={() => setSelectedBooking(booking)}
                         icon={Eye}
+                        className="text-xs sm:text-sm"
                       >
-                        View Details
+                        <span className="hidden sm:inline">View Details</span>
+                        <span className="sm:hidden">Details</span>
                       </Button>
                     </div>
                   </div>
