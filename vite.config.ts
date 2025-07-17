@@ -17,6 +17,10 @@ export default defineConfig({
         "Content-Type, Authorization, Content-Length, X-Requested-With",
     },
   },
+  preview: {
+    port: 4173,
+    host: true,
+  },
   optimizeDeps: {
     exclude: ["lucide-react"],
     include: ["react", "react-dom"],

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
@@ -21,20 +21,21 @@ import BookingManager from "../components/customer/BookingManager";
 const CustomerPanel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [currentView, setCurrentView] = useState("dashboard");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentView = searchParams.get("view") || "dashboard";
 
   // Handle navigation to activity manager
   const handleViewActivityManager = () => {
-    setCurrentView("activity");
+    setSearchParams({ view: "activity" });
   };
 
   // Handle navigation to booking manager
   const handleViewBookingManager = () => {
-    setCurrentView("bookings");
+    setSearchParams({ view: "bookings" });
   };
 
   const handleBackToDashboard = () => {
-    setCurrentView("dashboard");
+    setSearchParams({});
   };
 
   // If showing activity manager, render it

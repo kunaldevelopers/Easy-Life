@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
@@ -54,7 +54,8 @@ import SellerCustomerAnalytics from "../components/seller/SellerCustomerAnalytic
 const SellerPanel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [currentView, setCurrentView] = useState("dashboard");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentView = searchParams.get("view") || "dashboard";
   const [serviceManagementTab, setServiceManagementTab] = useState("orders");
 
   // Mobile orders state - moved to top level to avoid hooks violations
@@ -192,40 +193,44 @@ const SellerPanel = () => {
 
   // Handle navigation between different views
   const handleViewChange = (view) => {
-    setCurrentView(view);
+    if (view === "dashboard") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ view });
+    }
   };
 
   // Handle service management navigation with specific tab
   const handleServiceManagementView = (tab = "orders") => {
     setServiceManagementTab(tab);
-    setCurrentView("service-management");
+    setSearchParams({ view: "service-management" });
   };
 
   // Handle activity-specific navigation
   const handleActivityAction = (activity) => {
     switch (activity.type) {
       case "inquiry":
-        setCurrentView("inquiries");
+        handleViewChange("inquiries");
         break;
       case "review":
-        setCurrentView("reviews");
+        handleViewChange("reviews");
         break;
       case "engagement":
-        setCurrentView("engagement");
+        handleViewChange("engagement");
         break;
       case "views":
-        setCurrentView("views");
+        handleViewChange("views");
         break;
       case "booking":
-        setCurrentView("bookings");
+        handleViewChange("bookings");
         break;
       default:
-        setCurrentView("inquiries");
+        handleViewChange("inquiries");
     }
   };
 
   const handleBackToDashboard = () => {
-    setCurrentView("dashboard");
+    setSearchParams({});
   };
 
   // Render different views based on currentView state
@@ -253,7 +258,7 @@ const SellerPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -413,7 +418,7 @@ const SellerPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -424,7 +429,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("orders")}
+                onClick={() => handleViewChange("orders")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "orders" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -433,7 +438,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Orders</span>
               </button>
               <button
-                onClick={() => setCurrentView("earnings")}
+                onClick={() => handleViewChange("earnings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "earnings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -442,7 +447,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Earnings</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -453,7 +458,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("profile")}
+                onClick={() => handleViewChange("profile")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "profile" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -757,7 +762,7 @@ const SellerPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -906,7 +911,7 @@ const SellerPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -917,7 +922,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("orders")}
+                onClick={() => handleViewChange("orders")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "orders" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -926,7 +931,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Orders</span>
               </button>
               <button
-                onClick={() => setCurrentView("earnings")}
+                onClick={() => handleViewChange("earnings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "earnings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -935,7 +940,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Earnings</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -946,7 +951,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("profile")}
+                onClick={() => handleViewChange("profile")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "profile" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -976,7 +981,7 @@ const SellerPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -1148,7 +1153,7 @@ const SellerPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -1159,7 +1164,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("orders")}
+                onClick={() => handleViewChange("orders")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "orders" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -1168,7 +1173,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Orders</span>
               </button>
               <button
-                onClick={() => setCurrentView("earnings")}
+                onClick={() => handleViewChange("earnings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "earnings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -1177,7 +1182,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Earnings</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -1188,7 +1193,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("profile")}
+                onClick={() => handleViewChange("profile")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "profile" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -1218,7 +1223,7 @@ const SellerPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -1431,7 +1436,7 @@ const SellerPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -1442,7 +1447,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("orders")}
+                onClick={() => handleViewChange("orders")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "orders" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -1451,7 +1456,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Orders</span>
               </button>
               <button
-                onClick={() => setCurrentView("earnings")}
+                onClick={() => handleViewChange("earnings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "earnings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -1460,7 +1465,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Earnings</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -1471,7 +1476,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("profile")}
+                onClick={() => handleViewChange("profile")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "profile" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -2709,7 +2714,7 @@ const SellerPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -2720,7 +2725,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("orders")}
+                onClick={() => handleViewChange("orders")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "orders" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -2729,7 +2734,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Orders</span>
               </button>
               <button
-                onClick={() => setCurrentView("earnings")}
+                onClick={() => handleViewChange("earnings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "earnings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -2738,7 +2743,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Earnings</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -2749,7 +2754,7 @@ const SellerPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("profile")}
+                onClick={() => handleViewChange("profile")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "profile" ? "text-blue-600" : "text-gray-500"
                 }`}

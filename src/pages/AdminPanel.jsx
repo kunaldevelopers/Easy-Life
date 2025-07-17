@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
@@ -57,7 +57,8 @@ import CustomerAnalyticsCard from "../components/common/CustomerAnalyticsCard";
 const AdminPanel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [currentView, setCurrentView] = useState("dashboard");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentView = searchParams.get("view") || "dashboard";
   const [commissionEnabled, setCommissionEnabled] = useState(true);
   const [commissionRate, setCommissionRate] = useState(15);
 
@@ -81,11 +82,15 @@ const AdminPanel = () => {
 
   // Handle navigation between different views
   const handleViewChange = (view) => {
-    setCurrentView(view);
+    if (view === "dashboard") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ view });
+    }
   };
 
   const handleBackToDashboard = () => {
-    setCurrentView("dashboard");
+    setSearchParams({});
   };
 
   // Mobile Analytics View
@@ -101,7 +106,7 @@ const AdminPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -263,7 +268,7 @@ const AdminPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -274,7 +279,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("users")}
+                onClick={() => handleViewChange("users")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "users" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -283,7 +288,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Users</span>
               </button>
               <button
-                onClick={() => setCurrentView("businesses")}
+                onClick={() => handleViewChange("businesses")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "businesses"
                     ? "text-blue-600"
@@ -294,7 +299,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Business</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -305,7 +310,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("settings")}
+                onClick={() => handleViewChange("settings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "settings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -333,7 +338,7 @@ const AdminPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -478,7 +483,7 @@ const AdminPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -489,7 +494,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("users")}
+                onClick={() => handleViewChange("users")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "users" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -498,7 +503,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Users</span>
               </button>
               <button
-                onClick={() => setCurrentView("businesses")}
+                onClick={() => handleViewChange("businesses")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "businesses"
                     ? "text-blue-600"
@@ -509,7 +514,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Business</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -520,7 +525,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("settings")}
+                onClick={() => handleViewChange("settings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "settings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -548,7 +553,7 @@ const AdminPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -705,7 +710,7 @@ const AdminPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -716,7 +721,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("users")}
+                onClick={() => handleViewChange("users")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "users" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -725,7 +730,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Users</span>
               </button>
               <button
-                onClick={() => setCurrentView("businesses")}
+                onClick={() => handleViewChange("businesses")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "businesses"
                     ? "text-blue-600"
@@ -736,7 +741,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Business</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -747,7 +752,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("settings")}
+                onClick={() => handleViewChange("settings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "settings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -775,7 +780,7 @@ const AdminPanel = () => {
             <div className="flex items-center justify-between max-w-md mx-auto">
               <div className="flex items-center space-x-3 flex-1 min-w-0">
                 <button
-                  onClick={() => setCurrentView("dashboard")}
+                  onClick={() => handleViewChange("dashboard")}
                   className="p-2 rounded-lg bg-gray-100 flex-shrink-0"
                 >
                   <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -959,7 +964,7 @@ const AdminPanel = () => {
           <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
             <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
               <button
-                onClick={() => setCurrentView("dashboard")}
+                onClick={() => handleViewChange("dashboard")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "dashboard"
                     ? "text-blue-600"
@@ -970,7 +975,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Dashboard</span>
               </button>
               <button
-                onClick={() => setCurrentView("users")}
+                onClick={() => handleViewChange("users")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "users" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -979,7 +984,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Users</span>
               </button>
               <button
-                onClick={() => setCurrentView("businesses")}
+                onClick={() => handleViewChange("businesses")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "businesses"
                     ? "text-blue-600"
@@ -990,7 +995,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Business</span>
               </button>
               <button
-                onClick={() => setCurrentView("analytics")}
+                onClick={() => handleViewChange("analytics")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "analytics"
                     ? "text-blue-600"
@@ -1001,7 +1006,7 @@ const AdminPanel = () => {
                 <span className="text-xs font-medium truncate">Analytics</span>
               </button>
               <button
-                onClick={() => setCurrentView("settings")}
+                onClick={() => handleViewChange("settings")}
                 className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                   currentView === "settings" ? "text-blue-600" : "text-gray-500"
                 }`}
@@ -1103,11 +1108,11 @@ const AdminPanel = () => {
     console.log(`Review action: ${actionType} for item: ${itemId}`);
     // In real app, this would make API calls
     if (actionType === "pending-businesses") {
-      setCurrentView("pending-businesses");
+      handleViewChange("pending-businesses");
     } else if (actionType === "under-review-businesses") {
-      setCurrentView("under-review-businesses");
+      handleViewChange("under-review-businesses");
     } else if (actionType === "business-verification") {
-      setCurrentView("listed-businesses");
+      handleViewChange("listed-businesses");
     }
   };
 
@@ -1957,7 +1962,7 @@ const AdminPanel = () => {
         <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 safe-area-bottom z-50 shadow-lg">
           <div className="grid grid-cols-5 gap-1 max-w-sm mx-auto">
             <button
-              onClick={() => setCurrentView("dashboard")}
+              onClick={() => handleViewChange("dashboard")}
               className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                 currentView === "dashboard" ? "text-blue-600" : "text-gray-500"
               }`}
@@ -1966,7 +1971,7 @@ const AdminPanel = () => {
               <span className="text-xs font-medium truncate">Dashboard</span>
             </button>
             <button
-              onClick={() => setCurrentView("users")}
+              onClick={() => handleViewChange("users")}
               className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                 currentView === "users" ? "text-blue-600" : "text-gray-500"
               }`}
@@ -1975,7 +1980,7 @@ const AdminPanel = () => {
               <span className="text-xs font-medium truncate">Users</span>
             </button>
             <button
-              onClick={() => setCurrentView("businesses")}
+              onClick={() => handleViewChange("businesses")}
               className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                 currentView === "businesses" ? "text-blue-600" : "text-gray-500"
               }`}
@@ -1984,7 +1989,7 @@ const AdminPanel = () => {
               <span className="text-xs font-medium truncate">Business</span>
             </button>
             <button
-              onClick={() => setCurrentView("analytics")}
+              onClick={() => handleViewChange("analytics")}
               className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                 currentView === "analytics" ? "text-blue-600" : "text-gray-500"
               }`}
@@ -1993,7 +1998,7 @@ const AdminPanel = () => {
               <span className="text-xs font-medium truncate">Analytics</span>
             </button>
             <button
-              onClick={() => setCurrentView("settings")}
+              onClick={() => handleViewChange("settings")}
               className={`flex flex-col items-center py-2 px-1 min-w-0 ${
                 currentView === "settings" ? "text-blue-600" : "text-gray-500"
               }`}
