@@ -90,7 +90,9 @@ const Hero = () => {
           >
             <h1 className="text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight text-center font-sans">
               <span className="inline-block">Find Everything You Need in</span>{" "}
-              <span className="text-primary-600 inline-block">Gangtok</span>
+              <span className="inline-block" style={{ color: "#22d5bd" }}>
+                Gangtok
+              </span>
             </h1>
           </motion.div>
 
@@ -133,7 +135,11 @@ const Hero = () => {
                 <div className="flex-shrink-0">
                   <button
                     onClick={handleSearch}
-                    className="h-12 lg:h-16 w-12 lg:w-auto lg:px-10 bg-primary-600 hover:bg-primary-700 text-white rounded-xl lg:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center lg:gap-2 font-semibold text-base lg:text-lg"
+                    className="h-12 lg:h-16 w-12 lg:w-auto lg:px-10 text-white rounded-xl lg:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center lg:gap-2 font-semibold text-base lg:text-lg"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                    }}
                   >
                     <Search className="w-5 h-5 lg:w-5 lg:h-5" />
                     <span className="hidden lg:inline">Search Now</span>
