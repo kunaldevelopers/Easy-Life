@@ -10,6 +10,11 @@ const CategoryShopping = () => {
   const [viewType, setViewType] = useState(""); // "shopping" or "all"
 
   const handleCategoryClick = (categoryId) => {
+    // Handle business partner signup separately
+    if (categoryId === "business-partner") {
+      navigate("/auth?mode=business-signup");
+      return;
+    }
     navigate(`/listings?category=${categoryId}`);
   };
 
@@ -75,6 +80,25 @@ const CategoryShopping = () => {
       name: "Available Jobs",
       icon: "GraduationCap",
       count: "30+ programs",
+    },
+    // Food Delivery & Restaurants categories
+    restaurants: topCategories.find((cat) => cat.id === "restaurants") || {
+      id: "restaurants",
+      name: "Restaurants",
+      icon: "UtensilsCrossed",
+      count: "80+ restaurants",
+    },
+    deliveryPartner: {
+      id: "delivery-partner",
+      name: "Delivery Partner",
+      icon: "Truck",
+      count: "Join our fleet",
+    },
+    businessPartner: {
+      id: "business-partner",
+      name: "Join as Partner",
+      icon: "Handshake",
+      count: "Partner with us",
     },
   };
 
@@ -654,238 +678,22 @@ const CategoryShopping = () => {
                         Tasty
                       </div>
                     </motion.div>
-
-                    {/* Horizontal Scrolling Cards */}
-                    <div className="relative">
-                      <div
-                        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory touch-manipulation"
-                        style={{ scrollBehavior: "smooth" }}
-                      >
-                        {/* Card 1: Fast Food */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 1.4 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("restaurants")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-red-100 to-orange-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop&crop=center"
-                              alt="Fast Food"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Fast Food
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Quick Bites
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 2: Home Delivery */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 1.5 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("food-delivery")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-green-100 to-emerald-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=200&h=200&fit=crop&crop=center"
-                              alt="Home Delivery"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Home Delivery
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Door to Door
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 3: Local Restaurants */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 1.6 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("restaurants")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-purple-100 to-pink-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&h=200&fit=crop&crop=center"
-                              alt="Local Restaurants"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Restaurants
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Dine In
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 4: Street Food */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 1.7 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("local-food")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-yellow-100 to-orange-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200&h=200&fit=crop&crop=center"
-                              alt="Street Food"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Street Food
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Local Treats
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 5: Bakery */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 1.8 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("restaurants")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-pink-100 to-rose-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200&h=200&fit=crop&crop=center"
-                              alt="Bakery"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Bakery
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Fresh Baked
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 6: Hotels */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 1.9 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("hotels")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-blue-100 to-indigo-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=200&h=200&fit=crop&crop=center"
-                              alt="Hotels"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Hotels
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Stay & Dine
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 7: Fine Dining */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.0 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("restaurants")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-amber-100 to-yellow-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=200&h=200&fit=crop&crop=center"
-                              alt="Fine Dining"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Fine Dining
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Premium
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 8: Cafe & Coffee */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.1 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("restaurants")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-brown-100 to-orange-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=200&h=200&fit=crop&crop=center"
-                              alt="Cafe & Coffee"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Cafe & Coffee
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Relax & Sip
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 9: Traditional Food */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.2 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() => handleCategoryClick("local-food")}
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-green-100 to-teal-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200&h=200&fit=crop&crop=center"
-                              alt="Traditional Food"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Traditional
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Local Flavors
-                            </p>
-                          </div>
-                        </motion.div>
-                      </div>
+                    <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                      <CategoryBox
+                        category={featuredCategories.restaurants}
+                        colorIndex={9}
+                        delay={1.4}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.deliveryPartner}
+                        colorIndex={2}
+                        delay={1.5}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.businessPartner}
+                        colorIndex={5}
+                        delay={1.6}
+                      />
                     </div>
                   </div>
 
