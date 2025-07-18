@@ -100,6 +100,25 @@ const CategoryShopping = () => {
       icon: "Handshake",
       count: "Partner with us",
     },
+    // Loan & Finance categories
+    personalLoan: {
+      id: "loan-finance-consultant",
+      name: "Personal Loans",
+      icon: "Banknote",
+      count: "Quick Approval",
+    },
+    businessLoan: {
+      id: "loan-finance-consultant",
+      name: "Business Loans",
+      icon: "Building2",
+      count: "Growth Capital",
+    },
+    financialAdvice: {
+      id: "loan-finance-consultant",
+      name: "Financial Advice",
+      icon: "TrendingUp",
+      count: "Expert Guidance",
+    },
   };
 
   // Additional categories for desktop sidebar
@@ -702,7 +721,7 @@ const CategoryShopping = () => {
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5, delay: 2.3 }}
+                      transition={{ duration: 0.5, delay: 1.7 }}
                       className="flex items-center gap-3 mb-4 sm:mb-6"
                     >
                       <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center">
@@ -716,256 +735,22 @@ const CategoryShopping = () => {
                         Financial
                       </div>
                     </motion.div>
-
-                    {/* Horizontal Scrolling Cards */}
-                    <div className="relative">
-                      <div
-                        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory touch-manipulation"
-                        style={{ scrollBehavior: "smooth" }}
-                      >
-                        {/* Card 1: Personal Loans */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.4 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-blue-100 to-cyan-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=200&h=200&fit=crop&crop=center"
-                              alt="Personal Loans"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Personal Loans
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Quick Approval
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 2: Business Loans */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.5 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-green-100 to-emerald-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=200&h=200&fit=crop&crop=center"
-                              alt="Business Loans"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Business Loans
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Growth Capital
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 3: Investment Advisory */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.6 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-purple-100 to-pink-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=200&h=200&fit=crop&crop=center"
-                              alt="Investment Advisory"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Investment
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Wealth Building
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 4: Financial Planning */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.7 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-yellow-100 to-orange-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=200&h=200&fit=crop&crop=center"
-                              alt="Financial Planning"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Financial Planning
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Future Security
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 5: Insurance Policies */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.8 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-indigo-100 to-blue-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=200&h=200&fit=crop&crop=center"
-                              alt="Insurance Policies"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Insurance
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Risk Protection
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 6: Tax Consultation */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 2.9 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-red-100 to-pink-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1554224154-22dec7ec8818?w=200&h=200&fit=crop&crop=center"
-                              alt="Tax Consultation"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Tax Consultation
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Expert Advice
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 7: Home Loans */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 3.0 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-teal-100 to-green-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=200&h=200&fit=crop&crop=center"
-                              alt="Home Loans"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Home Loans
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Dream Home
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 8: Credit Assistance */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 3.1 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-amber-100 to-yellow-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&h=200&fit=crop&crop=center"
-                              alt="Credit Assistance"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Credit Help
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Score Boost
-                            </p>
-                          </div>
-                        </motion.div>
-
-                        {/* Card 9: Retirement Planning */}
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.5, delay: 3.2 }}
-                          className="flex-shrink-0 w-40 sm:w-36 lg:w-40 bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer group snap-start"
-                          onClick={() =>
-                            handleCategoryClick("loan-finance-consultant")
-                          }
-                        >
-                          <div className="aspect-square bg-gradient-to-br from-violet-100 to-purple-100 rounded-t-xl overflow-hidden">
-                            <img
-                              src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=200&h=200&fit=crop&crop=center"
-                              alt="Retirement Planning"
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="p-2.5">
-                            <h3 className="font-semibold text-xs sm:text-sm text-gray-900 text-center leading-tight">
-                              Retirement
-                            </h3>
-                            <p className="text-xs text-gray-500 text-center mt-1 leading-tight">
-                              Golden Years
-                            </p>
-                          </div>
-                        </motion.div>
-                      </div>
+                    <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+                      <CategoryBox
+                        category={featuredCategories.personalLoan}
+                        colorIndex={1}
+                        delay={1.8}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.businessLoan}
+                        colorIndex={3}
+                        delay={1.9}
+                      />
+                      <CategoryBox
+                        category={featuredCategories.financialAdvice}
+                        colorIndex={6}
+                        delay={2.0}
+                      />
                     </div>
                   </div>
                 </motion.div>
