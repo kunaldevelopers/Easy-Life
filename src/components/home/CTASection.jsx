@@ -50,7 +50,7 @@ const CTASection = () => {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-12">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
@@ -89,12 +89,12 @@ const CTASection = () => {
               List Your Business - FREE
             </Button>
             <Button
-              onClick={() => navigate("/contact")}
+              onClick={() => navigate("/auth?mode=login")}
               variant="secondary"
               size="lg"
               className="w-full sm:w-auto bg-white bg-opacity-20 border-white text-white hover:bg-white hover:text-primary-600"
             >
-              Learn More
+              Login Now
             </Button>
           </div>
           <p className="text-green-100 text-sm mt-4">
