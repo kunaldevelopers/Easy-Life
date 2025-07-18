@@ -16,39 +16,24 @@ const VideoSection = () => {
   const sliderContent = [
     {
       type: "image",
-      src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/2.png",
-      title: "Featured Banner 1",
-    },
-    // {
-    //   type: "video",
-    //   src: "https://memolatest.com/wp-content/uploads/2025/07/%E2%80%98Samajhdaar-Jaante-Hain-Har-Paani-Ki-Bottle-Bisleri-Nahin-Hindi-30-Sec-Bisleri-India-720p-h264.mp4",
-    //   title: "Bisleri Advertisement",
-    // },
-    {
-      type: "image",
-      src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/1.png",
-      title: "Featured Banner 2",
-    },
-    {
-      type: "image",
       src: "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/007a00eb13e5b489.jpg?q=80",
       title: "Special Offers",
     },
-    // {
-    //   type: "video",
-    //   src: "https://videos.pexels.com/video-files/7721267/7721267-uhd_2732_1440_25fps.mp4",
-    //   title: "Business Showcase",
-    // },
+    {
+      type: "image",
+      src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/2.png",
+      title: "Featured Banner 1",
+    },
     {
       type: "image",
       src: "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/9cb1a4418dfd0451.jpg?q=80",
       title: "Local Services",
     },
-    // {
-    //   type: "video",
-    //   src: "https://videos.pexels.com/video-files/3055287/3055287-uhd_2560_1440_24fps.mp4",
-    //   title: "Service Providers",
-    // },
+    {
+      type: "image",
+      src: "https://cornflowerblue-lion-884998.hostingersite.com/wp-content/uploads/2025/07/1.png",
+      title: "Featured Banner 2",
+    },
     {
       type: "image",
       src: "https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/f5b3f45e2775e6c5.jpeg?q=80",

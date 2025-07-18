@@ -217,24 +217,54 @@ const CategoryShopping = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      onClick={() => handleViewAllClick(type)}
+      onClick={() =>
+        type === "hotels-transport"
+          ? handleCategoryClick("room-rent")
+          : handleViewAllClick(type)
+      }
       className="group cursor-pointer"
     >
-      <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl lg:rounded-2xl p-4 sm:p-5 lg:p-6 text-center hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 h-32 sm:h-36 lg:h-40 overflow-hidden flex flex-col">
+      <div
+        className={`${
+          type === "hotels-transport"
+            ? "bg-gradient-to-br from-blue-100 to-indigo-200"
+            : "bg-gradient-to-br from-gray-100 to-gray-200"
+        } rounded-xl lg:rounded-2xl p-4 sm:p-5 lg:p-6 text-center hover:shadow-lg transition-all duration-300 border ${
+          type === "hotels-transport"
+            ? "border-blue-200 hover:border-blue-300"
+            : "border-gray-200 hover:border-gray-300"
+        } h-32 sm:h-36 lg:h-40 overflow-hidden flex flex-col`}
+      >
         <div className="flex items-center justify-center flex-shrink-0 mb-3 lg:mb-4">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-gray-600 to-gray-700 rounded-lg lg:rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-md">
-            <Icons.Grid3X3 className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+          <div
+            className={`w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 ${
+              type === "hotels-transport"
+                ? "bg-gradient-to-br from-blue-600 to-indigo-700"
+                : "bg-gradient-to-br from-gray-600 to-gray-700"
+            } rounded-lg lg:rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-md`}
+          >
+            {type === "hotels-transport" ? (
+              <Icons.Home className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+            ) : (
+              <Icons.Grid3X3 className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+            )}
           </div>
         </div>
         <div className="flex-1 flex flex-col justify-center items-center min-h-0">
           <h3 className="font-semibold text-gray-900 text-sm sm:text-base lg:text-lg leading-tight text-center mb-1">
-            View All
+            {type === "services"
+              ? "View All"
+              : type === "hotels-transport"
+              ? "Room Rents"
+              : type === "jobs-training"
+              ? "View All"
+              : "View All"}
           </h3>
           <p className="text-gray-500 text-xs lg:text-sm leading-tight">
             {type === "services"
               ? "Services Categories"
               : type === "hotels-transport"
-              ? "Hotels & Transport"
+              ? "Available Now"
               : type === "jobs-training"
               ? "Job Seeker & Providers"
               : "All Categories"}
