@@ -6,12 +6,10 @@ import VideoSection from "../components/home/VideoSection";
 import CategoryShopping from "../components/home/CategoryShopping";
 import TopRatedCarousel from "../components/home/TopRatedCarousel";
 import FreshRecommendations from "../components/home/FreshRecommendations";
-import ServiceSlider from "../components/home/ServiceSlider";
 import CTASection from "../components/home/CTASection";
 
 const Home = () => {
   const { websiteConfig } = useWebsiteConfig();
-  const { serviceSlider } = websiteConfig.homepage;
 
   return (
     <>
@@ -43,15 +41,6 @@ const Home = () => {
         <CategoryShopping />
         <TopRatedCarousel />
         <FreshRecommendations />
-        {serviceSlider.enabled && serviceSlider.showOnHomepage && (
-          <ServiceSlider
-            title={serviceSlider.title}
-            description={serviceSlider.description}
-            selectedCategory={serviceSlider.selectedCategory}
-            maxItems={serviceSlider.maxItems}
-            isRandomized={serviceSlider.isRandomized}
-          />
-        )}
         <CTASection />
       </main>
     </>

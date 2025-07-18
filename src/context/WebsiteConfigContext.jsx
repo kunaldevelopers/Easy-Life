@@ -42,15 +42,6 @@ const initialWebsiteConfig = {
       maxItems: 16,
       enabled: true,
     },
-    serviceSlider: {
-      title: "Best Electricians",
-      description: "Top-rated electrical services in Gangtok",
-      selectedCategory: "electrician",
-      isRandomized: false,
-      maxItems: 10,
-      enabled: true,
-      showOnHomepage: true,
-    },
   },
 
   // About page configuration
