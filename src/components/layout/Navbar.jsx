@@ -47,8 +47,7 @@ const Navbar = () => {
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center"
               style={{
-                background:
-                  "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                background: "linear-gradient(135deg, #2e7d32, #66bb6a)",
               }}
             >
               <span className="text-white font-bold text-lg">E</span>
@@ -56,12 +55,7 @@ const Navbar = () => {
             <span
               className="text-xl font-bold"
               style={{
-                color: "#22d5bd",
-                background:
-                  "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                color: "#2e7d32",
               }}
             >
               Easy Life

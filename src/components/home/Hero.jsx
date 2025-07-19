@@ -93,12 +93,11 @@ const Hero = () => {
               <span
                 className="inline-block font-bold"
                 style={{
-                  color: "#22d5bd",
-                  background:
-                    "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                  background: "linear-gradient(135deg, #2e7d32, #66bb6a)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
+                  color: "transparent",
                 }}
               >
                 Gangtok
@@ -128,12 +127,12 @@ const Hero = () => {
                         transition={{ duration: 0.3 }}
                         className="font-semibold"
                         style={{
-                          color: "#22d5bd",
                           background:
-                            "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                            "linear-gradient(135deg, #2e7d32, #66bb6a)",
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
                           backgroundClip: "text",
+                          color: "transparent",
                         }}
                       >
                         {services[currentServiceIndex]}
@@ -155,8 +154,7 @@ const Hero = () => {
                     onClick={handleSearch}
                     className="h-12 lg:h-16 w-12 lg:w-auto lg:px-10 text-white rounded-xl lg:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center lg:gap-2 font-semibold text-base lg:text-lg"
                     style={{
-                      background:
-                        "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                      background: "linear-gradient(135deg, #2e7d32, #66bb6a)",
                     }}
                   >
                     <Search className="w-5 h-5 lg:w-5 lg:h-5" />
