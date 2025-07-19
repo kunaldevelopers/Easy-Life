@@ -98,6 +98,8 @@ const Hero = () => {
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                   color: "transparent",
+                  padding: "2px 0",
+                  lineHeight: "1.2",
                 }}
               >
                 Gangtok
