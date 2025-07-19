@@ -44,10 +44,28 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center"
+              style={{
+                background:
+                  "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+              }}
+            >
               <span className="text-white font-bold text-lg">E</span>
             </div>
-            <span className="text-xl font-bold gradient-text">Easy Life</span>
+            <span
+              className="text-xl font-bold"
+              style={{
+                color: "#22d5bd",
+                background:
+                  "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Easy Life
+            </span>
             <span className="text-sm text-gray-500 hidden sm:block">
               Gangtok
             </span>
