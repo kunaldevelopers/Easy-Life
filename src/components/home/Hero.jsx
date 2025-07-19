@@ -90,7 +90,17 @@ const Hero = () => {
           >
             <h1 className="text-lg sm:text-2xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight text-center font-sans">
               <span className="inline-block">Find Everything You Need in</span>{" "}
-              <span className="inline-block" style={{ color: "#22d5bd" }}>
+              <span
+                className="inline-block font-bold"
+                style={{
+                  color: "#22d5bd",
+                  background:
+                    "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
                 Gangtok
               </span>
             </h1>
@@ -116,7 +126,15 @@ const Hero = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3 }}
-                        className="text-primary-600 font-semibold"
+                        className="font-semibold"
+                        style={{
+                          color: "#22d5bd",
+                          background:
+                            "linear-gradient(135deg, #32E3C9, #7CF5FF, #F5B4F0, #C883FF)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
+                        }}
                       >
                         {services[currentServiceIndex]}
                       </motion.span>
